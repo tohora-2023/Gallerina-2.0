@@ -1,5 +1,5 @@
 import { Router } from 'express'
-import { getAllArt } from '../db/home'
+import { getAllArt } from '../db/artworks'
 const router = Router()
 
 router.get('/', async (req, res) => {
