@@ -1,4 +1,5 @@
 import { useEffect } from 'react'
+import { useAuth0 } from '@auth0/auth0-react'
 
 import { useAppDispatch, useAppSelector } from '../hooks/hooks'
 import { fetchArtworkImage } from '../actions/artworks'
@@ -6,12 +7,21 @@ import { ArtworkApi } from '../../models/external-Artwork'
 
 export default function Home() {
   const { loading, data, error } = useAppSelector((state) => state.artworkState)
+  const { logout, loginWithRedirect, isAuthenticated } = useAuth0()
 
   const dispatch = useAppDispatch()
 
   useEffect(() => {
     dispatch(fetchArtworkImage())
   }, [dispatch])
+
+  function handleHeartClick() {
+    if(isAuthenticated) {
+      // heart it
+    } else {
+      // nav to login
+    }
+  }
 
   return (
     <div>
@@ -24,10 +34,12 @@ export default function Home() {
             <div>
               <img src={artwork._links?.thumbnail?.href} alt={artwork.slug} />
               <div>{artwork.title}</div>
+              <img src='/love.png' alt='heart-pin' onClick={handleHeartClick}/>
             </div>
           </div>
         )
       })}
+
     </div>
   )
 }
