@@ -30,7 +30,7 @@ export default function Navbar() {
   }
 
   return (
-    <nav className="flex flex-wrap items-center justify-between bg-gray-200 p-6">
+    <nav className="bg-white-200 border-black-200 flex flex-wrap items-center justify-between border p-6">
       <div>
         <Link to="/">
           <img
@@ -79,9 +79,7 @@ export default function Navbar() {
             </Link>
           )}
         </div>
-      </div>
-
-      <div className="text-right text-sm lg:flex-grow">
+        <div className="text-right text-sm lg:flex-grow">
         {isAuthenticated ? (
           <div
             onClick={handleLogOut}
@@ -102,6 +100,9 @@ export default function Navbar() {
           </button>
         )}
       </div>
+      </div>
+
+      
     </nav>
   )
 }
