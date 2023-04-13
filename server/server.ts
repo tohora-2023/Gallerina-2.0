@@ -14,4 +14,5 @@ server.get('*', (req, res) => {
   res.sendFile(join(__dirname, 'public', 'index.html'))
 })
 
+
 export default server
