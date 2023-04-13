@@ -15,7 +15,7 @@ async function generateXappToken() {
 //  GETS api/artworks -- gets X amount of artworks
 router.get('/artworks', async (req, res) => {
   try {
-    const amount = 500
+    const amount = 10
     const xapp = await generateXappToken()
     const response = await request
       .get(`https://api.artsy.net/api/artworks?size=${amount}`)
