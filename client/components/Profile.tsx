@@ -7,8 +7,8 @@ import { KeyboardEvent } from 'react'
 
 
 export default function Profile() {
-  // const { getAccessTokenSilently, isAuthenticated, loginWithRedirect } =
-  // useAuth0()
+  const { getAccessTokenSilently, isAuthenticated, loginWithRedirect, user } =
+  useAuth0()
 
   // const dispatch = useAppDispatch()
 
@@ -24,7 +24,7 @@ export default function Profile() {
 
   return (
     <>
-  <h1>Test</h1>
+  <h1>{}</h1>
     </>
   )
 }

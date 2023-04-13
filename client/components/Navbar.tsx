@@ -1,10 +1,10 @@
 import { Link } from 'react-router-dom'
-import { useAuth0 } from '@auth0/auth0-react'
+import { useAuth0} from '@auth0/auth0-react'
 import { KeyboardEvent } from 'react'
 
 export default function Navbar() {
-  const { logout, loginWithRedirect, isAuthenticated } = useAuth0()
-
+  const { logout, loginWithRedirect, isAuthenticated, user } = useAuth0()
+console.log(user)
   const handleLogOut = () => {
     logout({ returnTo: window.location.origin })
   }
