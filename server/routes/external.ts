@@ -25,7 +25,7 @@ router.get('/artworks', async (req, res) => {
       .set('X-Xapp-Token', xapp.body.token)
       .set('Accept', 'application/vnd.artsy-v2+json')
     const artworks = response.body._embedded.artworks
-
+    res.json(artworks)
     const artworksToInsert: Artwork[] = artworks.map(
       (artwork: ArtworkFull) => ({
         id: artwork.id,
@@ -36,10 +36,7 @@ router.get('/artworks', async (req, res) => {
         imageLink: artwork._links.image.href,
       })
     )
-
     await addArtworkToDB(artworksToInsert)
-
-    res.json(artworks)
   } catch (err) {
     console.log(err)
     res.sendStatus(500)
