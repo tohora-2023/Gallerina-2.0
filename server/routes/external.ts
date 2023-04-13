@@ -1,5 +1,8 @@
 import request from 'superagent'
 import express from 'express'
+import { ArtworkFull } from '../../models/external-Artwork'
+import { Artwork } from '../../models/artwork'
+import { addArtworkToDB } from '../db/artwork-info'
 const router = express.Router()
 
 // generate xapptoken function
@@ -15,13 +18,27 @@ async function generateXappToken() {
 //  GETS api/artworks -- gets X amount of artworks
 router.get('/artworks', async (req, res) => {
   try {
-    const amount = 500
+    const amount = 100
     const xapp = await generateXappToken()
     const response = await request
       .get(`https://api.artsy.net/api/artworks?size=${amount}`)
       .set('X-Xapp-Token', xapp.body.token)
       .set('Accept', 'application/vnd.artsy-v2+json')
     const artworks = response.body._embedded.artworks
+
+    const artworksToInsert: Artwork[] = artworks.map(
+      (artwork: ArtworkFull) => ({
+        id: artwork.id,
+        title: artwork.title,
+        artistLink: artwork._links.artists.href,
+        medium: artwork.medium,
+        date: artwork.date,
+        imageLink: artwork._links.image.href,
+      })
+    )
+
+    await addArtworkToDB(artworksToInsert)
+
     res.json(artworks)
   } catch (err) {
     console.log(err)
