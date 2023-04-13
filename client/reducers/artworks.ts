@@ -1,4 +1,4 @@
-import { Artworks } from '../../models/artwork'
+import { ArtworkApi } from '../../models/external-Artwork'
 
 import {
   ArtAction,
@@ -8,7 +8,7 @@ import {
 } from '../actions/artworks'
 
 interface ArtworkState {
-  data: Artworks | undefined
+  data: ArtworkApi | undefined
   error: string | undefined
   loading: boolean
 }
