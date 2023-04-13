@@ -49,15 +49,15 @@ export default function Navbar() {
         ></button>
       </div>
 
-      <div className="w-full flex-grow lg:flex lg:w-auto lg:items-center">
-        <div className="text-sm lg:flex-grow">
+      <div className="ml-auto w-full flex-grow lg:flex lg:w-auto lg:items-center lg:justify-end">
+        <div className="justify-right text-sm lg:flex lg:flex-grow lg:items-center">
           <Link to="/">
             <button
-              className={`mt-4 mr-4 block cursor-pointer rounded-full border border-black ${
+              className={`mt-4 block cursor-pointer rounded-full border border-black ${
                 activeButton === 'home'
                   ? 'bg-my-gold'
-                  : 'bg-gray-500  hover:bg-my-gold'
-              } px-4 py-2 font-bold text-black lg:mt-0 lg:inline-block`}
+                  : 'bg-gray-500 hover:bg-my-gold'
+              } px-3 py-0.5 font-bold text-black lg:mt-0 lg:inline-block`}
               onClick={() => setActiveButton('home')}
             >
               Home
@@ -67,42 +67,39 @@ export default function Navbar() {
           {isAuthenticated && (
             <Link to="/profile">
               <button
-                className={`mt-4 mr-4 block cursor-pointer rounded-full border border-black ${
+                className={` mt-4  block cursor-pointer rounded-full border border-black ${
                   activeButton === 'profile'
                     ? 'bg-my-gold'
-                    : 'bg-gray-500  hover:bg-my-gold'
-                } px-4 py-2 font-bold text-black lg:mt-0 lg:inline-block`}
+                    : 'bg-gray-500 hover:bg-my-gold'
+                } px-3 py-0.5 font-bold text-black lg:mt-0 lg:inline-block`}
                 onClick={() => setActiveButton('profile')}
               >
                 Profile
               </button>
             </Link>
           )}
-        </div>
-        <div className="text-right text-sm lg:flex-grow">
-        {isAuthenticated ? (
-          <div
-            onClick={handleLogOut}
-            onKeyDown={handleKeyDownLogout}
-            role="button"
-            tabIndex={0}
-            className="mt-4 mr-4 inline-block cursor-pointer rounded-full border border-black bg-gray-500 px-4 py-2 font-bold text-black hover:bg-my-gold"
-          >
-            Logout
-          </div>
-        ) : (
-          <button
-            onClick={handleLogIn}
-            onKeyDown={handleKeyDownLogin}
-            className="mt-4 mr-4 inline-block cursor-pointer rounded-full border border-black bg-gray-500 px-4 py-2 font-bold text-black hover:bg-my-gold"
-          >
-            Login
-          </button>
-        )}
-      </div>
-      </div>
 
-      
+          {isAuthenticated ? (
+            <button
+              onClick={handleLogOut}
+              onKeyDown={handleKeyDownLogout}
+              role="button"
+              tabIndex={0}
+              className="inline-block cursor-pointer rounded-full border border-black bg-gray-500 px-3 py-0.5 font-bold text-black hover:bg-my-gold"
+            >
+              Logout
+            </button>
+          ) : (
+            <button
+              onClick={handleLogIn}
+              onKeyDown={handleKeyDownLogin}
+              className="inline-block cursor-pointer rounded-full border border-black bg-gray-500 px-3 py-0.5 font-bold text-black hover:bg-my-gold"
+            >
+              Login
+            </button>
+          )}
+        </div>
+      </div>
     </nav>
   )
 }
