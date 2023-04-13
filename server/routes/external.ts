@@ -12,7 +12,7 @@ async function generateXappToken() {
     .send({ client_id: clientID, client_secret: clientSecret })
 }
 
-// gets amount of artworks
+//  GETS api/artworks -- gets X amount of artworks
 router.get('/artworks', async (req, res) => {
   try {
     const amount = 500
