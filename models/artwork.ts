@@ -1,4 +1,4 @@
-export interface Artwork {
+export interface ArtworkDatabase {
   id: string
   title: string
   medium: string

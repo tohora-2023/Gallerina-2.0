@@ -1,6 +1,6 @@
 import connection from './connection'
-import { Artwork } from '../../models/artwork'
+import { ArtworkDatabase } from '../../models/artwork'
 
-export function addArtworkToDB(artwork: Artwork[], db = connection) {
+export function addArtworkToDB(artwork: ArtworkDatabase[], db = connection) {
   return db('artworks').insert(artwork).onConflict('id').ignore()
 }

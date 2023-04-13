@@ -1,7 +1,7 @@
 import { Routes, Route } from 'react-router-dom'
 
 import Navbar from './Navbar'
-import Home from './Home'
+import Home from './Artworks'
 import Artwork from './Artwork-info'
 import Profile from './Profile'
 import Collection from './Collection'

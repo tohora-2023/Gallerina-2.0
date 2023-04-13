@@ -1,7 +1,7 @@
 import request from 'superagent'
 import express from 'express'
-import { ArtworkFull } from '../../models/external-Artwork'
-import { Artwork } from '../../models/artwork'
+import { ArtworkApi } from '../../models/external-Artwork'
+import { ArtworkDatabase } from '../../models/artwork'
 import { addArtworkToDB } from '../db/artwork-info'
 const router = express.Router()
 
@@ -26,8 +26,8 @@ router.get('/artworks', async (req, res) => {
       .set('Accept', 'application/vnd.artsy-v2+json')
     const artworks = response.body._embedded.artworks
     res.json(artworks)
-    const artworksToInsert: Artwork[] = artworks.map(
-      (artwork: ArtworkFull) => ({
+    const artworksToInsert: ArtworkDatabase[] = artworks.map(
+      (artwork: ArtworkApi) => ({
         id: artwork.id,
         title: artwork.title,
         artistLink: artwork._links.artists.href,
