@@ -1,4 +1,4 @@
-export interface ArtworkFull {
+export interface ArtworkApi {
   id: string
   slug: string
   created_at: Date
