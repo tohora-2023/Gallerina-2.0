@@ -49,15 +49,15 @@ export default function Navbar() {
         ></button>
       </div>
 
-      <div className="ml-auto w-full flex-grow lg:flex lg:w-auto lg:items-center lg:justify-end">
-        <div className="justify-right text-sm lg:flex lg:flex-grow lg:items-center">
+      <div className="ml-auto w-full lg:w-auto">
+        <div className="flex justify-end">
           <Link to="/">
             <button
               className={`mt-4 block cursor-pointer rounded-full border border-black ${
                 activeButton === 'home'
                   ? 'bg-my-gold'
                   : 'bg-gray-500 hover:bg-my-gold'
-              } px-3 py-0.5 font-bold text-black lg:mt-0 lg:inline-block`}
+              } shadow-xs transform px-3 py-0.5 font-bold uppercase tracking-wide text-black transition duration-200 hover:-translate-y-1 hover:shadow-2xl active:translate-y-0 active:shadow-xl lg:mt-0 lg:inline-block `}
               onClick={() => setActiveButton('home')}
             >
               Home
@@ -67,11 +67,11 @@ export default function Navbar() {
           {isAuthenticated && (
             <Link to="/profile">
               <button
-                className={` mt-4  block cursor-pointer rounded-full border border-black ${
+                className={` mt-4  mr-1 ml-1 block cursor-pointer rounded-full border border-black ${
                   activeButton === 'profile'
                     ? 'bg-my-gold'
                     : 'bg-gray-500 hover:bg-my-gold'
-                } px-3 py-0.5 font-bold text-black lg:mt-0 lg:inline-block`}
+                } shadow-xs transform px-3 py-0.5 font-bold uppercase tracking-wide text-black transition duration-200 hover:-translate-y-1 hover:shadow-2xl active:translate-y-0 active:shadow-xl lg:mt-0 lg:inline-block `}
                 onClick={() => setActiveButton('profile')}
               >
                 Profile
@@ -85,7 +85,7 @@ export default function Navbar() {
               onKeyDown={handleKeyDownLogout}
               role="button"
               tabIndex={0}
-              className="inline-block cursor-pointer rounded-full border border-black bg-gray-500 px-3 py-0.5 font-bold text-black hover:bg-my-gold"
+              className="shadow-xs inline-block transform cursor-pointer rounded-full border border-black bg-gray-500 px-3 py-0 font-bold uppercase tracking-wide text-black transition duration-200 hover:-translate-y-1 hover:bg-my-gold hover:shadow-2xl active:translate-y-0 active:shadow-xl "
             >
               Logout
             </button>
@@ -93,7 +93,7 @@ export default function Navbar() {
             <button
               onClick={handleLogIn}
               onKeyDown={handleKeyDownLogin}
-              className="inline-block cursor-pointer rounded-full border border-black bg-gray-500 px-3 py-0.5 font-bold text-black hover:bg-my-gold"
+              className="shadow-xs inline-block transform cursor-pointer rounded-full border border-black bg-gray-500 px-2 py-0.5 font-bold uppercase tracking-wide text-black transition duration-200 hover:-translate-y-1 hover:bg-my-gold hover:shadow-2xl active:translate-y-0 active:shadow-xl "
             >
               Login
             </button>
