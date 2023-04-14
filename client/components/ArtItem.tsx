@@ -6,6 +6,7 @@ export default function ArtItem(art: Props) {
   //   dispatch(deleteItem(collectionItem.id))
   // }
   // handleDblClick(){}
+  console.log(art.artImageLink)
   return (
     <>
       <div>
