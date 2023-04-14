@@ -19,30 +19,24 @@ export default function Example() {
   useEffect(() => {
     const getAccess = async () => {
       const token = await getAccessTokenSilently()
+      // console.log(token)
       if (user) {
-        dispatch(getAllCollectionsApi(token)) // pass in token
-          .then((collections) => {
+        dispatch(getAllCollectionsApi(token))
+          .then((collections: any) => {
             setCollections(collections)
-          }).catch ((error) => {
+          })
+          .catch((error: string) => {
             console.log(error)
           })
       }
-      
     }
     getAccess().catch(console.error)
-    // useEffect(() => {
-    //   const getAccess = async () => {
-    //     const token = await getAccessTokenSilently()
-    //     dispatch(fetchResults(token))
-    //   }
-    //   getAccess().catch(console.error)
-    // }, [dispatch, getAccessTokenSilently])
   }, [dispatch, user, setCollections, getAccessTokenSilently])
 
-  console.log(collections)
+  // console.log(collections)
 
   function handleHeartClick() {
-    if (!isAuthenticated) {
+    if (isAuthenticated) {
       // heart it will save to collection
       getAccessTokenSilently()
     } else {
@@ -81,6 +75,7 @@ export default function Example() {
                     active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
                     'block px-4 py-2 text-sm'
                   )}
+                  //className={`${active ? 'bg-gray-100 text-gray-900' : 'text-gray-700'}`}
                 >
                   New Collection
                 </a>

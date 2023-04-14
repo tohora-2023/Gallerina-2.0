@@ -9,8 +9,6 @@ import Dropdown from './Dropdown'
 
 export default function Home() {
   const { loading, data, error } = useAppSelector((state) => state.artworkState)
-
-
   const dispatch = useAppDispatch()
 
   useEffect(() => {

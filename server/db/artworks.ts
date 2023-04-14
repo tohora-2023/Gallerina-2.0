@@ -13,13 +13,6 @@ export function getCollectionsByUserId(auth0Id: string, db = connection) {
 }
 
 
-
-
-
-
-
-
-
 // export function addToCollection(artwork: ArtworkDatabase, collectionId: number, db = connection) {
 //   return db('collection').insert(artwork).where(id: collectionId)
 // }

@@ -14,7 +14,7 @@ router.get('/user/collections', checkJwt, async (req: JwtRequest, res) => {
   }
 
   const collections = await getCollectionsByUserId(auth0Id)
-  console.log(collections)
+  // console.log(collections)
   res.json(collections)
 })
 
