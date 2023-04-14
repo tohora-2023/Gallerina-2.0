@@ -2,13 +2,8 @@ import { useAuth0 } from '@auth0/auth0-react'
 import { Fragment, useEffect, useState } from 'react'
 import { Menu, Transition } from '@headlessui/react'
 import { ChevronDownIcon } from '@heroicons/react/20/solid'
-<<<<<<< HEAD
 import { getAllCollectionsApi } from '../apis/homepage'
-import { CollectionTitle } from '../../models/collection'
-=======
-import { getAllCollectionsApi } from '../apis/artworks'
 import TCollection, { CollectionTitle } from '../../models/collection'
->>>>>>> 358de4fe76c5dbb2f52cb739400a1604633cd862
 import { useAppDispatch } from '../hooks/hooks'
 
 export default function Example() {
