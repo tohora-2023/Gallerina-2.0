@@ -6,10 +6,6 @@ import { getAllCollectionsApi } from '../apis/homepage'
 import { CollectionTitle } from '../../models/collection'
 import { useAppDispatch } from '../hooks/hooks'
 
-function classNames(...classes: []) {
-  return classes.filter(Boolean).join(' ')
-}
-
 export default function Example() {
   const { user, loginWithRedirect, isAuthenticated } = useAuth0()
   const [collections, setCollections] = useState<CollectionTitle[]>([])
@@ -87,7 +83,7 @@ export default function Example() {
                 <Menu.Item key={collection.id}>
                   {({ active }) => (
                     <a
-                      href="/" // fix this.
+                      href="/" // fix this. ///OnClick save to collection
                       className={`${
                         active ? 'bg-gray-100 text-gray-900' : 'text-gray-700'
                       }
