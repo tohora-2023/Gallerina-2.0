@@ -6,3 +6,5 @@ export default interface Collection {
 }
 
 export type AddCollection = Partial<Omit<Collection, 'id'>>
+
+export type CollectionTitle = Partial<Omit<Collection, 'coverImg' | 'userId' >>
