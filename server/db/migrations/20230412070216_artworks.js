@@ -4,7 +4,7 @@ exports.up = function (knex) {
     table.string('title')
     table.string('imageLink')
     table.string('medium')
-    table.string('blurb')
+
     table.string('date')
     table.string('artistLink')
   })
