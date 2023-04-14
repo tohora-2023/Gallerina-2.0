@@ -82,8 +82,7 @@ export default function Navbar() {
           {isAuthenticated ? (
             <button
               onClick={handleLogOut}
-              onKeyDown={handleKeyDownLogout}
-              role="button"
+              onKeyDown={(event) => {if(event.key === 'Enter'){handleKeyDownLogout}}}
               tabIndex={0}
               className="shadow-xs inline-block transform cursor-pointer rounded-full border border-black bg-gray-500 px-3 py-0 font-bold uppercase tracking-wide text-black transition duration-200 hover:-translate-y-1 hover:bg-my-gold hover:shadow-2xl active:translate-y-0 active:shadow-xl "
             >
@@ -92,7 +91,7 @@ export default function Navbar() {
           ) : (
             <button
               onClick={handleLogIn}
-              onKeyDown={handleKeyDownLogin}
+              onKeyDown={(event) => {if(event.key === 'Enter'){handleKeyDownLogin}}}
               className="shadow-xs inline-block transform cursor-pointer rounded-full border border-black bg-gray-500 px-2 py-0.5 font-bold uppercase tracking-wide text-black transition duration-200 hover:-translate-y-1 hover:bg-my-gold hover:shadow-2xl active:translate-y-0 active:shadow-xl "
             >
               Login
