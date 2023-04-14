@@ -4,7 +4,12 @@ import { fetchCollections } from '../actions/collections'
 import { Link } from 'react-router-dom'
 
 export default function Collection() {
-  const collections = useAppSelector((state) => state.collections)
+  const {
+    collections: collections,
+    error,
+    isLoading,
+  } = useAppSelector((state) => state.collections)
+
   const dispatch = useAppDispatch()
 
   useEffect(() => {
