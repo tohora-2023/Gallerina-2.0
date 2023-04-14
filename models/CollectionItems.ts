@@ -7,7 +7,6 @@ export default interface CollectionItems {
   artImageLink: string
 }
 
-export interface AddCollectionItems {
-  artworkId: string
-  collectionId: number
+export interface AddCollectionItem extends Partial<CollectionItems> {
+  artworkId?: string
 }
