@@ -5,6 +5,7 @@ import Home from './Homepage'
 import Artwork from './Artwork-info'
 import Profile from './Profile'
 import Collection from './Collection'
+import CollectionItems from './CollectionItems'
 
 function App() {
   return (
@@ -15,7 +16,11 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/artwork" element={<Artwork />} />
           <Route path="/profile" element={<Profile />} />
-          <Route path="/profile/collection" element={<Collection />} />
+          <Route path="/profile/collections" element={<Collection />} />
+          <Route
+            path="/profile/collections/:id"
+            element={<CollectionItems />}
+          />
           <Route path="/*" element={<></>} />
         </Routes>
       </div>

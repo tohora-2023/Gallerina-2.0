@@ -2,10 +2,16 @@ import request from 'superagent'
 //import model
 
 import Collection from '../../models/collection'
+import { AddCollection } from '../../models/collection'
 
 const rootUrl = '/api/v1'
 
-export async function fetchCollections(): Promise<Collection[]> {
+export async function getCollections(): Promise<Collection[]> {
   const response = await request.get(rootUrl + '/collections')
   return response.body
+}
+
+// ADDs a new collection to db
+export async function addCollection(newCollection: AddCollection) {
+  await request.post(rootUrl + '/newcollection').send(newCollection)
 }

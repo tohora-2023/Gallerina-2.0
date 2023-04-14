@@ -1,5 +1,5 @@
 import express from 'express'
-import { getCollectionsByUserId } from '../db/artworks'
+import { getCollectionsByUserId } from '../db/homepage'
 import checkJwt from '../auth0'
 import { JwtRequest } from '../auth0'
 

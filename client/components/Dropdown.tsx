@@ -2,7 +2,7 @@ import { useAuth0 } from '@auth0/auth0-react'
 import { Fragment, useEffect, useState } from 'react'
 import { Menu, Transition } from '@headlessui/react'
 import { ChevronDownIcon } from '@heroicons/react/20/solid'
-import { getAllCollectionsApi } from '../apis/artworks'
+import { getAllCollectionsApi } from '../apis/homepage'
 import { CollectionTitle } from '../../models/collection'
 import { useAppDispatch } from '../hooks/hooks'
 
@@ -72,7 +72,8 @@ export default function Example() {
                 <a
                   href="/profile/collection"
                   className={`${
-                    active ? 'bg-gray-100 text-gray-900' : 'text-gray-700'}
+                    active ? 'bg-gray-100 text-gray-900' : 'text-gray-700'
+                  }
                     'block px-4 py-2 text-sm`}
                 >
                   New Collection
@@ -88,7 +89,8 @@ export default function Example() {
                     <a
                       href="/" // fix this.
                       className={`${
-                        active ? 'bg-gray-100 text-gray-900' : 'text-gray-700'}
+                        active ? 'bg-gray-100 text-gray-900' : 'text-gray-700'
+                      }
                         'block px-4 py-2 text-sm`}
                     >
                       {collection.title}

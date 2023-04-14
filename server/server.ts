@@ -9,7 +9,7 @@ const server = express()
 
 server.use(express.json())
 server.use(express.static(join(__dirname, 'public')))
-server.use('/api/v1/collections', collections)
+server.use('/api/v1/profile/collections', collections)
 
 server.use('/api/v1/home', home)
 server.use('/api/v1/artworks', external)
