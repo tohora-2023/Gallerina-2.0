@@ -1,9 +1,12 @@
 import { Link } from 'react-router-dom'
 import { useAuth0 } from '@auth0/auth0-react'
-import { KeyboardEvent } from 'react'
+import { KeyboardEvent, useState } from 'react'
 
 export default function Navbar() {
-  const { logout, loginWithRedirect, isAuthenticated } = useAuth0()
+  const { logout, loginWithRedirect, isAuthenticated, user } = useAuth0()
+  console.log(user)
+
+  const [activeButton, setActiveButton] = useState('')
 
   const handleLogOut = () => {
     logout({ returnTo: window.location.origin })
@@ -27,45 +30,73 @@ export default function Navbar() {
   }
 
   return (
-    <nav className="flex items-center justify-between flex-wrap bg-gray-300 p-6">
-      <div className="flex items-center flex-shrink-0 text-white mr-6">
+    <nav className="bg-white-200 border-black-200 flex flex-wrap items-center justify-between border p-6">
+      <div>
         <Link to="/">
-          <img src="/logo.png" alt="gallerina logo" className="h-8 w-auto"/>
+          <img
+            src="./logo3.png"
+            alt="gallerina logo"
+            className="mr-10 h-12 w-auto"
+          />
         </Link>
       </div>
 
-      <div className="w-full block flex-grow lg:flex lg:items-center lg:w-auto">
-        <div className="text-sm lg:flex-grow">
-          <Link to="/" className="block mt-4 lg:inline-block lg:mt-0 text-gray-900 hover:text-gray-400 mr-4">
-            Home
+      <div className="block lg:hidden">
+        <button
+          className="flex items-center rounded border border-gray-600 px-3 py-2 text-gray-500 hover:border-white hover:text-white"
+          type="button"
+          aria-label="Toggle menu"
+        ></button>
+      </div>
+
+      <div className="ml-auto w-full lg:w-auto">
+        <div className="flex justify-end">
+          <Link to="/">
+            <button
+              className={`mt-4 block cursor-pointer rounded-full border border-black ${
+                activeButton === 'home'
+                  ? 'bg-my-gold'
+                  : 'bg-gray-500 hover:bg-my-gold'
+              } shadow-xs transform px-3 py-0.5 font-bold uppercase tracking-wide text-black transition duration-200 hover:-translate-y-1 hover:shadow-2xl active:translate-y-0 active:shadow-xl lg:mt-0 lg:inline-block `}
+              onClick={() => setActiveButton('home')}
+            >
+              Home
+            </button>
           </Link>
+
           {isAuthenticated && (
-            <Link to="/profile" className="block mt-4 lg:inline-block lg:mt-0 text-gray-900 hover:text-gray-400 mr-4">
-              Profile
+            <Link to="/profile">
+              <button
+                className={` mt-4  mr-1 ml-1 block cursor-pointer rounded-full border border-black ${
+                  activeButton === 'profile'
+                    ? 'bg-my-gold'
+                    : 'bg-gray-500 hover:bg-my-gold'
+                } shadow-xs transform px-3 py-0.5 font-bold uppercase tracking-wide text-black transition duration-200 hover:-translate-y-1 hover:shadow-2xl active:translate-y-0 active:shadow-xl lg:mt-0 lg:inline-block `}
+                onClick={() => setActiveButton('profile')}
+              >
+                Profile
+              </button>
             </Link>
           )}
-        </div>
-        <div>
+
           {isAuthenticated ? (
-            <div
+            <button
               onClick={handleLogOut}
               onKeyDown={handleKeyDownLogout}
               role="button"
               tabIndex={0}
-              className="cursor-pointer block mt-4 lg:inline-block lg:mt-0 text-gray-900 hover:text-gray-400 mr-4"
+              className="shadow-xs inline-block transform cursor-pointer rounded-full border border-black bg-gray-500 px-3 py-0 font-bold uppercase tracking-wide text-black transition duration-200 hover:-translate-y-1 hover:bg-my-gold hover:shadow-2xl active:translate-y-0 active:shadow-xl "
             >
               Logout
-            </div>
+            </button>
           ) : (
-            <div
+            <button
               onClick={handleLogIn}
               onKeyDown={handleKeyDownLogin}
-              role="button"
-              tabIndex={0}
-              className="cursor-pointer block mt-4 lg:inline-block lg:mt-0 text-red-500 hover:text-red-600 mr-4"
+              className="shadow-xs inline-block transform cursor-pointer rounded-full border border-black bg-gray-500 px-2 py-0.5 font-bold uppercase tracking-wide text-black transition duration-200 hover:-translate-y-1 hover:bg-my-gold hover:shadow-2xl active:translate-y-0 active:shadow-xl "
             >
               Login
-            </div>
+            </button>
           )}
         </div>
       </div>
