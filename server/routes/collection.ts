@@ -1,5 +1,6 @@
 import express from 'express'
-import NewCollection from '../../models/collection'
+import Collection from '../../models/collection'
+
 import {
   addCollection,
   deleteCollection,
@@ -23,7 +24,7 @@ router.get('/', async (req, res) => {
 // ADD collection
 router.post('/', async (req, res) => {
   try {
-    const newCollection: NewCollection = req.body
+    const newCollection: Collection = req.body
     const collection = await addCollection(newCollection)
     res.json(collection)
   } catch (err) {

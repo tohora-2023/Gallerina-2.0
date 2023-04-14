@@ -1,8 +1,8 @@
 export default interface Collection {
-  id: number
+  id?: number
   title: string
-  cover_img?: string
-  user_id: 1
+  coverImg: string
+  userId: number
 }
 
 export type AddCollection = Partial<Omit<Collection, 'id'>>
