@@ -28,6 +28,7 @@ export default function Profile() {
         >
           <img className="mt-4 h-10" src="/curation.svg" alt="add" />
           <div className="flex items-center">Create a curation</div>
+          <Link to="/profile/collections/1">Link to A Collection #1 Page</Link>
         </div>
       </div>
     </>
