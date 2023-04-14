@@ -1,13 +1,21 @@
-import request from 'superagent'
 import express from 'express'
-import { createCollection, getCollectionTitles } from '../db/artworks'
+import { getCollectionsByUserId } from '../db/artworks'
+import checkJwt from '../auth0'
+import { JwtRequest } from '../auth0'
 
 const router = express.Router()
 
-router.get('/artwork/collection', async (req, res) => {
-    const titles = await getCollectionTitles()
-    
-})
+router.get('/user/collections', checkJwt, async (req: JwtRequest, res) => {
+  const auth0Id = req.auth?.sub
 
+  if (!auth0Id) {
+    console.error('No auth0Id')
+    return res.status(401).send('Unauthorized')
+  }
+
+  const collections = await getCollectionsByUserId(auth0Id)
+  console.log(collections)
+  res.json(collections)
+})
 
 export default router

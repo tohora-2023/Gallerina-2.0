@@ -6,7 +6,6 @@ import reducers from './reducers'
 import type { AnyAction } from 'redux'
 
 const store = createStore(reducers, composeWithDevTools(applyMiddleware(thunk)))
-
 export type RootState = ReturnType<typeof store.getState>
 export type AppDispatch = ThunkDispatch<RootState, never, AnyAction>
 export type ThunkAction = BaseThunkAction<
