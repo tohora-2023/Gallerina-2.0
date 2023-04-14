@@ -8,6 +8,7 @@ const rootUrl = '/api/v1'
 
 export async function getCollections(): Promise<Collection[]> {
   const response = await request.get(rootUrl + '/collections')
+  console.log(response.body)
   return response.body
 }
 

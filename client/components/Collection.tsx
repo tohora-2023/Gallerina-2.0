@@ -1,20 +1,18 @@
 import { useEffect } from 'react'
 import { useAppDispatch, useAppSelector } from '../hooks/hooks'
 import { fetchCollections } from '../actions/collections'
+// import Collection from '../../models/collection'
 
 export default function Collection() {
-  const {
-    collections: collections,
-    error,
-    isLoading,
-  } = useAppSelector((state) => state.collections)
+  const collections = useAppSelector((state) => state.collections)
 
   const dispatch = useAppDispatch()
 
   useEffect(() => {
     dispatch(fetchCollections())
   }, [dispatch])
-  // console.log(collections)
+
+  console.log(collections.data)
 
   //export default interface Collection {
   //   id?: number
@@ -23,8 +21,8 @@ export default function Collection() {
   //   userId: number
   // }
 
-  if (isLoading) return <>Loading...</>
-  if (error) return <>An error occurred</>
+  // if (loading) return <>Loading...</>
+  // if (error) return <>An error occurred</>
 
   return (
     <>
@@ -34,13 +32,14 @@ export default function Collection() {
         )}
         {collections.error && <p>Unfortunately we cannot reach our database</p>}
       </div> */}
-      <ul>
+      {/* <ul>
         {collections.map((element) => (
           <li key={element.id}>
             <span>{element.title}</span>
           </li>
         ))}
       </ul>
+    </> */}
     </>
   )
 }

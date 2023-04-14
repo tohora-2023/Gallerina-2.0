@@ -79,6 +79,7 @@ export function fetchCollections(): ThunkAction {
     dispatch(fetchCollectionsPending())
     return getCollections()
       .then((collections) => {
+        console.log(collections)
         dispatch(fetchCollectionsFullfilied(collections))
       })
       .catch((err) => {
