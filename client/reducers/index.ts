@@ -1,7 +1,9 @@
 import { combineReducers } from 'redux'
 
 import art from './artworks'
+import collectionsReducer from './collection'
 
 export default combineReducers({
-  artworkState: art
+  artworkState: art,
+  collectionState: collectionsReducer,
 })

@@ -39,7 +39,7 @@ router.get('/artworks', async (req, res) => {
     await addArtworkToDB(artworksToInsert)
   } catch (err) {
     console.log(err)
-    res.sendStatus(500)
+    res.sendStatus(500).json('an error has occurred')
   }
 })
 
