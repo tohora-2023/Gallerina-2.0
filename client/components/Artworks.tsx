@@ -7,19 +7,20 @@ import { ArtworkApi } from '../../models/external-Artwork'
 
 export default function Home() {
   const { loading, data, error } = useAppSelector((state) => state.artworkState)
-  const { logout, loginWithRedirect, isAuthenticated } = useAuth0()
+  const { loginWithRedirect, isAuthenticated } = useAuth0()
 
   const dispatch = useAppDispatch()
 
   useEffect(() => {
     dispatch(fetchArtworkImage())
+    //dispatch user collections
   }, [dispatch])
 
   function handleHeartClick() {
     if(isAuthenticated) {
-      // heart it
+      // heart it will save to collection
     } else {
-      // nav to login
+      loginWithRedirect()
     }
   }
 
@@ -34,7 +35,7 @@ export default function Home() {
             <div>
               <img src={artwork._links?.thumbnail?.href} alt={artwork.slug} />
               <div>{artwork.title}</div>
-              <img src='/love.png' alt='heart-pin' onClick={handleHeartClick}/>
+              <img src='/heart.png' alt='heart-pin' onClick={handleHeartClick}/>
             </div>
           </div>
         )
