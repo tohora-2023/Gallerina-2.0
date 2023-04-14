@@ -9,7 +9,7 @@ export default function Collection() {
   useEffect(() => {
     dispatch(fetchCollections())
   }, [dispatch])
-  console.log()
+  console.log(collections)
   return (
     <>
       <div>
@@ -18,6 +18,9 @@ export default function Collection() {
         )}
         {collections.error && <p>Unfortunately we cannot reach our database</p>}
       </div>
+      <div>{collections.map((collection) => (
+        <li key={collection.id}>) 
+      }</div>
     </>
   )
 }

@@ -4,6 +4,7 @@ import { useAppDispatch, useAppSelector } from '../hooks'
 // import { fetchResults } from
 import { useAuth0 } from '@auth0/auth0-react'
 import { KeyboardEvent } from 'react'
+import Collection from './Collection'
 
 export default function Profile() {
   const { getAccessTokenSilently, isAuthenticated, loginWithRedirect, user } =
@@ -27,11 +28,7 @@ export default function Profile() {
           </div>
         </div>
         <div>
-          {/* <div
-          // onClick={}
-          className="border-black-200 bg-white-200 mt-10 flex h-64 flex-col items-center justify-center rounded-2xl border"
-        >
-          <div className="flex items-center"></div> */}
+         <Collection />
         </div>
       </div>
     </>
