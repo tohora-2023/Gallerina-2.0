@@ -71,11 +71,9 @@ export default function Example() {
               {({ active }) => (
                 <a
                   href="/profile/collection"
-                  className={classNames(
-                    active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-                    'block px-4 py-2 text-sm'
-                  )}
-                  //className={`${active ? 'bg-gray-100 text-gray-900' : 'text-gray-700'}`}
+                  className={`${
+                    active ? 'bg-gray-100 text-gray-900' : 'text-gray-700'}
+                    'block px-4 py-2 text-sm`}
                 >
                   New Collection
                 </a>
@@ -89,10 +87,9 @@ export default function Example() {
                   {({ active }) => (
                     <a
                       href="/" // fix this.
-                      className={classNames(
-                        active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-                        'block px-4 py-2 text-sm'
-                      )}
+                      className={`${
+                        active ? 'bg-gray-100 text-gray-900' : 'text-gray-700'}
+                        'block px-4 py-2 text-sm`}
                     >
                       {collection.title}
                     </a>
