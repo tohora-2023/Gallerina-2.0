@@ -1,7 +1,6 @@
 import connection from './connection'
 import AddCollection from '../../models/collection'
 
-// Get's all collections
 export function getCollections(db = connection) {
   return db('collections').select()
 }
