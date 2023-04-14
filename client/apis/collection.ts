@@ -1,13 +1,13 @@
 import request from 'superagent'
 //import model
 
-import Collection from '../../models/collection'
+import TCollection from '../../models/collection'
 import { AddCollection } from '../../models/collection'
 
 const rootUrl = '/api/v1'
 
-export async function getCollections(): Promise<Collection[]> {
-  const response = await request.get(rootUrl + '/collections')
+export async function getCollections(): Promise<TCollection[]> {
+  const response = await request.get(rootUrl + '/profile/collections')
   return response.body
 }
 

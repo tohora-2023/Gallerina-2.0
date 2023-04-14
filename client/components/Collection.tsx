@@ -1,29 +1,24 @@
 import { useEffect } from 'react'
 import { useAppDispatch, useAppSelector } from '../hooks/hooks'
-import { fetchCollections } from '../actions/collections'
 import { Link } from 'react-router-dom'
+import TCollection from '../../models/collection'
 
-export default function Collection() {
-  const {
-    collections: collections,
-    error,
-    isLoading,
-  } = useAppSelector((state) => state.collections)
-
-  const dispatch = useAppDispatch()
-
-  useEffect(() => {
-    dispatch(fetchCollections())
-  }, [dispatch])
-  console.log('Reaching the collection.tsx component')
+type Props = TCollection
+export default function Collection(collection: Props) {
   return (
     <>
-      <div>
-        <h3>Here is the collection page</h3>
-        {collections.loading && (
-          <p>Please wait while we load your collections</p>
-        )}
-        {collections.error && <p>Unfortunately we cannot reach our database</p>}
+      <div className="flex justify-center p-1">
+        <div>
+          <Link to={`/profile/collections/${collection.id}`}>
+            {collection.title} redirects to /collections{collection.id} for
+            user:{collection.user_id}
+          </Link>
+          <br />
+          <img
+            src={collection.cover_img}
+            alt={`cover for ${collection.title}`}
+          />
+        </div>
       </div>
     </>
   )

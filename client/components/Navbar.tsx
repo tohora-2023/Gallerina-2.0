@@ -4,7 +4,6 @@ import { KeyboardEvent, useState } from 'react'
 
 export default function Navbar() {
   const { logout, loginWithRedirect, isAuthenticated, user } = useAuth0()
-  console.log(user)
 
   const [activeButton, setActiveButton] = useState('')
 
