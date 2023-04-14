@@ -1,46 +1,28 @@
 import { useEffect } from 'react'
 import { useAppDispatch, useAppSelector } from '../hooks/hooks'
-import { fetchCollections } from '../actions/collections'
+import { Link } from 'react-router-dom'
+import TCollection from '../../models/collection'
+import { useAuth0 } from '@auth0/auth0-react'
 
-export default function Collection() {
-  const {
-    collections: collections,
-    error,
-    isLoading,
-  } = useAppSelector((state) => state.collections)
-
-  const dispatch = useAppDispatch()
-
-  useEffect(() => {
-    dispatch(fetchCollections())
-  }, [dispatch])
-  // console.log(collections)
-
-  //export default interface Collection {
-  //   id?: number
-  //   title: string
-  //   coverImg: string
-  //   userId: number
-  // }
-
-  if (isLoading) return <>Loading...</>
-  if (error) return <>An error occurred</>
-
+type Props = TCollection
+export default function Collection(collection: Props) {
+  const { getAccessTokenSilently, isAuthenticated, loginWithRedirect, user } =
+    useAuth0()
   return (
     <>
-      {/* <div>
-        {collections.loading && (
-          <p>Please wait while we load your collections</p>
-        )}
-        {collections.error && <p>Unfortunately we cannot reach our database</p>}
-      </div> */}
-      <ul>
-        {collections.map((element) => (
-          <li key={element.id}>
-            <span>{element.title}</span>
-          </li>
-        ))}
-      </ul>
+      <div className="flex justify-center p-1">
+        <div>
+          <Link to={`/profile/collections/${collection.id}`}>
+            {collection.title} redirects to /collections{collection.id} for
+            user:{collection.user_id}
+          </Link>
+          <br />
+          <img
+            src={collection.cover_img}
+            alt={`cover for ${collection.title}`}
+          />
+        </div>
+      </div>
     </>
   )
 }

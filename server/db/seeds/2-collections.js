@@ -19,11 +19,25 @@ exports.seed = async (knex) => {
       user_id: 3,
       title: 'My Louvre',
       cover_img:
-        'https://d32dm0rphc51dk.cloudfront.net/IG8ZLvVmZgQiTn2zK0Bp8w/medium.jp ',
+        'https://d32dm0rphc51dk.cloudfront.net/IG8ZLvVmZgQiTn2zK0Bp8w/medium.jpg',
     },
     {
       id: 4,
       user_id: 4,
+      title: 'To Buy',
+      cover_img:
+        'https://d32dm0rphc51dk.cloudfront.net/5L1xjKC_und1uiKCpUPHhw/medium.jpg',
+    },
+    {
+      id: 5,
+      user_id: 5,
+      title: 'My Louvre',
+      cover_img:
+        'https://d32dm0rphc51dk.cloudfront.net/IG8ZLvVmZgQiTn2zK0Bp8w/medium.jpg',
+    },
+    {
+      id: 6,
+      user_id: 5,
       title: 'To Buy',
       cover_img:
         'https://d32dm0rphc51dk.cloudfront.net/5L1xjKC_und1uiKCpUPHhw/medium.jpg',
