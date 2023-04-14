@@ -2,8 +2,13 @@ import { useAuth0 } from '@auth0/auth0-react'
 import { Fragment, useEffect, useState } from 'react'
 import { Menu, Transition } from '@headlessui/react'
 import { ChevronDownIcon } from '@heroicons/react/20/solid'
+<<<<<<< HEAD
 import { getAllCollectionsApi } from '../apis/homepage'
 import { CollectionTitle } from '../../models/collection'
+=======
+import { getAllCollectionsApi } from '../apis/artworks'
+import TCollection, { CollectionTitle } from '../../models/collection'
+>>>>>>> 358de4fe76c5dbb2f52cb739400a1604633cd862
 import { useAppDispatch } from '../hooks/hooks'
 
 export default function Example() {
@@ -17,11 +22,11 @@ export default function Example() {
       const token = await getAccessTokenSilently()
       // console.log(token)
       if (user) {
-        dispatch(getAllCollectionsApi(token))
-          .then((collections: any) => {
+        dispatch(getAllCollectionsApi(token)) // pass in token
+          .then((collections: TCollection[]) => {
             setCollections(collections)
           })
-          .catch((error: string) => {
+          .catch((error: Error) => {
             console.log(error)
           })
       }
@@ -43,10 +48,15 @@ export default function Example() {
   return (
     <Menu as="div" className="relative inline-block text-left">
       <div>
-        <Menu.Button className="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900">
-          <img src="/heart.png" alt="heart-pin" onClick={handleHeartClick} />
+        <Menu.Button className="mr-5 inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900">
+          <img
+            className="h-5 w-5"
+            src="/heart.png"
+            alt="heart-pin"
+            onClick={handleHeartClick}
+          />
           <ChevronDownIcon
-            className="-mr-1 h-5 w-5 text-gray-400"
+            className="-mr-1 h-5 w-5 overflow-visible text-gray-400"
             aria-hidden="true"
           />
         </Menu.Button>

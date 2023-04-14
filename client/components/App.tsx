@@ -16,7 +16,6 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/artwork" element={<Artwork />} />
           <Route path="/profile" element={<Profile />} />
-          <Route path="/profile/collections" element={<Collection />} />
           <Route
             path="/profile/collections/:id"
             element={<CollectionItems />}

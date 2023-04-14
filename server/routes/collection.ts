@@ -1,5 +1,5 @@
 import express from 'express'
-import Collection from '../../models/collection'
+import TCollection from '../../models/collection'
 
 import {
   addCollection,
@@ -10,7 +10,7 @@ import {
 const router = express.Router()
 export default router
 
-// GET all Collections
+// GET all Collections by profile ID
 router.get('/', async (req, res) => {
   try {
     const collections = await getCollections()
@@ -24,7 +24,7 @@ router.get('/', async (req, res) => {
 // ADD collection
 router.post('/', async (req, res) => {
   try {
-    const newCollection: Collection = req.body
+    const newCollection: TCollection = req.body
     const collection = await addCollection(newCollection)
     res.json(collection)
   } catch (err) {

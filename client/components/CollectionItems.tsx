@@ -15,13 +15,10 @@ export default function CollectionItems() {
   const dispatch = useAppDispatch()
   const params = useParams()
   const id = Number(params.id)
-  console.log('from useAppSelector', collectionItems)
-  console.log('error', error)
-  console.log(`params ID in collectionItems`, id)
+
   useEffect(() => {
     dispatch(fetchCollectionItems(id))
   }, [dispatch, id])
-  console.log()
   return (
     <>
       {/* <h3>{collectionItems.collectionTitle}</h3> */}
@@ -30,7 +27,7 @@ export default function CollectionItems() {
         {loading && <p>Please wait while we load your collections</p>}
         {error && <p>Unfortunately we cannot reach our database</p>}
         <div>
-          {collectionItems.map((art: CollectionItem) => (
+          {collectionItems?.map((art: CollectionItem) => (
             <ArtItem key={art.collectionId} {...art} />
           ))}
         </div>
