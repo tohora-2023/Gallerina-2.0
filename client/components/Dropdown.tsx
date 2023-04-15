@@ -1,13 +1,20 @@
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 import { useAuth0 } from '@auth0/auth0-react'
 import { Fragment, useEffect, useState } from 'react'
 import { Menu, Transition } from '@headlessui/react'
 import { ChevronDownIcon } from '@heroicons/react/20/solid'
-import { getAllCollectionsApi } from '../apis/homepage'
+import { addArtworkToCollectionApi, getAllCollectionsApi } from '../apis/homepage'
 import { CollectionTitle } from '../../models/collection'
 import { useAppDispatch } from '../hooks/hooks'
+import { ArtworkApi } from '../../models/external-Artwork'
 
 
-export default function Example() {
+interface ArtworkProps {
+  artwork: ArtworkApi
+}
+
+export default function Dropdown({artwork}: ArtworkProps) {
   const { user, loginWithRedirect, isAuthenticated } = useAuth0()
   const [collections, setCollections] = useState<CollectionTitle[]>([])
   const { getAccessTokenSilently } = useAuth0()
@@ -36,6 +43,10 @@ export default function Example() {
     } else {
       loginWithRedirect()
     }
+  }
+
+  function handleSaveToCollection(collectionId: number, artworkId: number) {
+    dispatch(addArtworkToCollectionApi(collectionId, artworkId))
   }
 
   return (
@@ -76,23 +87,26 @@ export default function Example() {
             </Menu.Item>
           </div>
           <div className="py-1">
+            <ul>
             {collections.map((collection) => {
               return (
                 <Menu.Item key={collection.id}>
                   {({ active }) => (
-                    <a
-                      href="/" // fix this.
+                    <li key={collection.id}
                       className={`${
                         active ? 'bg-gray-100 text-gray-900' : 'text-gray-700'
                       }
                         'block px-4 py-2 text-sm`}
-                    >
+                    > 
+                    <button onClick={() => handleSaveToCollection(collection.id, artwork.id)}>
                       {collection.title}
-                    </a>
+                    </button> 
+                    </li>
                   )}
                 </Menu.Item>
               )
             })}
+            </ul>
           </div>
         </Menu.Items>
       </Transition>
