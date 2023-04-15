@@ -78,9 +78,7 @@ router.get(`artworks/:id`, async (req, res) => {
 // gets api/v1/search
 router.get(`/search`, async (req, res) => {
   try {
-    const search = req.body.search
-    console.log(search)
-    console.log('calling api')
+    const search = req.query.search
     const xapp = await generateXappToken()
     const response = await request
       .get(`https://api.artsy.net/api/artworks?term=${search}`)

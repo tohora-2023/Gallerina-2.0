@@ -62,6 +62,18 @@ export default function Navbar() {
               Home
             </button>
           </Link>
+          <Link to="/search">
+            <button
+              className={`mt-4 block cursor-pointer rounded-full border border-black ${
+                activeButton === 'search'
+                  ? 'bg-my-gold'
+                  : 'bg-white hover:bg-my-gold'
+              } shadow-xs transform px-3 py-0.5 font-bold tracking-wide text-black transition duration-200 hover:-translate-y-1 hover:shadow-2xl active:translate-y-0 active:shadow-xl lg:mt-0 lg:inline-block `}
+              onClick={() => setActiveButton('search')}
+            >
+              Search
+            </button>
+          </Link>
 
           {isAuthenticated && (
             <Link to="/profile">

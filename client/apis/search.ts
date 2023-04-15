@@ -1,7 +1,9 @@
 import request from 'superagent'
 import { ArtworkApi } from '../../models/external-Artwork'
 
-export async function getArtworksFromSearch(): Promise<ArtworkApi> {
-  const response = await request.get('/api/v1/search')
+export async function getArtworksFromSearch(
+  search: string
+): Promise<ArtworkApi[]> {
+  const response = await request.get('/api/v1/search').query({ search: search })
   return response.body
 }

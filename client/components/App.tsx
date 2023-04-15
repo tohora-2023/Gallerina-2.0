@@ -6,6 +6,7 @@ import ArtworkInfo from './Artwork-info'
 import Profile from './Profile'
 import Collection from './Collection'
 import CollectionItems from './CollectionItems'
+import Search from './Search'
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
       <div className="border-black-200 bg-white-200 mx-20 my-10 min-h-screen rounded-2xl border p-10">
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/search" element={<Search />} />
           <Route path="/artworks/:id" element={<ArtworkInfo />} />
           <Route path="/profile" element={<Profile />} />
           <Route

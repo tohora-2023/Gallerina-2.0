@@ -3,46 +3,58 @@ import { ArtworkApi } from '../../models/external-Artwork'
 import { getArtworksFromSearch } from '../apis/search'
 import LoadingSpinner from './LoadingSpinner'
 
-export default function Search(art: ArtworkApi[]) {
-  const [artworks, setArtworks] = useState<ArtworkApi[] | null>
+export default function Search() {
+  const [search, setSearch] = useState('')
+  const [artworks, setArtworks] = useState<ArtworkApi[] | null>(null)
   const [loading, setIsLoading] = useState(false)
   const [error, setError] = useState(false)
 
-  useEffect(() => {
-    setIsLoading(true)
-    await getArtworksFromSearch()
-      .then((response) => {
-        setArtworks(response: ArtWorkApi[])
-      })
-      .finally(() => {
-        setIsLoading(false)
-      })
-      .catch((err) => {
-        console.log(error)
-        setError(true)
-      })
-  }, [])
-
-  const [text, setText] = useState('')
-
-  function handleChange(event: ChangeEvent) {
-    setText(event.target.value)
+  function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
+    setSearch(event.target.value)
   }
 
   function handleSubmit(event: FormEvent) {
     // prevent the default behaviour to make an HTTP request
     event.preventDefault()
-
-    console.log('Submitted text: ', text)
+    setIsLoading(true)
+    getArtworksFromSearch(search)
+      .then((response) => {
+        setArtworks(response)
+        setIsLoading(false)
+        setSearch('')
+      })
+      .catch((err: Error) => {
+        setError(true)
+      })
   }
 
   return (
     <div>
+      <h1>Search for Artworks</h1>
+      <form className="w-1/2 rounded-md" onSubmit={handleSubmit}>
+        <input
+          type="text"
+          className="rounded-md border-4 border-my-gold"
+          value={search}
+          onChange={handleChange}
+        />
+      </form>
       {error && <p>An error occurred</p>}
       {loading && <LoadingSpinner />}
-      <form onSubmit={handleSubmit}>
-        <input type="text" value={text} onChange={handleChange} />
-      </form>
+      <div className="flex flex-wrap">
+        {artworks?.map((art) => {
+          return (
+            <div key={art.id}>
+              <h3>{art.title}</h3>
+              <img
+                className="m-3 h-80 w-80"
+                src={art._links.image.href.replace('{image_version}', 'large')}
+                alt={art.slug}
+              />
+            </div>
+          )
+        })}
+      </div>
     </div>
   )
 }
