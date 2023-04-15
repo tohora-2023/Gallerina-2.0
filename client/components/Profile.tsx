@@ -24,6 +24,7 @@ export default function Profile() {
   useEffect(() => {
     dispatch(fetchCollections())
   }, [dispatch])
+  console.log(user)
 
   return (
     <><div>

@@ -61,13 +61,10 @@ export function fetchCollectionsPending(): CollectionAction {
 export function fetchCollectionsFullfilied(
   collections: TCollection[]
 ): CollectionAction {
-  console.log(collections)
   return {
     type: FETCH_COLLECTIONS_FULFILLED,
     payload: collections,
-    
   }
-  
 }
 
 export function fetchCollectionsRejected(errMessage: string): CollectionAction {
@@ -82,7 +79,6 @@ export function fetchCollections(): ThunkAction {
     dispatch(fetchCollectionsPending())
     return getCollections()
       .then((collections) => {
-        console.log(collections)
         dispatch(fetchCollectionsFullfilied(collections))
       })
       .catch((err) => {
