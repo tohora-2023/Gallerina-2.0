@@ -36,6 +36,7 @@ export default function Navbar() {
             src="./logo4.png"
             alt="gallerina logo"
             className="mr-10 h-auto w-12 scale-150 transform"
+            onClick={() => setActiveButton('')}
           />
         </Link>
       </div>
