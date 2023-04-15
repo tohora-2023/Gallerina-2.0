@@ -20,6 +20,7 @@ export default function Dropdown({artwork}: ArtworkProps) {
   const { getAccessTokenSilently } = useAuth0()
   const dispatch = useAppDispatch()
  
+  console.log(artwork)
 
   useEffect(() => {
 
@@ -35,6 +36,7 @@ export default function Dropdown({artwork}: ArtworkProps) {
     }, [user])
 
   console.log(collections)
+  console.log
 
   function handleHeartClick() {
     if (isAuthenticated) {
