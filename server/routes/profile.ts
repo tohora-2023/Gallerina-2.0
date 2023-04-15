@@ -44,9 +44,9 @@ router.post('/', async (req, res) => {
 })
 
 // DELETE profile/collection/:id
-router.delete('collection/:id', async (req, res) => {
+router.delete('/:CollectionId', async (req, res) => {
   try {
-    const id = Number(req.params.id)
+    const id = Number(req.params.CollectionId)
     const collection = await deleteCollection(id)
     res.json(collection)
   } catch (err) {

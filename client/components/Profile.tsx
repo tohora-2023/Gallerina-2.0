@@ -31,7 +31,7 @@ export default function Profile() {
     <>
       <div>
         <div className="flex h-full items-center justify-end">
-          <button className="shadow-xs absolute left-0 ml-20 transform cursor-pointer rounded-full border border-black bg-white px-2 py-0.5 font-bold tracking-wide text-black transition duration-200 hover:-translate-y-1 hover:bg-my-gold hover:shadow-2xl active:translate-y-0 active:shadow-xl">
+          <button className=" shadow-xs absolute left-10 ml-20 transform cursor-pointer rounded-full border border-black bg-white px-2 py-0.5 font-bold tracking-wide text-black transition duration-200 hover:-translate-y-1 hover:bg-my-gold hover:shadow-2xl active:translate-y-0 active:shadow-xl">
             Create a curation
           </button>
 
