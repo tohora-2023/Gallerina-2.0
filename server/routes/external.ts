@@ -52,11 +52,13 @@ router.get('/artworks', async (req, res) => {
   }
 })
 
-router.get(`/artworks/:id`, async (req, res) => {
+// gets api/v1/artworks/id
+router.get(`artworks/:id`, async (req, res) => {
   try {
+    console.log('id')
     const id = req.params.id
     const artwork = await getArtworkById(id)
-    // checks if artwork is in database, if not, then retrieves it from the API
+    // checks if artwork is in database, if not, then retrieves it from the API?
     if (artwork && artwork.length > 0) {
       res.json(artwork[0])
     } else {
@@ -65,12 +67,33 @@ router.get(`/artworks/:id`, async (req, res) => {
         .get(`https://api.artsy.net/api/artworks/${id}`)
         .set('X-Xapp-Token', xapp.body.token)
         .set('Accept', 'application/vnd.artsy-v2+json')
-      const artwork = response.body
+      const artwork = response.body._embedded
       res.json(artwork)
     }
   } catch (err) {
-    console.log(err)
     res.sendStatus(500)
+  }
+})
+
+// gets api/v1/search
+router.get(`/search`, async (req, res) => {
+  try {
+    const search = req.body.search
+    console.log(search)
+    console.log('calling api')
+    const xapp = await generateXappToken()
+    const response = await request
+      .get(`https://api.artsy.net/api/artworks?term=${search}`)
+      .set('X-Xapp-Token', xapp.body.token)
+      .set('Accept', 'application/vnd.artsy-v2+json')
+    const test = response.text.replace(/\\+/g, '')
+    const str = test.replace(/'/g, '')
+    const body = JSON.parse(str)
+    const artworks = body._embedded.artworks
+    res.json(artworks)
+  } catch (err) {
+    res.sendStatus(500)
+    console.log('an error ocurred')
   }
 })
 
