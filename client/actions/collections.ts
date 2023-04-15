@@ -1,5 +1,5 @@
 import type { ThunkAction } from '../store'
-import Collection from '../../models/collection'
+import TCollection from '../../models/collection'
 import { AddCollection } from '../../models/collection'
 import { getCollections, addCollection } from '../apis/collection'
 
@@ -31,7 +31,7 @@ export type CollectionAction =
     }
   | {
       type: typeof FETCH_COLLECTIONS_FULFILLED
-      payload: Collection[]
+      payload: TCollection[]
     }
   | {
       type: typeof FETCH_COLLECTIONS_REJECTED
@@ -59,7 +59,7 @@ export function fetchCollectionsPending(): CollectionAction {
 }
 
 export function fetchCollectionsFullfilied(
-  collections: Collection[]
+  collections: TCollection[]
 ): CollectionAction {
   console.log(collections)
   return {
