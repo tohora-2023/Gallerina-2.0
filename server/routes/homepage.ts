@@ -1,12 +1,12 @@
 import express from 'express'
 import { getCollectionsByUserId } from '../db/homepage'
-import checkJwt from '../auth0'
-import { JwtRequest } from '../auth0'
+// import checkJwt from '../auth0'
+// import { JwtRequest } from '../auth0'
 
 const router = express.Router()
 
-router.get('/user/collections', checkJwt, async (req: JwtRequest, res) => {
-  const auth0Id = req.auth?.sub
+router.get('/user/collections', async (req, res) => {
+  const auth0Id = 'bsd24gyg55w56dd7a'
 
   if (!auth0Id) {
     console.error('No auth0Id')

@@ -12,15 +12,12 @@ export default function Example() {
   const [collections, setCollections] = useState<CollectionTitle[]>([])
   const { getAccessTokenSilently } = useAuth0()
   const dispatch = useAppDispatch()
-  console.log(user)
  
 
   useEffect(() => {
-    const getAccess = async () => {
-      const token = await getAccessTokenSilently()
-      // console.log(token)
+
       if (user) {
-        dispatch(getAllCollectionsApi(token))
+        getAllCollectionsApi()
           .then((collections: any) => {
             setCollections(collections)
           })
@@ -28,11 +25,9 @@ export default function Example() {
             console.log(error)
           })
       }
-    }
-    getAccess().catch(console.error)
-  }, [dispatch, user, setCollections, getAccessTokenSilently])
+    }, [user])
 
-  // console.log(collections)
+  console.log(collections)
 
   function handleHeartClick() {
     if (isAuthenticated) {

@@ -8,7 +8,7 @@ export async function getAllArtworks(): Promise<ArtworkApi> {
   return response.body
 }
 
-export async function getAllCollectionsApi(token: string): Promise<Collection[]> {
-  const response = await request.get('/api/v1/home/user/collections').set('Authorization', `Bearer ${token}`)
+export async function getAllCollectionsApi(): Promise<Collection[]> {
+  const response = await request.get('/api/v1/home/user/collections')
   return response.body
 }
