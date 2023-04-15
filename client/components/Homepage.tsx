@@ -1,11 +1,10 @@
-import { useEffect} from 'react'
+import { useEffect } from 'react'
 
 import { useAppDispatch, useAppSelector } from '../hooks/hooks'
-import { fetchArtworkImage } from '../actions/artworks'
+import { fetchArtworkImage } from '../actions/homepage'
 import { ArtworkApi } from '../../models/external-Artwork'
 import LoadingSpinner from './LoadingSpinner'
 import Dropdown from './Dropdown'
-
 
 export default function Home() {
   const { loading, data, error } = useAppSelector((state) => state.artworkState)
@@ -15,11 +14,10 @@ export default function Home() {
     dispatch(fetchArtworkImage())
   }, [dispatch])
 
-  
   return (
     <div>
       {error && <p>{error}</p>}
-      {loading && <LoadingSpinner/>}
+      {loading && <LoadingSpinner />}
 
       {data?.map((artwork: ArtworkApi) => {
         return (
@@ -27,12 +25,11 @@ export default function Home() {
             <div>
               <img src={artwork._links?.thumbnail?.href} alt={artwork.slug} />
               <div>{artwork.title}</div>
-              <Dropdown/>
+              <Dropdown />
             </div>
           </div>
         )
       })}
-
     </div>
   )
 }
