@@ -11,9 +11,8 @@ import {
 import { CollectionTitle } from '../../models/profile'
 import { useAppDispatch } from '../hooks/hooks'
 import { ArtworkApi } from '../../models/external-Artwork'
-import { PlusCircleIcon } from "@heroicons/react/24/outline"
-import { HeartIcon } from "@heroicons/react/24/outline"
-
+import { PlusCircleIcon } from '@heroicons/react/24/outline'
+import { HeartIcon } from '@heroicons/react/24/outline'
 
 interface ArtworkProps {
   artwork: ArtworkApi
@@ -67,7 +66,6 @@ export default function Dropdown({ artwork }: ArtworkProps) {
           /> */}
         </Menu.Button>
       </div>
-
       <Transition
         as={Fragment}
         enter="transition ease-out duration-100"
@@ -76,19 +74,32 @@ export default function Dropdown({ artwork }: ArtworkProps) {
         leave="transition ease-in duration-75"
         leaveFrom="transform opacity-100 scale-100"
         leaveTo="transform opacity-0 scale-95"
+        appear={true}
       >
-        <Menu.Items className="absolute right-0 z-10 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+        <Menu.Items
+          static
+          className="absolute z-10 w-56 origin-top rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
+          style={{
+            top: 'calc(100% + 5px)',
+            left: '50%',
+            transform: 'translateX(-50%)',
+          }}
+        >
           <div className="py-1 px-1">
             <Menu.Item>
               {({ active }) => (
                 <a
-                  href='/'
+                  href="/"
                   className={`${
                     active ? 'bg-my-gold text-gray-900' : 'text-gray-700'
                   }
                    group flex w-full items-center rounded-md px-2 py-2 text-sm`}
                 >
-                  <PlusCircleIcon className="mr-2 h-5 w-5 text-gray-900" aria-hidden="true"/>Create a New Curation
+                  <PlusCircleIcon
+                    className="mr-2 h-5 w-5 text-gray-900"
+                    aria-hidden="true"
+                  />
+                  Create a New Curation
                 </a>
               )}
             </Menu.Item>
@@ -97,12 +108,14 @@ export default function Dropdown({ artwork }: ArtworkProps) {
             <ul>
               {collections.map((collection) => {
                 return (
-                  <Menu.Item key={collection.id} >
+                  <Menu.Item key={collection.id}>
                     {({ active }) => (
                       <li
                         key={collection.id}
                         className={`${
-                          active ? 'bg-my-gold px-2 text-gray-900' : 'text-gray-700'
+                          active
+                            ? 'bg-my-gold px-2 text-gray-900'
+                            : 'text-gray-700'
                         }
                         group flex w-full items-center rounded-md px-2 py-2 text-sm`}
                       >
@@ -111,7 +124,11 @@ export default function Dropdown({ artwork }: ArtworkProps) {
                             handleSaveToCollection(collection.id, artwork.id)
                           }
                         > */}
-                          <HeartIcon className="mr-2 h-5 w-5 text-gray-900" aria-hidden="true"/>{collection.title}
+                        <HeartIcon
+                          className="mr-2 h-5 w-5 text-gray-900"
+                          aria-hidden="true"
+                        />
+                        {collection.title}
                         {/* </button> */}
                       </li>
                     )}
