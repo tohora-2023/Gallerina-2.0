@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import CollectionItem from '../../models/CollectionItems'
 import { deleteItem } from '../actions/collection-items'
 import { useAppDispatch } from '../hooks/hooks'
@@ -23,13 +23,20 @@ export default function ArtItem(art: Props) {
         <p className="m-0 w-80 pt-1 font-medium group-hover:text-white">
           {art.artTitle}
         </p>
-        {/* not ideal but I added a left margin here so that the button displays at the end of the card */}
-        <button
-          className="hidden rounded-full bg-white px-2 text-rose-500 group-hover:block"
-          onClick={handleDelete}
-        >
-          X
-        </button>
+        <div className="flex justify-between">
+          <button
+            className="hidden rounded-full bg-white px-2 text-rose-500 group-hover:block"
+            onClick={handleDelete}
+          >
+            X
+          </button>
+          <Link
+            to={`/artworks/${art.artworkId}`}
+            className="hidden rounded-full bg-white px-2 text-black group-hover:block"
+          >
+            View
+          </Link>
+        </div>
       </div>
     </>
   )

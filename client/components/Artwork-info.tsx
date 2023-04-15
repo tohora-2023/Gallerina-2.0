@@ -19,8 +19,8 @@ export default function ArtworkInfo() {
     }
   }, [dispatch, artId])
 
-  if (!data) {
-    return <LoadingSpinner />
+  if (!data || error) {
+    return <p>An error occurred</p>
   }
 
   if ('imageLink' in data && 'artistLink' in data) {
@@ -28,8 +28,6 @@ export default function ArtworkInfo() {
     return (
       <>
         <div className="flex flex-col">
-          {loading && <LoadingSpinner />}
-          {error && <p>An error occurred</p>}
           <div className="flex justify-between">
             <h2 className="w-1/2 text-2xl font-extrabold">{art.title}</h2>
             <button className="mt-1 w-1/4 rounded-2xl p-3 outline hover:bg-my-gold hover:text-white">
@@ -54,7 +52,6 @@ export default function ArtworkInfo() {
       <>
         <div>
           {loading && <LoadingSpinner />}
-          {error && <p>An error occurred</p>}
           <div className="flex justify-between">
             <h2 className="w-1/2 text-2xl font-extrabold">{art.title}</h2>
             <button className="mt-1 w-1/4 rounded-2xl p-3 outline hover:bg-my-gold hover:text-white">
