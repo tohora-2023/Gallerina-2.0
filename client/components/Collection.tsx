@@ -1,10 +1,10 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useAppDispatch, useAppSelector } from '../hooks/hooks'
 import { fetchCollections } from '../actions/collections'
 // import Collection from '../../models/collection'
 
 export default function Collection() {
-  const collections = useAppSelector((state) => state.collections)
+  const data = useAppSelector((state) => state.collections)
 
   const dispatch = useAppDispatch()
 
@@ -12,7 +12,7 @@ export default function Collection() {
     dispatch(fetchCollections())
   }, [dispatch])
 
-  console.log(collections.data)
+  console.log(data)
 
   //export default interface Collection {
   //   id?: number
@@ -32,14 +32,15 @@ export default function Collection() {
         )}
         {collections.error && <p>Unfortunately we cannot reach our database</p>}
       </div> */}
-      {/* <ul>
-        {collections.map((element) => (
+      {/* {<ul>
+        {collections.collections.map((element) => (
           <li key={element.id}>
             <span>{element.title}</span>
           </li>
         ))}
       </ul>
     </> */}
+
     </>
   )
 }

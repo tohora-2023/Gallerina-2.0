@@ -61,10 +61,13 @@ export function fetchCollectionsPending(): CollectionAction {
 export function fetchCollectionsFullfilied(
   collections: Collection[]
 ): CollectionAction {
+  console.log(collections)
   return {
     type: FETCH_COLLECTIONS_FULFILLED,
     payload: collections,
+    
   }
+  
 }
 
 export function fetchCollectionsRejected(errMessage: string): CollectionAction {
