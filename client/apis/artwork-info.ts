@@ -1,0 +1,8 @@
+import request from 'superagent'
+
+import { ArtworkApi } from '../../models/external-Artwork'
+
+export async function getArtwork(id: string): Promise<ArtworkApi> {
+  const response = await request.get(`/api/v1/artworks/${id}`)
+  return response.body
+}

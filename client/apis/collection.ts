@@ -1,13 +1,12 @@
 import request from 'superagent'
-//import model
-
 import TCollection from '../../models/collection'
 import { AddCollection } from '../../models/collection'
 
 const rootUrl = '/api/v1'
 
+// gets ALL collections - perhaps refactor as CollectionsByUserId?
 export async function getCollections(): Promise<TCollection[]> {
-  const response = await request.get(rootUrl + '/profile/collections')
+  const response = await request.get(rootUrl + '/profile')
   return response.body
 }
 

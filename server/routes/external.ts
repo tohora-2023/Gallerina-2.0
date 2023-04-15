@@ -2,7 +2,7 @@ import request from 'superagent'
 import express from 'express'
 import { ArtworkApi } from '../../models/external-Artwork'
 import { ArtworkDatabase } from '../../models/artwork'
-import { addArtworkToDB } from '../db/artwork-info'
+import { addArtworksToDB, getArtworkById } from '../db/externalArtwork'
 const router = express.Router()
 
 // generate xapptoken function
@@ -15,7 +15,7 @@ async function generateXappToken() {
     .send({ client_id: clientID, client_secret: clientSecret })
 }
 
-//  GETS api/artworks -- gets X amount of artworks
+//  GETS api/v1/artworks -- gets X amount of artworks for Homepage
 router.get('/artworks', async (req, res) => {
   try {
     const amount = 100
@@ -26,7 +26,7 @@ router.get('/artworks', async (req, res) => {
       .set('Accept', 'application/vnd.artsy-v2+json')
     const artworks = response.body._embedded.artworks
     res.json(artworks)
-    const artworksToInsert: ArtworkDatabase[] = artworks.map(
+    const returnedArtworks: ArtworkDatabase[] = artworks.map(
       (artwork: ArtworkApi) => ({
         id: artwork.id,
         title: artwork.title,
@@ -36,10 +36,59 @@ router.get('/artworks', async (req, res) => {
         imageLink: artwork._links.image.href,
       })
     )
-    await addArtworkToDB(artworksToInsert)
+    // replaces imageLink with ${large}
+    const artworksToInsert = returnedArtworks.map((item) => {
+      return {
+        ...item,
+        imageLink: item.imageLink.replace('{image_version}', 'large'),
+      }
+    })
+    await addArtworksToDB(artworksToInsert)
   } catch (err) {
     console.log(err)
     res.sendStatus(500).json('an error has occurred')
+  }
+})
+
+// gets api/v1/artworks/id -- for Art-Info page (also looks at DB)
+router.get(`/artworks/:id`, async (req, res) => {
+  try {
+    const id = req.params.id
+    const artwork = await getArtworkById(id)
+    // checks if artwork is in database, if not, then retrieves it from the API?
+    if (artwork && artwork.length > 0) {
+      res.json(artwork[0])
+    } else {
+      const xapp = await generateXappToken()
+      const response = await request
+        .get(`https://api.artsy.net/api/artworks/${id}`)
+        .set('X-Xapp-Token', xapp.body.token)
+        .set('Accept', 'application/vnd.artsy-v2+json')
+      const artwork = response.body._embedded
+      res.json(artwork)
+    }
+  } catch (err) {
+    res.sendStatus(500)
+  }
+})
+
+// gets api/v1/search -- for the Search page
+router.get(`/search`, async (req, res) => {
+  try {
+    const search = req.query.search
+    const xapp = await generateXappToken()
+    const response = await request
+      .get(`https://api.artsy.net/api/artworks?term=${search}`)
+      .set('X-Xapp-Token', xapp.body.token)
+      .set('Accept', 'application/vnd.artsy-v2+json')
+    const test = response.text.replace(/\\+/g, '')
+    const str = test.replace(/'/g, '')
+    const body = JSON.parse(str)
+    const artworks = body._embedded.artworks
+    res.json(artworks)
+  } catch (err) {
+    res.sendStatus(500)
+    console.log('an error ocurred')
   }
 })
 

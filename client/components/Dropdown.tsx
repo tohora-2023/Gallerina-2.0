@@ -1,48 +1,47 @@
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 import { useAuth0 } from '@auth0/auth0-react'
 import { Fragment, useEffect, useState } from 'react'
 import { Menu, Transition } from '@headlessui/react'
 import { ChevronDownIcon } from '@heroicons/react/20/solid'
-import { getAllCollectionsApi } from '../apis/artworks'
-import TCollection, { CollectionTitle } from '../../models/collection'
+import HeartIcon from './HeartIcon'
+import {
+  addArtworkToCollectionApi,
+  getAllCollectionsApi,
+} from '../apis/homepage'
+import { CollectionTitle } from '../../models/collection'
 import { useAppDispatch } from '../hooks/hooks'
+import { ArtworkApi } from '../../models/external-Artwork'
 
-function classNames(...classes: []) {
-  return classes.filter(Boolean).join(' ')
+interface ArtworkProps {
+  artwork: ArtworkApi
 }
 
-export default function Example() {
+export default function Dropdown({ artwork }: ArtworkProps) {
   const { user, loginWithRedirect, isAuthenticated } = useAuth0()
   const [collections, setCollections] = useState<CollectionTitle[]>([])
   const { getAccessTokenSilently } = useAuth0()
   const dispatch = useAppDispatch()
 
+  console.log(artwork)
+
   useEffect(() => {
-    const getAccess = async () => {
-      const token = await getAccessTokenSilently()
-      if (user) {
-        dispatch(getAllCollectionsApi(token)) // pass in token
-          .then((collections: TCollection[]) => {
-            setCollections(collections)
-          })
-          .catch((error: Error) => {
-            console.log(error)
-          })
-      }
+    if (user) {
+      getAllCollectionsApi()
+        .then((collections: any) => {
+          setCollections(collections)
+        })
+        .catch((error: string) => {
+          console.log(error)
+        })
     }
-    getAccess().catch(console.error)
-    // useEffect(() => {
-    //   const getAccess = async () => {
-    //     const token = await getAccessTokenSilently()
-    //     dispatch(fetchResults(token))
-    //   }
-    //   getAccess().catch(console.error)
-    // }, [dispatch, getAccessTokenSilently])
-  }, [dispatch, user, setCollections, getAccessTokenSilently])
+  }, [user])
 
   console.log(collections)
+  console.log
 
   function handleHeartClick() {
-    if (!isAuthenticated) {
+    if (isAuthenticated) {
       // heart it will save to collection
       getAccessTokenSilently()
     } else {
@@ -50,20 +49,20 @@ export default function Example() {
     }
   }
 
+  function handleSaveToCollection(collectionId: number, artworkId: number) {
+    dispatch(addArtworkToCollectionApi(collectionId, artworkId))
+  }
+
   return (
-    <Menu as="div" className="relative inline-block text-left">
+    <Menu as="div" className="z-100 relative inline-block">
       <div>
-        <Menu.Button className="mr-5 inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900">
-          <img
-            className="h-5 w-5"
-            src="/heart.png"
-            alt="heart-pin"
-            onClick={handleHeartClick}
-          />
-          <ChevronDownIcon
-            className="-mr-1 h-5 w-5 overflow-visible text-gray-400"
+        <Menu.Button className="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900">
+          {/* <img className="h-5 w-5 hover:bg-my-gold" src="/heart.png" alt="heart-pin" onClick={handleHeartClick} /> */}
+          <HeartIcon onClick={handleHeartClick} />
+          {/* <ChevronDownIcon
+            className="-mr-1 h-5 w-5 text-gray-400"
             aria-hidden="true"
-          />
+          /> */}
         </Menu.Button>
       </div>
 
@@ -76,40 +75,48 @@ export default function Example() {
         leaveFrom="transform opacity-100 scale-100"
         leaveTo="transform opacity-0 scale-95"
       >
-        <Menu.Items className="absolute right-0 z-10 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+        <Menu.Items className="absolute z-10 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
           <div className="py-1">
             <Menu.Item>
               {({ active }) => (
                 <a
                   href="/profile/collection"
-                  className={classNames(
-                    active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-                    'block px-4 py-2 text-sm'
-                  )}
+                  className={`${
+                    active ? 'bg-gray-100 text-gray-900' : 'text-gray-700'
+                  }
+                    'block px-4 py-2 text-sm`}
                 >
-                  New Collection
+                  Create a New Curation
                 </a>
               )}
             </Menu.Item>
           </div>
           <div className="py-1">
-            {collections.map((collection) => {
-              return (
-                <Menu.Item key={collection.id}>
-                  {({ active }) => (
-                    <a
-                      href="/" // fix this.
-                      className={classNames(
-                        active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-                        'block px-4 py-2 text-sm'
-                      )}
-                    >
-                      {collection.title}
-                    </a>
-                  )}
-                </Menu.Item>
-              )
-            })}
+            <ul>
+              {collections.map((collection) => {
+                return (
+                  <Menu.Item key={collection.id}>
+                    {({ active }) => (
+                      <li
+                        key={collection.id}
+                        className={`${
+                          active ? 'bg-gray-100 text-gray-900' : 'text-gray-700'
+                        }
+                        'block px-4 py-2 text-sm`}
+                      >
+                        <button
+                          onClick={() =>
+                            handleSaveToCollection(collection.id, artwork.id)
+                          }
+                        >
+                          <p>{collection.title}</p>
+                        </button>
+                      </li>
+                    )}
+                  </Menu.Item>
+                )
+              })}
+            </ul>
           </div>
         </Menu.Items>
       </Transition>

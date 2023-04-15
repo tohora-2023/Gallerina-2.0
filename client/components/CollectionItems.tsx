@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import { useAppDispatch, useAppSelector } from '../hooks/hooks'
-import { fetchCollectionItems } from '../actions/collection-items'
+import { getCollectionItems } from '../actions/collection-items'
 import { useParams } from 'react-router-dom'
 import ArtItem from './ArtItem'
 import CollectionItem from '../../models/CollectionItems'
@@ -16,20 +16,29 @@ export default function CollectionItems() {
   const params = useParams()
   const id = Number(params.id)
 
+  const collectionDetail: CollectionItem | undefined = collectionItems?.find(
+    (art) => art.collectionId === id
+  )
+
+  console.log(collectionDetail)
+
   useEffect(() => {
-    dispatch(fetchCollectionItems(id))
+    dispatch(getCollectionItems(id))
   }, [dispatch, id])
   return (
     <>
-      {/* <h3>{collectionItems.collectionTitle}</h3> */}
-      <h3>Here is the collection page</h3>
-      <div>
-        {loading && <p>Please wait while we load your collections</p>}
-        {error && <p>Unfortunately we cannot reach our database</p>}
-        <div>
-          {collectionItems?.map((art: CollectionItem) => (
-            <ArtItem key={art.collectionId} {...art} />
-          ))}
+      <div className="h-full w-full">
+        <h1 className="p-3 text-3xl font-extrabold">
+          {collectionDetail?.collectionTitle}
+        </h1>
+        <div className="pt-3">
+          {loading && <p>Please wait while we load your curation</p>}
+          {error && <p>Unfortunately we cannot reach our database</p>}
+          <div className="flex flex-wrap">
+            {collectionItems?.map((art: CollectionItem) => (
+              <ArtItem key={art.collectionId} {...art} />
+            ))}
+          </div>
         </div>
       </div>
     </>
