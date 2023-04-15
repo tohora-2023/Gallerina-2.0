@@ -14,7 +14,6 @@ export default function Search() {
   }
 
   function handleSubmit(event: FormEvent) {
-    // prevent the default behaviour to make an HTTP request
     event.preventDefault()
     setIsLoading(true)
     getArtworksFromSearch(search)
@@ -25,6 +24,7 @@ export default function Search() {
       })
       .catch((err: Error) => {
         setError(true)
+        setIsLoading(false)
       })
   }
 
@@ -41,13 +41,16 @@ export default function Search() {
       </form>
       {error && <p>An error occurred</p>}
       {loading && <LoadingSpinner />}
+
       <div className="flex flex-wrap">
         {artworks?.map((art) => {
           return (
             <div key={art.id}>
-              <h3>{art.title}</h3>
+              <h3>
+                {art.title}, {art.date}
+              </h3>
               <img
-                className="m-3 h-80 w-80"
+                className="m-3"
                 src={art._links.image.href.replace('{image_version}', 'large')}
                 alt={art.slug}
               />
