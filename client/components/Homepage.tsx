@@ -19,7 +19,7 @@ export default function Home() {
     <div>
       {error && <p>{error}</p>}
       {loading && <LoadingSpinner />}
-      <div className="flex flex-row flex-wrap">
+      <div className="flex flex-row flex-wrap justify-evenly">
         {data?.map((artwork: ArtworkApi) => {
           return (
             <div className="max-h-lg max-w-md" key={artwork.id}>

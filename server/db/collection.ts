@@ -39,3 +39,15 @@ export function getArtCollectionById(collectionId: number, db = connection) {
       'artworks.imageLink as artImageLink'
     )
 }
+
+// delete a collection item by ID
+export async function deleteCollectionItemById(
+  collectionId: number,
+  artId: string,
+  db = connection
+) {
+  await db('collections_artworks')
+    .where({ artwork_id: artId, collection_id: collectionId })
+    .del()
+  return getArtCollectionById(collectionId)
+}

@@ -6,7 +6,6 @@ export const FETCH_ARTWORKS_PENDING = 'FETCH_ARTWORKS_PENDING'
 export const FETCH_ARTWORKS_FULFILLED = 'FETCH_ARTWORKS_FULFILLED'
 export const FETCH_ARTWORKS_REJECTED = 'FETCH_ARTWORKS_REJECTED'
 
-
 export type ArtAction =
   | { type: typeof FETCH_ARTWORKS_PENDING; payload: void }
   | { type: typeof FETCH_ARTWORKS_FULFILLED; payload: ArtworkApi }

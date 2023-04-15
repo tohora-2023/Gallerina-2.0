@@ -10,7 +10,7 @@ module.exports = {
   },
   plugins: [],
   variants: {
-    extend: {},
+    extend: { display: ['group-hover'] },
   },
   utilities: {
     '.custom-link': {
