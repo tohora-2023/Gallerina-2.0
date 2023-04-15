@@ -35,7 +35,7 @@ export default function Navbar() {
           <img
             src="./logo4.png"
             alt="gallerina logo"
-            className="mr-10 h-auto w-12"
+            className="mr-10 h-auto w-12 scale-150 transform"
           />
         </Link>
       </div>
@@ -56,7 +56,7 @@ export default function Navbar() {
                 activeButton === 'home'
                   ? 'bg-my-gold'
                   : 'bg-white hover:bg-my-gold'
-              } shadow-xs transform px-3 py-0.5 font-bold tracking-wide text-black transition duration-200 hover:-translate-y-1 hover:shadow-2xl active:translate-y-0 active:shadow-xl lg:mt-0 lg:inline-block `}
+              } shadow-xs mr-1 transform px-3 py-0.5 font-bold tracking-wide text-black transition duration-200 hover:-translate-y-1 hover:shadow-2xl active:translate-y-0 active:shadow-xl lg:mt-0 lg:inline-block `}
               onClick={() => setActiveButton('home')}
             >
               Home

@@ -27,21 +27,22 @@ export default function Profile() {
   console.log(user)
 
   return (
-    <><div>
-    <div className="flex h-full items-center justify-end">
-      <button className="shadow-xs absolute left-0 ml-20 transform cursor-pointer rounded-full border border-black bg-white px-2 py-0.5 font-bold tracking-wide text-black transition duration-200 hover:-translate-y-1 hover:bg-my-gold hover:shadow-2xl active:translate-y-0 active:shadow-xl">
-        Create a curation
-      </button>
+    <>
+      <div>
+        <div className="flex h-full items-center justify-end">
+          <button className="shadow-xs absolute left-0 ml-20 transform cursor-pointer rounded-full border border-black bg-white px-2 py-0.5 font-bold tracking-wide text-black transition duration-200 hover:-translate-y-1 hover:bg-my-gold hover:shadow-2xl active:translate-y-0 active:shadow-xl">
+            Create a curation
+          </button>
 
-      <h1 className="text-xl">{user.given_name}'s Curations</h1>
-      <div className="">
-        <img
-          className="h-30 border-black-200 border-5 ml-10 w-auto rounded-full object-cover object-center"
-          src={user.picture}
-          alt="User"
-        />
-      </div>
-      {/* <div>
+          <h1 className="text-xl">{user.given_name}'s Curations</h1>
+          <div className="">
+            <img
+              className="h-30 border-black-200 border-5 ml-10 w-auto rounded-full object-cover object-center"
+              src={user.picture}
+              alt="User"
+            />
+          </div>
+          {/* <div>
         <div className="flex h-full items-center justify-end">
           <h1 className="text-xl">{`${user?.given_name}'s Curation`}</h1>
           <div className="">
@@ -60,12 +61,12 @@ export default function Profile() {
           <div className="flex items-center">Create a curation</div> */}
         </div>
         <div>
-        {loading && <p>Please wait while we load your collections</p>}
-        {error && <p>Unfortunately we cannot reach our database</p>}
-        {/* <h3>The Collections for {user?.given_name} will go here</h3> */}
-        {collections?.map((collection: TCollection) => (
-          <Collection key={collection.id} {...collection} />
-        ))}
+          {loading && <p>Please wait while we load your collections</p>}
+          {error && <p>Unfortunately we cannot reach our database</p>}
+          {/* <h3>The Collections for {user?.given_name} will go here</h3> */}
+          {collections?.map((collection: TCollection) => (
+            <Collection key={collection.id} {...collection} />
+          ))}
         </div>
       </div>
     </>
