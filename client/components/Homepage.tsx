@@ -1,5 +1,4 @@
 import { useEffect } from 'react'
-
 import { useAppDispatch, useAppSelector } from '../hooks/hooks'
 import { fetchArtworkImage } from '../actions/homepage'
 import { ArtworkApi } from '../../models/external-Artwork'
@@ -18,18 +17,19 @@ export default function Home() {
     <div>
       {error && <p>{error}</p>}
       {loading && <LoadingSpinner />}
-
+      <div className="flex flex-row flex-wrap">
       {data?.map((artwork: ArtworkApi) => {
         return (
-          <div key={artwork.id}>
-            <div>
-              <img src={artwork._links?.thumbnail?.href} alt={artwork.slug} />
+          <div key={artwork.id} className="max-h-lg max-w-md">
+            <div className="basis-1/4 p-2">
+              <img className="max-h-md max-w-md" src={artwork._links?.thumbnail?.href} alt={artwork.slug} />
               <div>{artwork.title}</div>
               <Dropdown />
             </div>
           </div>
         )
       })}
+      </div>
     </div>
   )
 }

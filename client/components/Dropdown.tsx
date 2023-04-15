@@ -12,6 +12,8 @@ export default function Example() {
   const [collections, setCollections] = useState<CollectionTitle[]>([])
   const { getAccessTokenSilently } = useAuth0()
   const dispatch = useAppDispatch()
+  console.log(user)
+ 
 
   useEffect(() => {
     const getAccess = async () => {
@@ -45,7 +47,7 @@ export default function Example() {
     <Menu as="div" className="relative inline-block text-left">
       <div>
         <Menu.Button className="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900">
-          <img src="/heart.png" alt="heart-pin" onClick={handleHeartClick} />
+          <img className="h-5 w-5" src="/heart.png" alt="heart-pin" onClick={handleHeartClick} />
           <ChevronDownIcon
             className="-mr-1 h-5 w-5 text-gray-400"
             aria-hidden="true"
