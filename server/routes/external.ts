@@ -56,11 +56,10 @@ router.get(`/artworks/:id`, async (req, res) => {
   try {
     const id = req.params.id
     const artwork = await getArtworkById(id)
+    // checks if artwork is in database, if not, then retrieves it from the API
     if (artwork && artwork.length > 0) {
       res.json(artwork[0])
-      console.log('artwork:', artwork)
     } else {
-      console.log('if getting hit')
       const xapp = await generateXappToken()
       const response = await request
         .get(`https://api.artsy.net/api/artworks/${id}`)

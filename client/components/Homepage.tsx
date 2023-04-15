@@ -5,6 +5,7 @@ import { fetchArtworkImage } from '../actions/artworks'
 import { ArtworkApi } from '../../models/external-Artwork'
 import LoadingSpinner from './LoadingSpinner'
 import Dropdown from './Dropdown'
+import { Link } from 'react-router-dom'
 
 export default function Home() {
   const { loading, data, error } = useAppSelector((state) => state.artworkState)
@@ -29,7 +30,7 @@ export default function Home() {
                   src={artwork._links?.thumbnail?.href}
                   alt={artwork.slug}
                 />
-                <div>{artwork.title}</div>
+                <Link to={`/artworks/${artwork.id}`}>{artwork.title}</Link>
                 <Dropdown />
               </div>
             </div>

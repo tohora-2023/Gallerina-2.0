@@ -2,7 +2,7 @@ import { Routes, Route } from 'react-router-dom'
 
 import Navbar from './Navbar'
 import Home from './Homepage'
-import Artwork from './Artwork-info'
+import ArtworkInfo from './Artwork-info'
 import Profile from './Profile'
 import Collection from './Collection'
 import CollectionItems from './CollectionItems'
@@ -14,7 +14,7 @@ function App() {
       <div className="border-black-200 bg-white-200 mx-20 my-10 min-h-screen rounded-2xl border p-10">
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/artwork" element={<Artwork />} />
+          <Route path="/artworks/:id" element={<ArtworkInfo />} />
           <Route path="/profile" element={<Profile />} />
           <Route
             path="/profile/collections/:id"
