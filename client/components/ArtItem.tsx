@@ -15,7 +15,11 @@ export default function ArtItem(art: Props) {
   return (
     <>
       <div className="group m-3 h-fit w-fit flex-col rounded-md p-2 transition-transform ease-in-out hover:scale-105 hover:bg-my-gold hover:duration-500">
-        <img className="h-80 w-80" src={art.artImageLink} alt={art.artTitle} />
+        <img
+          className="h-80 w-80 font-quicksand"
+          src={art.artImageLink}
+          alt={art.artTitle}
+        />
         <p className="m-0 w-80 pt-1 font-medium group-hover:text-white">
           {art.artTitle}
         </p>

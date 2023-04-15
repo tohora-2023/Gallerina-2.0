@@ -1,8 +1,13 @@
 /** @type {import('tailwindcss').Config} */
+
 module.exports = {
   content: ['./client/**/*.{tsx,css}'],
   theme: {
     extend: {
+      fontFamily: {
+        helvetica: ['Helvetica', 'sans-serif'],
+        quicksand: ['Quicksand', 'sans-serif'],
+      },
       colors: {
         'my-gold': '#A48948', //BDB5A2
       },

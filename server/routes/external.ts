@@ -3,6 +3,7 @@ import express from 'express'
 import { ArtworkApi } from '../../models/external-Artwork'
 import { ArtworkDatabase } from '../../models/artwork'
 import { addArtworkToDB } from '../db/artwork-info'
+import { getArtworkById } from '../db/artworks'
 const router = express.Router()
 
 // generate xapptoken function
@@ -48,6 +49,29 @@ router.get('/artworks', async (req, res) => {
   } catch (err) {
     console.log(err)
     res.sendStatus(500).json('an error has occurred')
+  }
+})
+
+router.get(`/artworks/:id`, async (req, res) => {
+  try {
+    const id = req.params.id
+    const artwork = await getArtworkById(id)
+    if (artwork && artwork.length > 0) {
+      res.json(artwork[0])
+      console.log('artwork:', artwork)
+    } else {
+      console.log('if getting hit')
+      const xapp = await generateXappToken()
+      const response = await request
+        .get(`https://api.artsy.net/api/artworks/${id}`)
+        .set('X-Xapp-Token', xapp.body.token)
+        .set('Accept', 'application/vnd.artsy-v2+json')
+      const artwork = response.body
+      res.json(artwork)
+    }
+  } catch (err) {
+    console.log(err)
+    res.sendStatus(500)
   }
 })
 

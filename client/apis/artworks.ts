@@ -8,6 +8,11 @@ export async function getAllArtworks(): Promise<ArtworkApi> {
   return response.body
 }
 
+export async function getArtwork(id: string): Promise<ArtworkApi> {
+  const response = await request.get(`/api/v1/artworks/${id}`)
+  return response.body
+}
+
 export async function getAllCollectionsApi(
   token: string
 ): Promise<TCollection[]> {
