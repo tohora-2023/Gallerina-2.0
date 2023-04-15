@@ -5,6 +5,14 @@ export function getCollections(db = connection) {
   return db('collections').select()
 }
 
+export function getCollectionsById(id: number, db = connection) {
+  return db("collections").join("users", "users.id", "collections.user_id")
+  .where('collections.id', id )
+}
+// collections = { id, title, cover_img, user_id}
+// users = { id, username, auth0id } 
+// { id, title, cover_img, user_id, id, username, auth0id }
+
 // finds user by auth0id
 export async function getUserByAuth(auth: string, db = connection) {
   return db('users').where({ auth0id: auth }).first()

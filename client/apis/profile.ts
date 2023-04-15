@@ -20,3 +20,7 @@ export async function getCollectionsByUserId(
 export async function addCollection(newCollection: AddCollection) {
   await request.post(rootUrl + '/newcollection').send(newCollection)
 }
+
+export async function collectionDelete(id: number, token: string): Promise<request.Response> {
+  return request.delete(rootUrl + `/profile/${id}`).set('Authorization', `Bearer ${token}`)
+}
