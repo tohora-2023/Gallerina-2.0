@@ -5,36 +5,37 @@ import { Fragment, useEffect, useState } from 'react'
 import { Menu, Transition } from '@headlessui/react'
 import { ChevronDownIcon } from '@heroicons/react/20/solid'
 import HeartIcon from './HeartIcon'
-import { addArtworkToCollectionApi, getAllCollectionsApi } from '../apis/homepage'
+import {
+  addArtworkToCollectionApi,
+  getAllCollectionsApi,
+} from '../apis/homepage'
 import { CollectionTitle } from '../../models/collection'
 import { useAppDispatch } from '../hooks/hooks'
 import { ArtworkApi } from '../../models/external-Artwork'
-
 
 interface ArtworkProps {
   artwork: ArtworkApi
 }
 
-export default function Dropdown({artwork}: ArtworkProps) {
+export default function Dropdown({ artwork }: ArtworkProps) {
   const { user, loginWithRedirect, isAuthenticated } = useAuth0()
   const [collections, setCollections] = useState<CollectionTitle[]>([])
   const { getAccessTokenSilently } = useAuth0()
   const dispatch = useAppDispatch()
- 
+
   console.log(artwork)
 
   useEffect(() => {
-
-      if (user) {
-        getAllCollectionsApi()
-          .then((collections: any) => {
-            setCollections(collections)
-          })
-          .catch((error: string) => {
-            console.log(error)
-          })
-      }
-    }, [user])
+    if (user) {
+      getAllCollectionsApi()
+        .then((collections: any) => {
+          setCollections(collections)
+        })
+        .catch((error: string) => {
+          console.log(error)
+        })
+    }
+  }, [user])
 
   console.log(collections)
   console.log
@@ -53,11 +54,11 @@ export default function Dropdown({artwork}: ArtworkProps) {
   }
 
   return (
-    <Menu as="div" className="relative inline-block z-100">
+    <Menu as="div" className="z-100 relative inline-block">
       <div>
         <Menu.Button className="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900">
           {/* <img className="h-5 w-5 hover:bg-my-gold" src="/heart.png" alt="heart-pin" onClick={handleHeartClick} /> */}
-          <HeartIcon onClick={handleHeartClick}/>
+          <HeartIcon onClick={handleHeartClick} />
           {/* <ChevronDownIcon
             className="-mr-1 h-5 w-5 text-gray-400"
             aria-hidden="true"
@@ -92,24 +93,29 @@ export default function Dropdown({artwork}: ArtworkProps) {
           </div>
           <div className="py-1">
             <ul>
-            {collections.map((collection) => {
-              return (
-                <Menu.Item key={collection.id}>
-                  {({ active }) => (
-                    <li key={collection.id}
-                      className={`${
-                        active ? 'bg-gray-100 text-gray-900' : 'text-gray-700'
-                      }
+              {collections.map((collection) => {
+                return (
+                  <Menu.Item key={collection.id}>
+                    {({ active }) => (
+                      <li
+                        key={collection.id}
+                        className={`${
+                          active ? 'bg-gray-100 text-gray-900' : 'text-gray-700'
+                        }
                         'block px-4 py-2 text-sm`}
-                    > 
-                    <button onClick={() => handleSaveToCollection(collection.id, artwork.id)}>
-                      <p>{collection.title}</p>
-                    </button> 
-                    </li>
-                  )}
-                </Menu.Item>
-              )
-            })}
+                      >
+                        <button
+                          onClick={() =>
+                            handleSaveToCollection(collection.id, artwork.id)
+                          }
+                        >
+                          <p>{collection.title}</p>
+                        </button>
+                      </li>
+                    )}
+                  </Menu.Item>
+                )
+              })}
             </ul>
           </div>
         </Menu.Items>

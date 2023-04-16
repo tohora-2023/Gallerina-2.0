@@ -1,10 +1,9 @@
 import request from 'superagent'
 import { ArtworkCollection } from '../../models/collection-artwork'
-
-import { ArtworksApi } from '../../models/external-Artwork'
+import { ArtworkApi } from '../../models/external-Artwork'
 import TCollection from '../../models/collection'
 
-export async function getAllArtworks(): Promise<ArtworksApi> {
+export async function getAllArtworks(): Promise<ArtworkApi> {
   const response = await request.get('/api/v1/artworks')
   return response.body
 }
@@ -14,7 +13,12 @@ export async function getAllCollectionsApi(): Promise<TCollection[]> {
   return response.body
 }
 
-export async function addArtworkToCollectionApi(collectionId: number, artworkId: number) {
-  const response = await request.post('/api/v1/home/user/collections').send(collectionId, artworkId)
+export async function addArtworkToCollectionApi(
+  collectionId: number,
+  artworkId: number
+) {
+  const response = await request
+    .post('/api/v1/home/user/collections')
+    .send(collectionId, artworkId)
   return response.body
 }
