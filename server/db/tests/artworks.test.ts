@@ -1,5 +1,5 @@
 import connection from '../connection'
-import { getAllArt } from '../artworks'
+import { getAllArt } from '../homepage'
 
 beforeAll(() => {
   return connection.migrate.latest()
@@ -14,12 +14,11 @@ afterAll(() => {
 })
 
 describe('getAllBooks all artworks', () => {
-    it('returns all artworks', async () => {
-      expect.assertions(1)
+  it('returns all artworks', async () => {
+    expect.assertions(1)
 
-      const artworks = await getAllArt()
-      
-      expect(artworks).toHaveLength(4)
-        
-    })
+    const artworks = await getAllArt()
+
+    expect(artworks).toHaveLength(4)
+  })
 })
