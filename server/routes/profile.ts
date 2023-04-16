@@ -10,7 +10,8 @@ import {
 const router = express.Router()
 export default router
 
-// needs to replace this fn call in profile with the fn below
+// gets all collections in DB
+// needs to replace this fn call (in profile) with the fn below
 router.get('/', async (req, res) => {
   try {
     const collections = await getCollections()
@@ -33,7 +34,7 @@ router.get('/:id', async (req, res) => {
   }
 })
 
-// ADD collection
+// create an empty collection
 router.post('/', async (req, res) => {
   try {
     const newCollection: TCollection = req.body
