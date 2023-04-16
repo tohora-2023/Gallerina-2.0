@@ -3,7 +3,6 @@
 import { useAuth0 } from '@auth0/auth0-react'
 import { Fragment, useEffect, useState } from 'react'
 import { Menu, Transition } from '@headlessui/react'
-import { ChevronDownIcon } from '@heroicons/react/20/solid'
 import HeartIcon from './HeartIcon'
 import {
   addArtworkToCollectionApi,
