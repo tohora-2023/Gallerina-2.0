@@ -1,9 +1,10 @@
+import { ChevronDownIcon } from '@heroicons/react/20/solid'
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 import { useAuth0 } from '@auth0/auth0-react'
 import { Fragment, useEffect, useState } from 'react'
 import { Menu, Transition } from '@headlessui/react'
-import HeartIcon2 from './HeartIcon'
+import HeartIcon from './HeartIcon'
 import {
   addArtworkToCollectionApi,
   getAllCollectionsApi,
@@ -11,12 +12,13 @@ import {
 import { CollectionTitle } from '../../models/collection'
 import { useAppDispatch } from '../hooks/hooks'
 import { ArtworkApi } from '../../models/external-Artwork'
-import { PlusCircleIcon } from "@heroicons/react/24/outline"
-import { HeartIcon } from "@heroicons/react/24/outline"
-
 
 interface ArtworkProps {
   artwork: ArtworkApi
+}
+
+function classNames(...classes: []) {
+  return classes.filter(Boolean).join(' ')
 }
 
 export default function Dropdown({ artwork }: ArtworkProps) {
@@ -58,13 +60,8 @@ export default function Dropdown({ artwork }: ArtworkProps) {
   return (
     <Menu as="div" className="z-100 relative inline-block">
       <div>
-        <Menu.Button className="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900">
-          {/* <img className="h-5 w-5 hover:bg-my-gold" src="/heart.png" alt="heart-pin" onClick={handleHeartClick} /> */}
-          <HeartIcon2 onClick={handleHeartClick} />
-          {/* <ChevronDownIcon
-            className="-mr-1 h-5 w-5 text-gray-400"
-            aria-hidden="true"
-          /> */}
+        <Menu.Button className="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1  ring-gray-300 hover:bg-gray-50">
+          <HeartIcon onClick={handleHeartClick} />
         </Menu.Button>
       </div>
 
@@ -77,23 +74,21 @@ export default function Dropdown({ artwork }: ArtworkProps) {
         leaveFrom="transform opacity-100 scale-100"
         leaveTo="transform opacity-0 scale-95"
       >
-        <Menu.Items className="absolute right-0 z-10 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-          <div className="py-1 px-1">
+        <Menu.Items className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+          <div className="py-1">
             <Menu.Item>
               {({ active }) => (
                 <a
                   href="/"
-                  className={`${
-                    active ? 'bg-my-gold text-gray-900' : 'text-gray-700'
-                  }
-                   group flex w-full items-center rounded-md px-2 py-2 text-sm`}
+                  className={`${active ? 'bg-my-gold text-gray-900' : 'text-gray-700'}
+                    block px-4 py-2 text-sm`}
                 >
-                  <PlusCircleIcon className="mr-2 h-5 w-5 text-gray-900" aria-hidden="true"/>Create a New Curation
+                  Create a New Curation
                 </a>
               )}
             </Menu.Item>
           </div>
-          <div className="py-1 px-1">
+          <div className="py-1">
             <ul>
               {collections.map((collection) => {
                 return (
@@ -102,17 +97,17 @@ export default function Dropdown({ artwork }: ArtworkProps) {
                       <li
                         key={collection.id}
                         className={`${
-                          active ? 'bg-my-gold px-2 text-gray-900' : 'text-gray-700'
+                          active ? 'bg-my-gold text-gray-900' : 'text-gray-700'
                         }
-                        group flex w-full items-center rounded-md px-2 py-2 text-sm`}
+                        block px-4 py-2 text-sm`}
                       >
-                        {/* <button
+                        <button
                           onClick={() =>
                             handleSaveToCollection(collection.id, artwork.id)
                           }
-                        > */}
-                          <HeartIcon className="mr-2 h-5 w-5 text-gray-900" aria-hidden="true"/>{collection.title}
-                        {/* </button> */}
+                        >
+                          <p>{collection.title}</p>
+                        </button>
                       </li>
                     )}
                   </Menu.Item>
