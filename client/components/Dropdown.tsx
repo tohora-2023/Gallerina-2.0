@@ -8,7 +8,7 @@ import {
   addArtworkToCollectionApi,
   getAllCollectionsApi,
 } from '../apis/homepage'
-import { CollectionTitle } from '../../models/collection'
+import { CollectionTitle } from '../../models/profile'
 import { useAppDispatch } from '../hooks/hooks'
 import { ArtworkApi } from '../../models/external-Artwork'
 import { PlusCircleIcon } from "@heroicons/react/24/outline"

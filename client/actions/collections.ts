@@ -1,7 +1,7 @@
 import type { ThunkAction } from '../store'
-import TCollection from '../../models/collection'
-import { AddCollection } from '../../models/collection'
-import { getCollections, addCollection } from '../apis/collection'
+import TCollection from '../../models/profile'
+import ProfileCollection, { AddCollection } from '../../models/profile'
+import { getCollectionsByUserId, addCollection } from '../apis/profile'
 
 // FETCH Collections
 export const FETCH_COLLECTIONS_PENDING = 'FETCH_COLLECTIONS_PENDING'
@@ -31,7 +31,7 @@ export type CollectionAction =
     }
   | {
       type: typeof FETCH_COLLECTIONS_FULFILLED
-      payload: TCollection[]
+      payload: ProfileCollection[]
     }
   | {
       type: typeof FETCH_COLLECTIONS_REJECTED
@@ -59,7 +59,7 @@ export function fetchCollectionsPending(): CollectionAction {
 }
 
 export function fetchCollectionsFullfilied(
-  collections: TCollection[]
+  collections: ProfileCollection[]
 ): CollectionAction {
   return {
     type: FETCH_COLLECTIONS_FULFILLED,
@@ -74,10 +74,10 @@ export function fetchCollectionsRejected(errMessage: string): CollectionAction {
   }
 }
 
-export function fetchCollections(): ThunkAction {
+export function fetchCollections(userId: number, token: string): ThunkAction {
   return (dispatch) => {
     dispatch(fetchCollectionsPending())
-    return getCollections()
+    return getCollectionsByUserId(userId, token)
       .then((collections) => {
         dispatch(fetchCollectionsFullfilied(collections))
       })

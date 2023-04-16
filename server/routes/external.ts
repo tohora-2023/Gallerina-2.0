@@ -26,6 +26,7 @@ router.get('/artworks', async (req, res) => {
       .set('Accept', 'application/vnd.artsy-v2+json')
     const artworks = response.body._embedded.artworks
     res.json(artworks)
+
     const returnedArtworks: ArtworkDatabase[] = artworks.map(
       (artwork: ArtworkApi) => ({
         id: artwork.id,
