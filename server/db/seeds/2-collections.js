@@ -19,7 +19,7 @@ exports.seed = async (knex) => {
       user_id: 3,
       title: 'My Louvre',
       cover_img:
-        'https://d32dm0rphc51dk.cloudfront.net/IG8ZLvVmZgQiTn2zK0Bp8w/medium.jp ',
+        'https://d32dm0rphc51dk.cloudfront.net/IG8ZLvVmZgQiTn2zK0Bp8w/medium.jpg',
     },
     {
       id: 4,

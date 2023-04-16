@@ -17,12 +17,12 @@ export default function Home() {
     <div>
       {error && <p>{error}</p>}
       {loading && <LoadingSpinner />}
-      <div className="columns-4 2xl:columns-5 space-y-12 gap-x-12">
+      <div className="columns-4 gap-x-12 space-y-12 2xl:columns-5">
         {data?.map((artwork: ArtworkApi) => {
           return (
             <div key={artwork.id} className="">
-              <div className="relative break-inside-avoid-column "> 
-              {/* transition duration-1000 transform hover:scale-110 z-10 hover:z-20 */}
+              <div className="relative break-inside-avoid-column ">
+                {/* transition duration-1000 transform hover:scale-110 z-10 hover:z-20 */}
                 <img
                   className="h-auto w-full rounded-md"
                   src={artwork._links?.thumbnail?.href}

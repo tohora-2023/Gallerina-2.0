@@ -1,16 +1,17 @@
 import connection from './connection'
 import AddCollection from '../../models/collection'
 
-// profile
 export function getCollections(db = connection) {
   return db('collections').select()
 }
 
+// Deletes a collection
 export async function deleteCollection(id: number, db = connection) {
   await db('collections').where({ id }).del()
   return getCollections()
 }
 
+// Creates a new collection
 export async function addCollection(
   newCollection: AddCollection,
   db = connection
@@ -18,12 +19,6 @@ export async function addCollection(
   await db('collections').insert(newCollection)
   return getCollections()
 }
-
-//collection-list
-// export function getCollectionById(id: number, db = connection) {
-//   // NEED TO JOIN COLLECTIONS TABLE W ARTWORKS TABLE - MANY TO MANY
-//   return db('collections').where({ id: id }).select()
-// }
 
 // GET A COLLECTION AND ARTWORKS BY ID
 export function getArtCollectionById(collectionId: number, db = connection) {
@@ -43,4 +38,16 @@ export function getArtCollectionById(collectionId: number, db = connection) {
       'artworks.title as artTitle',
       'artworks.imageLink as artImageLink'
     )
+}
+
+// delete a collection item by ID
+export async function deleteCollectionItemById(
+  collectionId: number,
+  artId: string,
+  db = connection
+) {
+  await db('collections_artworks')
+    .where({ artwork_id: artId, collection_id: collectionId })
+    .del()
+  return getArtCollectionById(collectionId)
 }

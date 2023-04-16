@@ -26,7 +26,7 @@ router.get('/artworks', async (req, res) => {
       .set('Accept', 'application/vnd.artsy-v2+json')
     const artworks = response.body._embedded.artworks
     res.json(artworks)
-    const artworksToInsert: ArtworkDatabase[] = artworks.map(
+    const returnedArtworks: ArtworkDatabase[] = artworks.map(
       (artwork: ArtworkApi) => ({
         id: artwork.id,
         title: artwork.title,
@@ -36,6 +36,14 @@ router.get('/artworks', async (req, res) => {
         imageLink: artwork._links.image.href,
       })
     )
+    // replaces imageLink with ${large}
+    const artworksToInsert = returnedArtworks.map((item) => {
+      return {
+        ...item,
+        imageLink: item.imageLink.replace('{image_version}', 'large'),
+      }
+    })
+
     await addArtworkToDB(artworksToInsert)
   } catch (err) {
     console.log(err)
