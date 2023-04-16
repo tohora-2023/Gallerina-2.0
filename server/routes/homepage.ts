@@ -1,16 +1,14 @@
 import express from 'express'
 import { getCollectionsByUserId, addArtworkToCollection } from '../db/homepage'
-import { ArtworkCollection } from '../../models/collection-artwork'
-// import checkJwt from '../auth0'
-// import { JwtRequest } from '../auth0'
+import checkJwt from '../auth0'
+import { JwtRequest } from '../auth0'
 
 const router = express.Router()
 
 // GETS user collections for dropdown in homepage
-router.get('/user/collections', async (req, res) => {
+router.get('/user/collections', checkJwt, async (req: JwtRequest, res) => {
   try {
-    const auth0Id = 'bsd24gyg55w56dd7a' // refactor so that it checks user's auth0id
-
+    const auth0Id = req.auth?.sub
     if (!auth0Id) {
       console.error('No auth0Id')
       return res.status(401).send('Unauthorized')

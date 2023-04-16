@@ -1,6 +1,5 @@
 import type { ThunkAction } from '../store'
 import CollectionItems from '../../models/CollectionItems'
-import { AddCollectionItem } from '../../models/CollectionItems'
 import {
   getAllCollectionItems,
   deleteCollectionItem,

@@ -8,7 +8,7 @@ export const FETCH_ARTWORKS_REJECTED = 'FETCH_ARTWORKS_REJECTED'
 
 export type ArtAction =
   | { type: typeof FETCH_ARTWORKS_PENDING; payload: void }
-  | { type: typeof FETCH_ARTWORKS_FULFILLED; payload: ArtworkApi }
+  | { type: typeof FETCH_ARTWORKS_FULFILLED; payload: ArtworkApi[] }
   | { type: typeof FETCH_ARTWORKS_REJECTED; payload: string }
 
 export function fetchArtworksPending(): ArtAction {
@@ -17,7 +17,7 @@ export function fetchArtworksPending(): ArtAction {
   } as ArtAction
 }
 
-export function fetchArtworksFulfilled(artworks: ArtworkApi): ArtAction {
+export function fetchArtworksFulfilled(artworks: ArtworkApi[]): ArtAction {
   return {
     type: FETCH_ARTWORKS_FULFILLED,
     payload: artworks,
