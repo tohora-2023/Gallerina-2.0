@@ -40,6 +40,8 @@ router.delete('/:id/:artId', async (req, res) => {
   try {
     const id = Number(req.params.id)
     const artId = req.params.artId
+    console.log('collection id', id)
+    console.log('artId', artId)
     const collection = await deleteCollectionItemById(id, artId)
     res.json(collection)
   } catch (err) {

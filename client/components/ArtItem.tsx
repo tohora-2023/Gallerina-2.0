@@ -10,7 +10,7 @@ export default function ArtItem(art: Props) {
   function handleDelete() {
     dispatch(deleteItem(Collectionid, art.artworkId))
   }
-
+  console.log(art.artworkId)
   console.log(art.artImageLink)
   return (
     <>

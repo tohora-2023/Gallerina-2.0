@@ -15,7 +15,7 @@ export async function deleteCollectionItem(
   artId: string
 ): Promise<CollectionItems[]> {
   const response = await request.delete(
-    rootUrl + `/profile/collections/${collectionId}/${artId}`
+    rootUrl + `/collections/${collectionId}/${artId}`
   )
   return response.body
 }
