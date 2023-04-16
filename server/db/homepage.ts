@@ -1,12 +1,9 @@
 import connection from './connection'
 import { ArtworkCollection } from '../../models/collection-artwork'
 
+// gets artworks saved from external api
 export function getAllArt(db = connection) {
   return db('artworks')
-}
-
-export function getCollections(db = connection) {
-  return db('collections').select()
 }
 
 export function getCollectionsByUserId(auth0Id: string, db = connection) {
@@ -18,17 +15,8 @@ export function getCollectionsByUserId(auth0Id: string, db = connection) {
 
 export function addArtworkToCollection(
   collection_id: number,
-  artwork_id: number,
+  artwork_id: string,
   db = connection
 ) {
-  //artworkId: number, collectionId: number,
   return db('collections_artworks').insert({ collection_id, artwork_id })
 }
-
-// export function addToCollection(artwork: ArtworkDatabase, collectionId: number, db = connection) {
-//   return db('collection').insert(artwork).where(id: collectionId)
-// }
-
-// export function addArtworkToDB(artwork: ArtworkDatabase[], db = connection) {
-//   return db('artworks').insert(artwork).onConflict('id').ignore()
-// }
