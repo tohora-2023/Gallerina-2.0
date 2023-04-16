@@ -33,7 +33,6 @@ router.get('/:id', async (req, res) => {
   }
 })
 
-// ADD collection
 router.post('/', async (req, res) => {
   try {
     const newCollection: TCollection = req.body

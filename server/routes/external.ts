@@ -2,8 +2,7 @@ import request from 'superagent'
 import express from 'express'
 import { ArtworkApi } from '../../models/external-Artwork'
 import { ArtworkDatabase } from '../../models/artwork'
-import { addArtworkToDB } from '../db/artwork-info'
-import { getArtworkById } from '../db/homepage'
+import { addArtworkToDB, getArtworkById } from '../db/artwork-info'
 const router = express.Router()
 
 // generate xapptoken function
@@ -16,7 +15,7 @@ async function generateXappToken() {
     .send({ client_id: clientID, client_secret: clientSecret })
 }
 
-//  GETS api/artworks -- gets X amount of artworks
+//  GETS api/v1/artworks -- gets X amount of artworks for Homepage
 router.get('/artworks', async (req, res) => {
   try {
     const amount = 100
@@ -52,7 +51,7 @@ router.get('/artworks', async (req, res) => {
   }
 })
 
-// gets api/v1/artworks/id
+// gets api/v1/artworks/id -- for Art-Info page
 router.get(`artworks/:id`, async (req, res) => {
   try {
     console.log('id')
@@ -75,7 +74,7 @@ router.get(`artworks/:id`, async (req, res) => {
   }
 })
 
-// gets api/v1/search
+// gets api/v1/search -- for the Search page
 router.get(`/search`, async (req, res) => {
   try {
     const search = req.query.search
