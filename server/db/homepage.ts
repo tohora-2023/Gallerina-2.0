@@ -5,12 +5,19 @@ export function getAllArt(db = connection) {
   return db('artworks')
 }
 
+export function getArtworkById(id: string, db = connection) {
+  return db('artworks').where({ id: id })
+}
+
 export function getCollections(db = connection) {
   return db('collections').select()
 }
 
 export function getCollectionsByUserId(auth0Id: string, db = connection) {
-  return db('collections').join('users', 'collections.user_id', 'users.id').where('auth0id', auth0Id).select('collections.title', 'collections.id')
+  return db('collections')
+    .join('users', 'collections.user_id', 'users.id')
+    .where('auth0id', auth0Id)
+    .select('collections.title', 'collections.id')
 }
 
 export function addArtworkToCollection(collection_id: number, artwork_id: number, db = connection) { //artworkId: number, collectionId: number,

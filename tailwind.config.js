@@ -5,6 +5,8 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
+        'helvetica': ['Helvetica', 'sans-serif'],
+        'quicksand': ['Quicksand', 'sans-serif'],
         'garamond': ['Garamond']
       },
       colors: {
