@@ -16,5 +16,10 @@ exports.seed = async (knex) => {
       auth0id: 'google-oauth2|104589919171674569148',
     },
     { id: 4, username: 'rhap', auth0id: 'google-oauth2|112183669155211890686' },
+    {
+      id: 5,
+      username: 'samuela',
+      auth0id: 'google-oauth2|101799526145136227734',
+    },
   ])
 }
