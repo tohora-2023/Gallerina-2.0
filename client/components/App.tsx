@@ -18,10 +18,7 @@ function App() {
           <Route path="/search" element={<Search />} />
           <Route path="/artworks/:id" element={<ArtworkInfo />} />
           <Route path="/profile" element={<Profile />} />
-          <Route
-            path="/profile/collections/:id"
-            element={<CollectionItems />}
-          />
+          <Route path="/collections/:id" element={<CollectionItems />} />
           <Route path="/*" element={<></>} />
         </Routes>
       </div>

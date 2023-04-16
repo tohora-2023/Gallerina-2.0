@@ -6,7 +6,7 @@ const rootUrl = '/api/v1'
 export async function getAllCollectionItems(
   id: number
 ): Promise<CollectionItems[]> {
-  const response = await request.get(rootUrl + `/profile/collections/${id}`)
+  const response = await request.get(rootUrl + `/collections/${id}`)
   return response.body
 }
 

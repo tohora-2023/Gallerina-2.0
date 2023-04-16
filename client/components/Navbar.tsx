@@ -76,7 +76,7 @@ export default function Navbar() {
           </Link>
 
           {isAuthenticated && (
-            <Link to="/profile">
+            <Link to={`/profile`}>
               <button
                 className={` mt-4  mr-1 ml-1 block cursor-pointer rounded-full border border-black ${
                   activeButton === 'profile'

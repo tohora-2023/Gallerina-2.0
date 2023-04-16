@@ -11,7 +11,7 @@ const server = express()
 server.use(express.json())
 server.use(express.static(join(__dirname, 'public')))
 server.use('/api/v1/profile/', profile)
-server.use('/api/v1/profile/collections/', collectionItems)
+server.use('/api/v1/collections/', collectionItems)
 server.use('/api/v1/home', home)
 server.use('/api/v1/', external)
 

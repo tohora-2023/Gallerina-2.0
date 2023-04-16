@@ -1,8 +1,28 @@
 import connection from './connection'
-import AddCollection from '../../models/collection'
+import AddCollection from '../../models/profile'
 
 export function getCollections(db = connection) {
   return db('collections').select()
+}
+
+// finds user by auth0id
+export async function getUserByAuth(auth: string, db = connection) {
+  return db('users').where({ auth0id: auth }).first()
+}
+
+// gets user profile info
+export async function getUserInfoAndCollections(user: number, db = connection) {
+  return db('users')
+    .join('collections', 'users.id', 'collections.user_id')
+    .where('users.id', user)
+    .select(
+      'collections.id as collectionId',
+      'collections.cover_img as collectionCoverImg',
+      'collections.user_id as userId',
+      'collections.title',
+      'users.username',
+      'users.auth0id'
+    )
 }
 
 // Deletes a collection

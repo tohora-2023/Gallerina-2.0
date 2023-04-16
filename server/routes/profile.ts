@@ -1,39 +1,36 @@
 import express from 'express'
-import TCollection from '../../models/collection'
+import TCollection, { TUser } from '../../models/profile'
 
 import {
   addCollection,
   deleteCollection,
   getArtCollectionById,
   getCollections,
+  getUserByAuth,
+  getUserInfoAndCollections,
 } from '../db/collection'
+import checkJwt, { JwtRequest } from '../auth0'
 const router = express.Router()
 export default router
 
-// gets all collections in DB
-// needs to replace this fn call (in profile) with the fn below
-router.get('/', async (req, res) => {
+// GET api/v1/profile  -- AKA profile information
+router.get('/', checkJwt, async (req: JwtRequest, res) => {
   try {
-    const collections = await getCollections()
-    res.json(collections)
+    const auth0Id = req.auth?.sub
+    if (!auth0Id) {
+      console.error('No auth0Id')
+      return res.status(401).send('Unauthorized')
+    }
+    const user: TUser = await getUserByAuth(auth0Id)
+    const profile = await getUserInfoAndCollections(user.id)
+    res.json(profile)
   } catch (err) {
     console.log(err)
     res.sendStatus(500)
   }
 })
 
-// GET collection/:id
-router.get('/:id', async (req, res) => {
-  try {
-    const id = Number(req.params.id)
-    const collection = await getArtCollectionById(id)
-    res.json(collection)
-  } catch (err) {
-    console.log(err)
-    res.sendStatus(500)
-  }
-})
-
+// api/v1/profile
 // create an empty collection
 router.post('/', async (req, res) => {
   try {
@@ -46,8 +43,8 @@ router.post('/', async (req, res) => {
   }
 })
 
-// DELETE collection/:id
-router.delete('/:id', async (req, res) => {
+// DELETE profile/collection/:id
+router.delete('collection/:id', async (req, res) => {
   try {
     const id = Number(req.params.id)
     const collection = await deleteCollection(id)
