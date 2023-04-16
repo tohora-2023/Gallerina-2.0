@@ -2,8 +2,7 @@ import request from 'superagent'
 import express from 'express'
 import { ArtworkApi } from '../../models/external-Artwork'
 import { ArtworkDatabase } from '../../models/artwork'
-import { addArtworkToDB } from '../db/artwork-info'
-import { getArtworkById } from '../db/homepage'
+import { addArtworksToDB, getArtworkById } from '../db/externalArtwork'
 const router = express.Router()
 
 // generate xapptoken function
@@ -16,7 +15,7 @@ async function generateXappToken() {
     .send({ client_id: clientID, client_secret: clientSecret })
 }
 
-//  GETS api/artworks -- gets X amount of artworks
+//  GETS api/v1/artworks -- gets X amount of artworks for Homepage
 router.get('/artworks', async (req, res) => {
   try {
     const amount = 100
@@ -44,18 +43,16 @@ router.get('/artworks', async (req, res) => {
         imageLink: item.imageLink.replace('{image_version}', 'large'),
       }
     })
-
-    await addArtworkToDB(artworksToInsert)
+    await addArtworksToDB(artworksToInsert)
   } catch (err) {
     console.log(err)
     res.sendStatus(500).json('an error has occurred')
   }
 })
 
-// gets api/v1/artworks/id
-router.get(`artworks/:id`, async (req, res) => {
+// gets api/v1/artworks/id -- for Art-Info page (also looks at DB)
+router.get(`/artworks/:id`, async (req, res) => {
   try {
-    console.log('id')
     const id = req.params.id
     const artwork = await getArtworkById(id)
     // checks if artwork is in database, if not, then retrieves it from the API?
@@ -75,7 +72,7 @@ router.get(`artworks/:id`, async (req, res) => {
   }
 })
 
-// gets api/v1/search
+// gets api/v1/search -- for the Search page
 router.get(`/search`, async (req, res) => {
   try {
     const search = req.query.search

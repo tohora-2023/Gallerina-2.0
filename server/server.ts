@@ -14,7 +14,6 @@ server.use('/api/v1/profile/', profile)
 server.use('/api/v1/profile/collections/', collectionItems)
 server.use('/api/v1/home', home)
 server.use('/api/v1/', external)
-// server.use('/api', external)
 
 server.get('*', (req, res) => {
   res.sendFile(join(__dirname, 'public', 'index.html'))
