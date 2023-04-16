@@ -1,5 +1,5 @@
 export default interface Collection {
-  id?: number
+  id?: number 
   title: string
   coverImg: string
   userId: number
