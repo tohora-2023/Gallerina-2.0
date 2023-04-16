@@ -28,5 +28,12 @@ exports.seed = async (knex) => {
       cover_img:
         'https://d32dm0rphc51dk.cloudfront.net/5L1xjKC_und1uiKCpUPHhw/medium.jpg',
     },
+    {
+      id: 5,
+      user_id: 1,
+      title: 'To Buy',
+      cover_img:
+        'https://d32dm0rphc51dk.cloudfront.net/5L1xjKC_und1uiKCpUPHhw/medium.jpg',
+    }
   ])
 }
