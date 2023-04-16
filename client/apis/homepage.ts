@@ -14,7 +14,12 @@ export async function getAllCollectionsApi(): Promise<TCollection[]> {
   return response.body
 }
 
-export async function addArtworkToCollectionApi(collectionId: number, artworkId: number) {
-  const response = await request.post('/api/v1/home/user/collections').send(collectionId, artworkId)
+export async function addArtworkToCollectionApi(
+  collectionId: number,
+  artworkId: number
+) {
+  const response = await request
+    .post('/api/v1/home/user/collections')
+    .send(collectionId, artworkId)
   return response.body
 }
