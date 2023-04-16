@@ -34,9 +34,9 @@ export default function Navbar() {
       <div>
         <Link to="/">
           <img
-            src="./logo3.png"
+            src="./logo4.png"
             alt="gallerina logo"
-            className="mr-10 h-12 w-auto"
+            className="mr-10 h-auto w-12"
           />
         </Link>
       </div>

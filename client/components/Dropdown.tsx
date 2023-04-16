@@ -4,6 +4,7 @@ import { useAuth0 } from '@auth0/auth0-react'
 import { Fragment, useEffect, useState } from 'react'
 import { Menu, Transition } from '@headlessui/react'
 import { ChevronDownIcon } from '@heroicons/react/20/solid'
+import HeartIcon from './HeartIcon'
 import { addArtworkToCollectionApi, getAllCollectionsApi } from '../apis/homepage'
 import { CollectionTitle } from '../../models/collection'
 import { useAppDispatch } from '../hooks/hooks'
@@ -52,14 +53,15 @@ export default function Dropdown({artwork}: ArtworkProps) {
   }
 
   return (
-    <Menu as="div" className="relative inline-block text-left">
+    <Menu as="div" className="relative inline-block z-100">
       <div>
         <Menu.Button className="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900">
-          <img className="h-5 w-5" src="/heart.png" alt="heart-pin" onClick={handleHeartClick} />
-          <ChevronDownIcon
+          {/* <img className="h-5 w-5 hover:bg-my-gold" src="/heart.png" alt="heart-pin" onClick={handleHeartClick} /> */}
+          <HeartIcon onClick={handleHeartClick}/>
+          {/* <ChevronDownIcon
             className="-mr-1 h-5 w-5 text-gray-400"
             aria-hidden="true"
-          />
+          /> */}
         </Menu.Button>
       </div>
 
@@ -72,7 +74,7 @@ export default function Dropdown({artwork}: ArtworkProps) {
         leaveFrom="transform opacity-100 scale-100"
         leaveTo="transform opacity-0 scale-95"
       >
-        <Menu.Items className="absolute right-0 z-10 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+        <Menu.Items className="absolute z-10 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
           <div className="py-1">
             <Menu.Item>
               {({ active }) => (
@@ -83,7 +85,7 @@ export default function Dropdown({artwork}: ArtworkProps) {
                   }
                     'block px-4 py-2 text-sm`}
                 >
-                  New Collection
+                  Create a New Curation
                 </a>
               )}
             </Menu.Item>
@@ -101,7 +103,7 @@ export default function Dropdown({artwork}: ArtworkProps) {
                         'block px-4 py-2 text-sm`}
                     > 
                     <button onClick={() => handleSaveToCollection(collection.id, artwork.id)}>
-                      {collection.title}
+                      <p>{collection.title}</p>
                     </button> 
                     </li>
                   )}

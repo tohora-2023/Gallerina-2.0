@@ -17,18 +17,30 @@ export default function Home() {
     <div>
       {error && <p>{error}</p>}
       {loading && <LoadingSpinner />}
-      <div className="flex flex-row flex-wrap">
-      {data?.map((artwork: ArtworkApi) => {
-        return (
-          <div key={artwork.id} className="max-h-lg max-w-md">
-            <div className="basis-1/4 p-2">
-              <img className="max-h-md max-w-md" src={artwork._links?.thumbnail?.href} alt={artwork.slug} />
-              <div>{artwork.title}</div>
-              <Dropdown />
+      <div className="columns-4 2xl:columns-5 space-y-12 gap-x-12">
+        {data?.map((artwork: ArtworkApi) => {
+          return (
+            <div key={artwork.id} className="">
+              <div className="relative break-inside-avoid-column "> 
+              {/* transition duration-1000 transform hover:scale-110 z-10 hover:z-20 */}
+                <img
+                  className="h-auto w-full rounded-md"
+                  src={artwork._links?.thumbnail?.href}
+                  alt={artwork.slug}
+                />
+                {/* <div className='columns-2'> */}
+
+                <div className="text-center font-garamond text-sm font-bold text-black">
+                  {/* <div className="z-50"> */}
+                  <Dropdown />
+                  {/* </div> */}
+                  {artwork.title}
+                </div>
+                {/* </div> */}
+              </div>
             </div>
-          </div>
-        )
-      })}
+          )
+        })}
       </div>
     </div>
   )
