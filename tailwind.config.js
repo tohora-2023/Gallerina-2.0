@@ -1,8 +1,12 @@
 /** @type {import('tailwindcss').Config} */
+
 module.exports = {
   content: ['./client/**/*.{tsx,css}'],
   theme: {
     extend: {
+      fontFamily: {
+        'garamond': ['Garamond']
+      },
       colors: {
         'my-gold': '#A48948', //BDB5A2
       },
@@ -10,7 +14,7 @@ module.exports = {
   },
   plugins: [],
   variants: {
-    extend: {},
+    extend: { display: ['group-hover'] },
   },
   utilities: {
     '.custom-link': {

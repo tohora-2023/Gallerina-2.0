@@ -11,7 +11,7 @@ function App() {
   return (
     <>
       <Navbar />
-      <div className="border-black-200 bg-white-200 mt-20 mr-10 ml-10 mb-20 min-h-screen rounded-2xl border pl-10 pr-10 pt-10 pb-10">
+      <div className="border-black-200 bg-white-200 m-20 min-h-screen rounded-2xl border p-10">
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/artwork" element={<Artwork />} />
