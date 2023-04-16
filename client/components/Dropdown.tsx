@@ -3,8 +3,7 @@
 import { useAuth0 } from '@auth0/auth0-react'
 import { Fragment, useEffect, useState } from 'react'
 import { Menu, Transition } from '@headlessui/react'
-import { ChevronDownIcon } from '@heroicons/react/20/solid'
-import HeartIcon from './HeartIcon'
+import HeartIcon2 from './HeartIcon'
 import {
   addArtworkToCollectionApi,
   getAllCollectionsApi,
@@ -12,6 +11,9 @@ import {
 import { CollectionTitle } from '../../models/profile'
 import { useAppDispatch } from '../hooks/hooks'
 import { ArtworkApi } from '../../models/external-Artwork'
+import { PlusCircleIcon } from "@heroicons/react/24/outline"
+import { HeartIcon } from "@heroicons/react/24/outline"
+
 
 interface ArtworkProps {
   artwork: ArtworkApi
@@ -58,7 +60,7 @@ export default function Dropdown({ artwork }: ArtworkProps) {
       <div>
         <Menu.Button className="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900">
           {/* <img className="h-5 w-5 hover:bg-my-gold" src="/heart.png" alt="heart-pin" onClick={handleHeartClick} /> */}
-          <HeartIcon onClick={handleHeartClick} />
+          <HeartIcon2 onClick={handleHeartClick} />
           {/* <ChevronDownIcon
             className="-mr-1 h-5 w-5 text-gray-400"
             aria-hidden="true"
@@ -75,42 +77,42 @@ export default function Dropdown({ artwork }: ArtworkProps) {
         leaveFrom="transform opacity-100 scale-100"
         leaveTo="transform opacity-0 scale-95"
       >
-        <Menu.Items className="absolute z-10 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-          <div className="py-1">
+        <Menu.Items className="absolute right-0 z-10 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+          <div className="py-1 px-1">
             <Menu.Item>
               {({ active }) => (
                 <a
-                  href="/profile/collection"
+                  href='/'
                   className={`${
-                    active ? 'bg-gray-100 text-gray-900' : 'text-gray-700'
+                    active ? 'bg-my-gold text-gray-900' : 'text-gray-700'
                   }
-                    'block px-4 py-2 text-sm`}
+                   group flex w-full items-center rounded-md px-2 py-2 text-sm`}
                 >
-                  Create a New Curation
+                  <PlusCircleIcon className="mr-2 h-5 w-5 text-gray-900" aria-hidden="true"/>Create a New Curation
                 </a>
               )}
             </Menu.Item>
           </div>
-          <div className="py-1">
+          <div className="py-1 px-1">
             <ul>
               {collections.map((collection) => {
                 return (
-                  <Menu.Item key={collection.id}>
+                  <Menu.Item key={collection.id} >
                     {({ active }) => (
                       <li
                         key={collection.id}
                         className={`${
-                          active ? 'bg-gray-100 text-gray-900' : 'text-gray-700'
+                          active ? 'bg-my-gold px-2 text-gray-900' : 'text-gray-700'
                         }
-                        'block px-4 py-2 text-sm`}
+                        group flex w-full items-center rounded-md px-2 py-2 text-sm`}
                       >
-                        <button
+                        {/* <button
                           onClick={() =>
                             handleSaveToCollection(collection.id, artwork.id)
                           }
-                        >
-                          <p>{collection.title}</p>
-                        </button>
+                        > */}
+                          <HeartIcon className="mr-2 h-5 w-5 text-gray-900" aria-hidden="true"/>{collection.title}
+                        {/* </button> */}
                       </li>
                     )}
                   </Menu.Item>

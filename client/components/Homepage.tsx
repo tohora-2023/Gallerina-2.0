@@ -23,10 +23,10 @@ export default function Home() {
         {data?.map((artwork: ArtworkApi) => {
           return (
             <div key={artwork.id} className="">
-              <div className="relative break-inside-avoid-column ">
+              <div className="relative break-inside-avoid-column">
                 {/* transition duration-1000 transform hover:scale-110 z-10 hover:z-20 */}
                 <img
-                  className="h-auto w-full rounded-md"
+                  className="h-auto w-full rounded-md opacity-100 hover:opacity-80"
                   src={artwork._links?.thumbnail?.href}
                   alt={artwork.slug}
                 />

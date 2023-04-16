@@ -11,6 +11,7 @@ module.exports = {
       },
       colors: {
         'my-gold': '#A48948', //BDB5A2
+        'my-pale-gold': '#bdb5a2'
       },
     },
   },
