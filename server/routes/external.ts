@@ -3,7 +3,7 @@ import express from 'express'
 import { ArtworkApi } from '../../models/external-Artwork'
 import { ArtworkDatabase } from '../../models/artwork'
 import { addArtworkToDB } from '../db/artwork-info'
-import { getArtworkById } from '../db/artworks'
+import { getArtworkById } from '../db/homepage'
 const router = express.Router()
 
 // generate xapptoken function
