@@ -14,6 +14,7 @@ export default function Home() {
     dispatch(fetchArtworkImage())
   }, [dispatch])
 
+ 
   return (
     <div>
       {error && <p>{error}</p>}
@@ -29,17 +30,11 @@ export default function Home() {
                   src={artwork._links?.thumbnail?.href}
                   alt={artwork.slug}
                 />
-                <Link to={`/artworks/${artwork.id}`}>{artwork.title}</Link>
-            
-                {/* <div className='columns-2'> */}
-
                 <div className="text-center font-garamond text-sm font-bold text-black">
-                  {/* <div className="z-50"> */}
                   <Dropdown />
-                  {/* </div> */}
-                  {artwork.title}
+                  <Link to={`/artworks/${artwork.id}`}>{artwork.title}</Link>
                 </div>
-                {/* </div> */}
+               
               </div>
             </div>
           )

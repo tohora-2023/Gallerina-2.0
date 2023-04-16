@@ -1,10 +1,10 @@
 import request from 'superagent'
 import { ArtworkCollection } from '../../models/collection-artwork'
 
-import { ArtworkApi } from '../../models/external-Artwork'
+import { ArtworksApi } from '../../models/external-Artwork'
 import TCollection from '../../models/collection'
 
-export async function getAllArtworks(): Promise<ArtworkApi> {
+export async function getAllArtworks(): Promise<ArtworksApi> {
   const response = await request.get('/api/v1/artworks')
   return response.body
 }

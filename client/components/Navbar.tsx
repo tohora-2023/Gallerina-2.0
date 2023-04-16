@@ -113,3 +113,4 @@ export default function Navbar() {
     </nav>
   )
 }
+ p-6 object-cover{/*  */}
