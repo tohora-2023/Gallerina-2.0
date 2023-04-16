@@ -7,6 +7,7 @@ import Profile from './Profile'
 import Collection from './Collection'
 import CollectionItems from './CollectionItems'
 import Search from './Search'
+import Dialog from './Dialog'
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
             path="/profile/collections/:id"
             element={<CollectionItems />}
           />
+          <Route path="/dialog" element={<Dialog/>} />
           <Route path="/*" element={<></>} />
         </Routes>
       </div>

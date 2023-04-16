@@ -82,7 +82,7 @@ export default function Dropdown({ artwork }: ArtworkProps) {
             <Menu.Item>
               {({ active }) => (
                 <a
-                  href="/"
+                  href='/'
                   className={`${
                     active ? 'bg-my-gold text-gray-900' : 'text-gray-700'
                   }
@@ -97,7 +97,7 @@ export default function Dropdown({ artwork }: ArtworkProps) {
             <ul>
               {collections.map((collection) => {
                 return (
-                  <Menu.Item key={collection.id}>
+                  <Menu.Item key={collection.id} >
                     {({ active }) => (
                       <li
                         key={collection.id}
