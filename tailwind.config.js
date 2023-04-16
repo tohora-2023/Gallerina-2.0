@@ -5,8 +5,9 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        helvetica: ['Helvetica', 'sans-serif'],
-        quicksand: ['Quicksand', 'sans-serif'],
+        'helvetica': ['Helvetica', 'sans-serif'],
+        'quicksand': ['Quicksand', 'sans-serif'],
+        'garamond': ['Garamond']
       },
       colors: {
         'my-gold': '#A48948', //BDB5A2

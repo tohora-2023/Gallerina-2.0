@@ -5,7 +5,7 @@ import {
   FETCH_ARTWORKS_PENDING,
   FETCH_ARTWORKS_FULFILLED,
   FETCH_ARTWORKS_REJECTED,
-} from '../actions/artworks'
+} from '../actions/homepage'
 
 interface ArtworkState {
   data: ArtworkApi | undefined
@@ -19,7 +19,10 @@ const initialState: ArtworkState = {
   loading: false,
 }
 
-const artworkReducer = (state = initialState, action: ArtAction): ArtworkState => {
+const artworkReducer = (
+  state = initialState,
+  action: ArtAction
+): ArtworkState => {
   const { type, payload } = action
 
   switch (type) {
