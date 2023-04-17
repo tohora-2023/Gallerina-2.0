@@ -1,5 +1,6 @@
 import connection from './connection'
 import AddCollection from '../../models/profile'
+import ProfileCollection from '../../models/profile'
 
 export function getCollections(db = connection) {
   return db('collections').select()
@@ -37,6 +38,10 @@ export async function getUserInfoAndCollections(user: number, db = connection) {
 export async function deleteCollection(id: number, db = connection) {
   await db('collections').where({ id }).del()
   return getCollections()
+}
+
+export async function updateCollection(id: number, Colection: ProfileCollection, db = connection) {
+  await db("collections").where({id}).update({})
 }
 
 // Creates a new collection

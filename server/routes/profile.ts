@@ -1,11 +1,12 @@
 import express from 'express'
 import TCollection, { TUser } from '../../models/profile'
-
+import ProfileCollection from '../../models/profile'
 import {
   addCollection,
   deleteCollection,
   getArtCollectionById,
   getCollections,
+  updateCollection,
   getUserByAuth,
   getUserInfoAndCollections,
   getCollectionsById,
@@ -80,6 +81,32 @@ router.delete('/:CollectionId', checkJwt, async (req: JwtRequest, res) => {
     }
     // const collections = await deleteCollection(collectionId.)
     // res.json()
+  } catch (err) {
+    console.log(err)
+    res.sendStatus(500)
+  }
+})
+
+router.put('/:CollectionId', checkJwt, async (req: JwtRequest, res) => {
+  try {
+    const auth0Id = req.auth?.sub
+
+    if (!auth0Id) {
+      console.error('No auth0Id')
+      return res.status(401).send('Unauthorized')
+    }
+    const collectionId = Number(req.params.CollectionId)
+
+    const userCollection = await getCollectionsById(collectionId)
+    console.log(userCollection)
+
+    if (userCollection[0].auth0id === auth0Id) {
+      await updateCollection(collectionId, req.body as ProfileCollection)
+
+      res.sendStatus(200)
+    } else {
+      return res.status(401).send('Unauthorized')
+    }
   } catch (err) {
     console.log(err)
     res.sendStatus(500)
