@@ -24,6 +24,8 @@ const collectionsReducer = (
   action: CollectionAction
 ): CollectionsState => {
   const { type, payload } = action
+
+  // add DELETE_COLLECTION_PENDING, DELETE_COLLECTION_FULFILLED, DELETE_COLLECTION_REJECTED
   switch (type) {
     case FETCH_COLLECTIONS_PENDING:
       return {

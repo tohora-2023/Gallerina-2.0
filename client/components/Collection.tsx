@@ -8,6 +8,15 @@ type Props = ProfileCollection
 export default function Collection(profile: Props) {
   const { getAccessTokenSilently, isAuthenticated, loginWithRedirect, user } =
     useAuth0()
+
+    const dispatch = useAppDispatch()
+
+const handleDeleteClick = () => {
+  dispatch(deleteCollection(profile.collectionId))
+}
+
+
+
   return (
     <>
       <div className="flex justify-center p-1">
@@ -20,6 +29,8 @@ export default function Collection(profile: Props) {
             src={profile.collectionCoverImg}
             alt={`cover for ${profile.title}`}
           />
+          <button onClick={handleDeleteClick}>Delete</button>
+          <button>Update Name</button>
         </div>
       </div>
     </>
