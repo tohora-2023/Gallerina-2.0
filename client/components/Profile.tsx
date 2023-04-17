@@ -6,8 +6,7 @@ import { fetchCollections } from '../actions/collections'
 import { useAuth0 } from '@auth0/auth0-react'
 import { KeyboardEvent } from 'react'
 import Collection from './Collection'
-import TCollection from '../../models/profile'
-import ProfileCollection from '../../models/profile'
+import { TCollection, ProfileCollection } from '../../models/profile'
 
 export default function Profile() {
   const { getAccessTokenSilently, isAuthenticated, loginWithRedirect, user } =
@@ -37,7 +36,7 @@ export default function Profile() {
           </button>
 
           <h1 className="text-xl">{`${user?.given_name}'s Curations`}</h1>
-          {/* <h2 className="text-lg">User: {myProfile?.username}</h2> */}
+          {/* <h2 className="text-lg">User: {}</h2> */}
           <div className="">
             <img
               className="h-30 border-black-200 border-5 ml-10 w-auto rounded-full object-cover object-center"

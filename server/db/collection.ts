@@ -1,5 +1,6 @@
 import connection from './connection'
-import AddCollection from '../../models/profile'
+import { AddCollection } from '../../models/profile'
+import { AddNote } from '../../models/CollectionItems'
 
 export function getCollections(db = connection) {
   return db('collections').select()
@@ -48,8 +49,11 @@ export async function addCollection(
   return getCollections()
 }
 
-// GET A COLLECTION AND ARTWORKS BY ID
-export function getArtCollectionById(collectionId: number, db = connection) {
+// GET A COLLECTION AND ARTWORKS BY ID + notes?
+export function getArtCollectionAndNotesById(
+  collectionId: number,
+  db = connection
+) {
   return db('collections')
     .join(
       'collections_artworks',
@@ -58,13 +62,24 @@ export function getArtCollectionById(collectionId: number, db = connection) {
     )
     .join('artworks', 'artworks.id', 'collections_artworks.artwork_id')
     .where('collection_id', collectionId)
+    .leftOuterJoin('notes', function () {
+      this.on('artworks.id', '=', 'notes.artId').andOn(
+        'collections.id',
+        '=',
+        'notes.collectionId'
+      )
+    })
     .select(
       'artwork_id as artworkId',
       'collection_id as collectionId',
       'collections.user_id as collectionOwnerId',
       'collections.title as collectionTitle',
       'artworks.title as artTitle',
-      'artworks.imageLink as artImageLink'
+      'artworks.imageLink as artImageLink',
+      'notes.noteName as noteName',
+      'notes.note as note',
+      'notes.dateCreated as noteDateCreated',
+      'notes.id as noteId'
     )
 }
 
@@ -77,5 +92,34 @@ export async function deleteCollectionItemById(
   await db('collections_artworks')
     .where({ artwork_id: artId, collection_id: collectionId })
     .del()
-  return getArtCollectionById(collectionId)
+  return getArtCollectionAndNotesById(collectionId)
+}
+
+export async function getNotesFromCollection(
+  collectionId: number,
+  db = connection
+) {
+  return db('notes').where({ collectionId })
+}
+
+// add a note to collection item
+export async function addNote(
+  collectionId: number,
+  addNote: AddNote,
+  artId: string,
+  db = connection
+) {
+  const note = {
+    ...addNote,
+    artId,
+    collectionId,
+    dateCreated: new Date(Date.now()),
+  }
+  await db('notes').insert(note)
+  return db('notes').where({ collectionId })
+}
+
+// delete a note from collection item
+export async function deleteNote(noteId: number, db = connection) {
+  await db('notes').where({ id: noteId }).delete()
 }

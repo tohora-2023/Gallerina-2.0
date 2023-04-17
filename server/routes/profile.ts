@@ -1,10 +1,10 @@
 import express from 'express'
-import TCollection, { TUser } from '../../models/profile'
+import { TCollection, TUser } from '../../models/profile'
 
 import {
   addCollection,
   deleteCollection,
-  getArtCollectionById,
+  getArtCollectionAndNotesById,
   getCollections,
   getUserByAuth,
   getUserInfoAndCollections,

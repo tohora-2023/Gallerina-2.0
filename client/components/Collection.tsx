@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import { useAppDispatch, useAppSelector } from '../hooks/hooks'
 import { Link } from 'react-router-dom'
-import ProfileCollection from '../../models/profile'
+import { ProfileCollection } from '../../models/profile'
 import { useAuth0 } from '@auth0/auth0-react'
 
 type Props = ProfileCollection
