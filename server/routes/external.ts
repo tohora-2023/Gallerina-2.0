@@ -1,7 +1,7 @@
 import request from 'superagent'
 import express from 'express'
-import { ArtworkApi } from '../../models/external-Artwork'
-import { ArtworkDatabase } from '../../models/artwork'
+import { ArtworkApi } from '../../models/externalArtwork'
+import { ArtworkDatabase, ArtworkSnakeCaseDatabase } from '../../models/artwork'
 import { addArtworksToDB, getArtworkById } from '../db/externalArtwork'
 const router = express.Router()
 
@@ -27,24 +27,32 @@ router.get('/artworks', async (req, res) => {
     const artworks = response.body._embedded.artworks
     res.json(artworks)
 
+    // for CamelCase implementation on front-end
     const returnedArtworks: ArtworkDatabase[] = artworks.map(
       (artwork: ArtworkApi) => ({
         id: artwork.id,
         title: artwork.title,
-        artist_link: artwork._links.artists.href,
+        artistLink: artwork._links.artists.href,
         medium: artwork.medium,
         date: artwork.date,
-        image_link: artwork._links.image.href,
+        imageLink: artwork._links.image.href,
       })
     )
-    // replaces imageLink with ${large}
-    const artworksToInsert = returnedArtworks.map((item) => {
+
+    // replaces imageLink with ${large} + converts to snake
+    const artworksSnake = returnedArtworks.map((item) => {
       return {
-        ...item,
-        imageLink: item.imageLink.replace('{image_version}', 'large'),
+        id: item.id,
+        title: item.title,
+        medium: item.medium,
+        date: item.date,
+        image_link: item.imageLink.replace('{image_version}', 'large'),
+        artist_link: item.artistLink
       }
     })
-    await addArtworksToDB(artworksToInsert)
+ 
+  
+    await addArtworksToDB(artworksSnake)
   } catch (err) {
     console.log(err)
     res.sendStatus(500).json('an error has occurred')
@@ -55,9 +63,11 @@ router.get('/artworks', async (req, res) => {
 router.get('/artworks/:id', async (req, res) => {
   try {
     const id = req.params.id
-    const artwork = await getArtworkById(id)
+    const snakeArtwork = await getArtworkById(id)
     // checks if artwork is in database, if not, then retrieves it from the API
-    if (artwork && artwork.length > 0) {
+    if (snakeArtwork && snakeArtwork.length > 0) {
+      const artwork = snakeArtwork[0] 
+      // CONVERT TO CAMEL CASE TMRW
       res.json(artwork[0])
     } else {
       const xapp = await generateXappToken()

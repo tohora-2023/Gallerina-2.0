@@ -1,9 +1,9 @@
 import { useEffect } from 'react'
 import { useAppDispatch, useAppSelector } from '../hooks/hooks'
-import { getCollectionItems } from '../actions/collection-items'
+import { geCollectionDBItems } from '../actions/collectionItems'
 import { useParams } from 'react-router-dom'
 import ArtItem from './ArtItem'
-import { CollectionItem } from '../../models/CollectionItems'
+import { CollectionItem } from '../../models/collectionContent'
 
 export default function CollectionItems() {
   const {
@@ -21,7 +21,7 @@ export default function CollectionItems() {
   )
 
   useEffect(() => {
-    dispatch(getCollectionItems(id))
+    dispatch(geCollectionDBItems(id))
   }, [dispatch, id])
   return (
     <>

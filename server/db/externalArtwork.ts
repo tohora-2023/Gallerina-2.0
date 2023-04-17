@@ -1,11 +1,11 @@
 import connection from './connection'
-import { ArtworkDatabase } from '../../models/artwork'
+import { ArtworkSnakeCaseDatabase } from '../../models/artwork'
 
 export function getArtworkById(id: string, db = connection) {
   return db('artworks').where({ id: id })
 }
 
 // adds artworks array from api call to DB
-export function addArtworksToDB(artworks: ArtworkDatabase[], db = connection) {
+export function addArtworksToDB(artworks: ArtworkSnakeCaseDatabase[], db = connection) {
   return db('artworks').insert(artworks).onConflict('id').ignore()
 }

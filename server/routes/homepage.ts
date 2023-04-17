@@ -1,5 +1,5 @@
 import express from 'express'
-import { getCollectionsByUserId, addArtworkToCollection, addNewCollection } from '../db/homepage'
+import { geCollectionDBsByUserId, addArtworkToCollection, addNewCollection } from '../db/homepage'
 import checkJwt from '../auth0'
 import { JwtRequest } from '../auth0'
 
@@ -14,7 +14,7 @@ router.get('/user/collections', checkJwt, async (req: JwtRequest, res) => {
       return res.status(401).send('Unauthorized')
     }
 
-    const collections = await getCollectionsByUserId(auth0Id)
+    const collections = await geCollectionDBsByUserId(auth0Id)
     res.json(collections)
   } catch (error) {
     res.status(500).json({

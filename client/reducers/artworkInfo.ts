@@ -1,12 +1,12 @@
 import { ArtworkDatabase } from '../../models/artwork'
-import { ArtworkApi } from '../../models/external-Artwork'
+import { ArtworkApi } from '../../models/externalArtwork'
 
 import {
   ArtAction,
   FETCH_ARTWORK_PENDING,
   FETCH_ARTWORK_FULFILLED,
   FETCH_ARTWORK_REJECTED,
-} from '../actions/artwork-info'
+} from '../actions/artworkInfo'
 
 interface ArtworkState {
   data: ArtworkApi | ArtworkDatabase | undefined

@@ -1,6 +1,6 @@
 import { Link, useParams } from 'react-router-dom'
-import { CollectionItem } from '../../models/CollectionItems'
-import { deleteItem } from '../actions/collection-items'
+import { CollectionItem } from '../../models/collectionContent'
+import { deleteItem } from '../actions/collectionItems'
 import { useAppDispatch } from '../hooks/hooks'
 type Props = CollectionItem
 export default function ArtItem(art: Props) {

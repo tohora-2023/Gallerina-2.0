@@ -1,13 +1,13 @@
 import connection from './connection'
-import { AddNote } from '../../models/CollectionItems'
+import { AddNote } from '../../models/collectionContent'
 
 // gets all collections - regardless of wwho is logged in
-export function getCollections(db = connection) {
+export function geCollectionDBs(db = connection) {
   return db('collections').select()
 }
 
-// GET A COLLECTION, ARTWORKS AND NOTES BY ID 
-export function getArtCollectionAndNotesById(
+// GET A COLLECTION, ARTWORKS AND NOTES BY ID
+export function getArCollectionDBAndNotesById(
   collectionId: number,
   db = connection
 ) {
@@ -23,7 +23,7 @@ export function getArtCollectionAndNotesById(
       this.on('artworks.id', '=', 'notes.art_id').andOn(
         'collections.id',
         '=',
-        'notes.collection_id'  // check this for camel case
+        'notes.collection_id' // check this for camel case
       )
     })
     .select(
@@ -49,7 +49,7 @@ export async function deleteCollectionItemById(
   await db('collections_artworks')
     .where({ artwork_id: artId, collection_id: collectionId })
     .del()
-  return getArtCollectionAndNotesById(collectionId)
+  return getArCollectionDBAndNotesById(collectionId)
 }
 
 export async function getNotesFromCollection(

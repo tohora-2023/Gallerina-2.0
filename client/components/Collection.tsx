@@ -3,6 +3,7 @@ import { useAppDispatch, useAppSelector } from '../hooks/hooks'
 import { Link } from 'react-router-dom'
 import { ProfileCollection } from '../../models/profile'
 import { useAuth0 } from '@auth0/auth0-react'
+import { deleteCollection } from '../actions/collections'
 
 type Props = ProfileCollection
 export default function Collection(profile: Props) {
@@ -11,9 +12,10 @@ export default function Collection(profile: Props) {
 
     const dispatch = useAppDispatch()
 
-const handleDeleteClick = () => {
-  dispatch(deleteCollection(profile.collectionId))
-}
+// ---- WIP --- handle delete collection --> button on line 34
+//   const handleDeleteClick = () => {
+//   dispatch(deleteCollection(profile.collectionId))
+// }
 
 
 
@@ -29,7 +31,7 @@ const handleDeleteClick = () => {
             src={profile.collectionCoverImg}
             alt={`cover for ${profile.title}`}
           />
-          <button onClick={handleDeleteClick}>Delete</button>
+          {/* <button onClick={handleDeleteClick}>Delete</button> */}
           <button>Update Name</button>
         </div>
       </div>
