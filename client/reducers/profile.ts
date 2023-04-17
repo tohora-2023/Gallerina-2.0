@@ -7,7 +7,7 @@ import {
   ADD_COLLECTION_REJECTED,
   DELETE_COLLECTION_PENDING,
   DELETE_COLLECTION_REJECTED,
-  DELETE_COLLECTION_FULFILLED
+  DELETE_COLLECTION_FULFILLED,
 } from '../actions/collections'
 
 interface CollectionsState {
@@ -48,25 +48,23 @@ const collectionsReducer = (
         error: payload,
         loading: false,
       }
-      case DELETE_COLLECTION_FULFILLED: 
+    case DELETE_COLLECTION_FULFILLED:
       return {
-      data: payload,
-error: undefined,
-loading: false,
+        ...state,
+        data: state.data?.filter((collection) => collection.id !== payload),
+        loading: false,
       }
-      case DELETE_COLLECTION_PENDING:
-        return {
-        data: ,
-        error: undefined,
+    case DELETE_COLLECTION_PENDING:
+      return {
+        ...state,
         loading: true,
-
       }
-      case DELETE_COLLECTION_REJECTED:
-        return {
-          data: undefined,
-          error: payload,
-          loading: false
-        }
+    case DELETE_COLLECTION_REJECTED:
+      return {
+        ...state,
+        error: payload,
+        loading: false,
+      }
     default:
       return state
   }
