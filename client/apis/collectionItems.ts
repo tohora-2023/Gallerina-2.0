@@ -1,5 +1,5 @@
 import request from 'superagent'
-import { CollectionItem } from '../../models/CollectionItems'
+import { CollectionItem } from '../../models/collectionContent'
 const rootUrl = '/api/v1'
 
 export async function getAllCollectionItems(

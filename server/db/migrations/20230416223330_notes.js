@@ -5,11 +5,11 @@
 exports.up = function (knex) {
   return knex.schema.createTable('notes', (table) => {
     table.increments('id').primary()
-    table.string('noteName')
+    table.string('note_name')
     table.string('note')
-    table.integer('collectionId')
-    table.datetime('dateCreated', true)
-    table.string('artId')
+    table.integer('collection_id')
+    table.datetime('date_created', true)
+    table.string('art_id')
   })
 }
 

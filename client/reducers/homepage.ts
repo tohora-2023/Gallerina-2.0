@@ -1,4 +1,4 @@
-import { ArtworkApi } from '../../models/external-Artwork'
+import { ArtworkApi } from '../../models/externalArtwork'
 
 import {
   ArtAction,

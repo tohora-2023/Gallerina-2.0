@@ -1,15 +1,9 @@
 import express from 'express'
-import { TCollection, TUser } from '../../models/profile'
+import { User } from '../../models/profile'
+import {CollectionDB} from '../../models/collectionArtwork'
 
-import {
-  addCollection,
-  deleteCollection,
-  getArtCollectionAndNotesById,
-  getCollections,
-  getUserByAuth,
-  getUserInfoAndCollections,
-  getCollectionsById
-} from '../db/collection'
+import {geUserInfoAndCollections, geCollectionDBsById, geUserByAuth, addCollection, deleteCollection} from '../db/profile'
+
 import checkJwt, { JwtRequest } from '../auth0'
 const router = express.Router()
 export default router
@@ -22,8 +16,8 @@ router.get('/', checkJwt, async (req: JwtRequest, res) => {
       console.error('No auth0Id')
       return res.status(401).send('Unauthorized')
     }
-    const user: TUser = await getUserByAuth(auth0Id)
-    const profile = await getUserInfoAndCollections(user.id)
+    const user: User = await geUserByAuth(auth0Id)
+    const profile = await geUserInfoAndCollections(user.id)
     res.json(profile)
   } catch (err) {
     console.log(err)
@@ -35,7 +29,7 @@ router.get('/', checkJwt, async (req: JwtRequest, res) => {
 // create an empty collection
 router.post('/', async (req, res) => {
   try {
-    const newCollection: TCollection = req.body
+    const newCollection: CollectionDB = req.body
     const collection = await addCollection(newCollection)
     res.json(collection)
   } catch (err) {
@@ -67,7 +61,7 @@ router.delete("/:CollectionId", checkJwt, async (req: JwtRequest, res) => {
     }
     const collectionId = Number(req.params.CollectionId)
     // Get the collection by the collectionId { id, title, cover_img, user_id }
-    const userCollection = await getCollectionsById(collectionId)
+    const userCollection = await geCollectionDBsById(collectionId)
     console.log(userCollection)
     // if (!auth0Id === collection.user_id)
     if(userCollection[0].auth0id === auth0Id) {

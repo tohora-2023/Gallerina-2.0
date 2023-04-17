@@ -1,11 +1,11 @@
 import connection from './connection'
-import { AddCollection } from '../../models/profile'
+import { AddCollection } from '../../models/collectionArtwork'
 
 export function getAllArt(db = connection) {
   return db('artworks')
 }
 
-export function getCollectionsByUserId(auth0Id: string, db = connection) {
+export function geCollectionDBsByUserId(auth0Id: string, db = connection) {
   return db('collections')
     .join('users', 'collections.user_id', 'users.id')
     .where('users.auth0id', auth0Id)

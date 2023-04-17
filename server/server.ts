@@ -4,8 +4,9 @@ import { join } from 'node:path'
 import home from './routes/homepage'
 import external from './routes/external'
 import profile from './routes/profile'
-// import note from './routes/notes'
 import collection from './routes/collection'
+// use this when implementing addToCollection button functionality 
+import artworkInfo from './routes/artworkInfo' 
 
 const server = express()
 

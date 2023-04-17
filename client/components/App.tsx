@@ -2,12 +2,11 @@ import { Routes, Route } from 'react-router-dom'
 
 import Navbar from './Navbar'
 import Home from './Homepage'
-import ArtworkInfo from './Artwork-info'
+import ArtworkInfo from './ArtworkInfo'
 import Profile from './Profile'
 import Collection from './Collection'
 import CollectionItems from './CollectionItems'
 import Search from './Search'
-import Dialog from './Dialog'
 
 function App() {
   return (
@@ -20,7 +19,6 @@ function App() {
           <Route path="/artworks/:id" element={<ArtworkInfo />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/collections/:id" element={<CollectionItems />} />
-          <Route path="/dialog" element={<Dialog />} />
           <Route path="/*" element={<></>} />
         </Routes>
       </div>

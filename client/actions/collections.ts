@@ -1,142 +1,101 @@
+//  PROFILE RELATED COLLECTION FUNCTIONS -- API + REDUCER CALLED PROFILE.TS
 import type { ThunkAction } from '../store'
-import TCollection from '../../models/profile'
-import ProfileCollection, { AddCollection } from '../../models/profile'
+import { ProfileCollection} from '../../models/profile'
+import {AddCollection} from '../../models/collectionArtwork'
 import {
-  getCollectionsByUserId,
-  addCollection,
+  geCollectionDBsByUserId,
   collectionDelete,
 } from '../apis/profile'
 
-// FETCH Collections
-export const FETCH_COLLECTIONS_PENDING = 'FETCH_COLLECTIONS_PENDING'
-export const FETCH_COLLECTIONS_FULFILLED = 'FETCH_COLLECTIONS_FULFILLED'
-export const FETCH_COLLECTIONS_REJECTED = 'FETCH_COLLECTIONS_REJECTED'
+// SET profile pending & error states
+export const SET_PENDING = 'SET_PENDING'
+export const SET_ERROR = 'SET_ERROR'
 
-// ADD Collection
-export const ADD_COLLECTION_PENDING = 'ADD_COLLECTION_PENDING'
-export const ADD_COLLECTION_FULFILLED = 'ADD_COLLECTION_FULFILLED'
-export const ADD_COLLECTION_REJECTED = 'ADD_COLLECTION_REJECTED'
-
-// DELETE Collection
-export const DELETE_COLLECTION_PENDING = 'DELETE_COLLECTION_PENDING'
-export const DELETE_COLLECTION_FULFILLED = 'DELETE_COLLECTION_FULFILLED'
-export const DELETE_COLLECTION_REJECTED = 'DELETE_COLLECTION_REJECTED'
-
-// UPDATE Collection
-// export const UPDATE_COLLECTION_PENDING = 'UPDATE_COLLECTION_PENDING'
-// export const UPDATE_COLLECTION_FULFILLED = 'UPDATE_COLLECTION_FULFILLED'
-// export const UPDATE_COLLECTION_REJECTED = 'UPDATE_COLLECTION_REJECTED'
-
+// set profile actions success 
+export const SET_FETCH_COLLECTIONS= 'SET_FETCH_COLLECTIONS' 
+export const SET_ADD_COLLECTION = 'SET_ADD_COLLECTION'
+export const SET_DELETE_COLLECTION = 'SET_DELETE_COLLECTION'
 
 export type CollectionAction =
-  // FETCH Collection
   | {
-      type: typeof FETCH_COLLECTIONS_PENDING
+      type: typeof SET_ERROR
+      payload: string
+    } 
+  | {
+      type: typeof SET_PENDING
       payload: void
     }
   | {
-      type: typeof FETCH_COLLECTIONS_FULFILLED
+      type: typeof SET_FETCH_COLLECTIONS
       payload: ProfileCollection[]
     }
   | {
-      type: typeof FETCH_COLLECTIONS_REJECTED
-      payload: string
-    }
-  // ADD Collection
-  | {
-      type: typeof ADD_COLLECTION_PENDING
-      payload: void
-    }
-  | {
-      type: typeof ADD_COLLECTION_FULFILLED
+      type: typeof SET_ADD_COLLECTION
       payload: AddCollection
     }
   | {
-      type: typeof ADD_COLLECTION_REJECTED
-      payload: string
-    }
-  //DELETE Collection
-  | {
-      type: typeof DELETE_COLLECTION_PENDING
+      type: typeof SET_PENDING
       payload: void
     }
   | {
-      type: typeof DELETE_COLLECTION_FULFILLED
+      type: typeof SET_DELETE_COLLECTION
       payload: number
     }
-  | {
-      type: typeof DELETE_COLLECTION_REJECTED
-      payload: string
-    }
 
-// FETCH Collection
-export function fetchCollectionsPending(): CollectionAction {
+export function setPending(): CollectionAction {
   return {
-    type: FETCH_COLLECTIONS_PENDING,
+    type: SET_PENDING,
   } as CollectionAction
+}
+
+export function setError(errMessage: string): CollectionAction {
+  return {
+    type: SET_ERROR,
+    payload: errMessage,
+  }
 }
 
 export function fetchCollectionsFullfilied(
   collections: ProfileCollection[]
 ): CollectionAction {
   return {
-    type: FETCH_COLLECTIONS_FULFILLED,
+    type: SET_FETCH_COLLECTIONS,
     payload: collections,
   }
-}
-
-export function fetchCollectionsRejected(errMessage: string): CollectionAction {
-  return {
-    type: FETCH_COLLECTIONS_REJECTED,
-    payload: errMessage,
-  }
-}
-
-export function deleteCollectionPending(): CollectionAction {
-  return {
-    type: DELETE_COLLECTION_PENDING,
-  } as CollectionAction
 }
 
 export function deleteCollectionFulfilled(
   collectionId: number
 ): CollectionAction {
   return {
-    type: DELETE_COLLECTION_FULFILLED,
+    type: SET_DELETE_COLLECTION,
     payload: collectionId,
-  }
-}
-
-export function deleteCollectionRejected(error: string): CollectionAction {
-  return {
-    type: DELETE_COLLECTION_REJECTED,
-    payload: error,
   }
 }
 
 export function fetchCollections(userId: number, token: string): ThunkAction {
   return (dispatch) => {
-    dispatch(fetchCollectionsPending())
-    return getCollectionsByUserId(userId, token)
+    dispatch(setPending())
+    return geCollectionDBsByUserId(userId, token)
       .then((collections) => {
         dispatch(fetchCollectionsFullfilied(collections))
       })
       .catch((err) => {
-        dispatch(fetchCollectionsRejected(err.message))
+        dispatch(setError(err.message))
       })
   }
 }
 
 export function deleteCollection(id: number, token: string): ThunkAction {
   return (dispatch) => {
-    dispatch(deleteCollectionPending())
+    dispatch(setPending())
 
     return collectionDelete(id, token)
       .then(() => {
         dispatch(deleteCollectionFulfilled(id))
       })
       .catch((error) => {
-        dispatch(deleteCollectionRejected(error.message))
+        dispatch(setError(error.message))
       })
   }
 }

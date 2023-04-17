@@ -1,6 +1,6 @@
 import { useAppDispatch, useAppSelector } from '../hooks/hooks'
-import { fetchArtwork } from '../actions/artwork-info'
-import { ArtworkApi } from '../../models/external-Artwork'
+import { fetchArtwork } from '../actions/artworkInfo'
+import { ArtworkApi } from '../../models/externalArtwork'
 import { ArtworkDatabase } from '../../models/artwork'
 import LoadingSpinner from './LoadingSpinner'
 import { useEffect } from 'react'

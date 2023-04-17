@@ -1,56 +1,13 @@
 import connection from './connection'
-import { AddCollection } from '../../models/profile'
-import { AddNote } from '../../models/CollectionItems'
+import { AddNote } from '../../models/collectionContent'
 
-export function getCollections(db = connection) {
+// gets all collections - regardless of wwho is logged in
+export function geCollectionDBs(db = connection) {
   return db('collections').select()
 }
 
-export function getCollectionsById(id: number, db = connection) {
-  return db("collections").join("users", "users.id", "collections.user_id")
-  .where('collections.id', id )
-}
-// collections = { id, title, cover_img, user_id}
-// users = { id, username, auth0id } 
-// { id, title, cover_img, user_id, id, username, auth0id }
-
-// finds user by auth0id
-export async function getUserByAuth(auth: string, db = connection) {
-  return db('users').where({ auth0id: auth }).first()
-}
-
-// gets user profile info
-export async function getUserInfoAndCollections(user: number, db = connection) {
-  return db('users')
-    .join('collections', 'users.id', 'collections.user_id')
-    .where('users.id', user)
-    .select(
-      'collections.id as collectionId',
-      'collections.cover_img as collectionCoverImg',
-      'collections.user_id as userId',
-      'collections.title',
-      'users.username',
-      'users.auth0id'
-    )
-}
-
-// Deletes a collection
-export async function deleteCollection(id: number, db = connection) {
-  await db('collections').where({ id }).del()
-  return getCollections()
-}
-
-// Creates a new collection
-export async function addCollection(
-  newCollection: AddCollection,
-  db = connection
-) {
-  await db('collections').insert(newCollection)
-  return getCollections()
-}
-
-// GET A COLLECTION AND ARTWORKS BY ID + notes?
-export function getArtCollectionAndNotesById(
+// GET A COLLECTION, ARTWORKS AND NOTES BY ID
+export function getArCollectionDBAndNotesById(
   collectionId: number,
   db = connection
 ) {
@@ -63,10 +20,10 @@ export function getArtCollectionAndNotesById(
     .join('artworks', 'artworks.id', 'collections_artworks.artwork_id')
     .where('collection_id', collectionId)
     .leftOuterJoin('notes', function () {
-      this.on('artworks.id', '=', 'notes.artId').andOn(
+      this.on('artworks.id', '=', 'notes.art_id').andOn(
         'collections.id',
         '=',
-        'notes.collectionId'
+        'notes.collection_id' // check this for camel case
       )
     })
     .select(
@@ -75,15 +32,15 @@ export function getArtCollectionAndNotesById(
       'collections.user_id as collectionOwnerId',
       'collections.title as collectionTitle',
       'artworks.title as artTitle',
-      'artworks.imageLink as artImageLink',
-      'notes.noteName as noteName',
+      'artworks.image_link as artImageLink',
+      'notes.note_name as noteName',
       'notes.note as note',
-      'notes.dateCreated as noteDateCreated',
+      'notes.date_created as noteDateCreated',
       'notes.id as noteId'
     )
 }
 
-// delete a collection item by ID
+// delete a collection artwork by ID
 export async function deleteCollectionItemById(
   collectionId: number,
   artId: string,
@@ -92,7 +49,7 @@ export async function deleteCollectionItemById(
   await db('collections_artworks')
     .where({ artwork_id: artId, collection_id: collectionId })
     .del()
-  return getArtCollectionAndNotesById(collectionId)
+  return getArCollectionDBAndNotesById(collectionId)
 }
 
 export async function getNotesFromCollection(

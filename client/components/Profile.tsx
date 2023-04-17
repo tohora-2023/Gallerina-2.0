@@ -1,16 +1,12 @@
 import { useEffect } from 'react'
-import { Link, Route, RouteProps, useParams } from 'react-router-dom'
 import { useAppDispatch, useAppSelector } from '../hooks/hooks'
-// import { fetchResults } from
 import { fetchCollections } from '../actions/collections'
 import { useAuth0 } from '@auth0/auth0-react'
-import { KeyboardEvent } from 'react'
+import { ProfileCollection } from '../../models/profile'
 import Collection from './Collection'
-import { TCollection, ProfileCollection } from '../../models/profile'
 
 export default function Profile() {
-  const { getAccessTokenSilently, isAuthenticated, loginWithRedirect, user } =
-    useAuth0()
+  const { getAccessTokenSilently, user } = useAuth0()
 
   const dispatch = useAppDispatch()
 

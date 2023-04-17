@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux'
-import artInfo from './artwork-info'
+import artInfo from './artworkInfo'
 import art from './homepage'
 import collectionsReducer from './profile'
-import collectionItemsReducer from './collection-items'
+import collectionItemsReducer from './collectionItems'
 
 export default combineReducers({
   artInfoState: artInfo,
