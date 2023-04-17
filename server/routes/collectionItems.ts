@@ -53,6 +53,7 @@ router.delete('/:collectionId/:artId/:noteId', async (req, res) => {
   try {
     const noteId = Number(req.params.noteId)
     await deleteNote(noteId)
+    res.sendStatus(200)
   } catch (err) {
     console.log(err)
     res.sendStatus(500)

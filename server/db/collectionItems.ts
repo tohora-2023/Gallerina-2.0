@@ -78,5 +78,5 @@ export async function addNote(
 
 // delete a note from collection item
 export async function deleteNote(noteId: number, db = connection) {
-  await db('notes').where({ id: noteId }).delete()
+  return await db('notes').where({ id: noteId }).delete()
 }
