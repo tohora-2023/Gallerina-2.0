@@ -21,21 +21,6 @@ router.get('/:id', async (req, res) => {
   }
 })
 
-// add artwork to a collection
-// api/v1/collections/:id
-router.post('/:id', async (req, res) => {
-  try {
-    const { collectionId, artworkId } = req.body
-
-    const artColl = await addArtworkToCollection(collectionId, artworkId)
-    res.json(artColl)
-  } catch (error) {
-    console.log(error)
-    res.status(500).json({
-      error: 'There was an error trying to add the artwork',
-    })
-  }
-})
 
 // delete item in collections/:id by artId
 router.delete('/:id/:artId', async (req, res) => {
