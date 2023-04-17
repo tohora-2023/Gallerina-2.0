@@ -8,7 +8,7 @@ import {
   getCollections,
   getUserByAuth,
   getUserInfoAndCollections,
-  getCollectionsById
+  getCollectionsById,
 } from '../db/collection'
 import checkJwt, { JwtRequest } from '../auth0'
 const router = express.Router()
@@ -57,7 +57,7 @@ router.post('/', async (req, res) => {
 // })
 
 // DELETE /api/v1/profile/:CollectionId
-router.delete("/:CollectionId", checkJwt, async (req: JwtRequest, res) => {
+router.delete('/:CollectionId', checkJwt, async (req: JwtRequest, res) => {
   try {
     const auth0Id = req.auth?.sub
     // const auth0Id = 'google-oauth2|104589919171674569148'
@@ -70,7 +70,7 @@ router.delete("/:CollectionId", checkJwt, async (req: JwtRequest, res) => {
     const userCollection = await getCollectionsById(collectionId)
     console.log(userCollection)
     // if (!auth0Id === collection.user_id)
-    if(userCollection[0].auth0id === auth0Id) {
+    if (userCollection[0].auth0id === auth0Id) {
       await deleteCollection(collectionId)
       // If it is, delete and res with status 200
       res.sendStatus(200)
@@ -78,7 +78,7 @@ router.delete("/:CollectionId", checkJwt, async (req: JwtRequest, res) => {
       // If it isn't res with status 401 Unauthorized
       return res.status(401).send('Unauthorized')
     }
-    // const collections = await deleteCollection(collectionId)
+    // const collections = await deleteCollection(collectionId.)
     // res.json()
   } catch (err) {
     console.log(err)
