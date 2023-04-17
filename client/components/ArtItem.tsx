@@ -10,8 +10,7 @@ export default function ArtItem(art: Props) {
   function handleDelete() {
     dispatch(deleteItem(Collectionid, art.artworkId))
   }
-  console.log(art.artworkId)
-  console.log(art.artImageLink)
+
   return (
     <>
       <div className="group m-3 h-fit w-fit flex-col rounded-md p-2 transition-transform ease-in-out hover:scale-105 hover:bg-my-gold hover:duration-500">

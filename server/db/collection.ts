@@ -1,5 +1,6 @@
 import connection from './connection'
 import AddCollection from '../../models/profile'
+import { Note, AddNote } from '../../models/Notes'
 
 export function getCollections(db = connection) {
   return db('collections').select()
@@ -70,4 +71,21 @@ export async function deleteCollectionItemById(
     .where({ artwork_id: artId, collection_id: collectionId })
     .del()
   return getArtCollectionById(collectionId)
+}
+
+// add a note to collection item
+export async function addNote(
+  collectionId: number,
+  addNote: AddNote,
+  artId: string,
+  db = connection
+) {
+  const note = {
+    ...addNote,
+    artId,
+    collectionId,
+    dateCreated: new Date(Date.now()),
+  }
+  await db('notes').insert(note)
+  return db('notes').where({ collectionId })
 }
