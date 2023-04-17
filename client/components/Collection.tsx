@@ -12,9 +12,9 @@ export default function Collection(profile: Props) {
 
   const dispatch = useAppDispatch()
 
-  const token = getAccessTokenSilently()
 
-  const handleDeleteClick = () => {
+  const handleDeleteClick = async () => {
+    const token = await getAccessTokenSilently()
     dispatch(deleteCollection(profile.collectionId, token))
   }
 
