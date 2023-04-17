@@ -5,7 +5,7 @@ import { Menu, Transition } from '@headlessui/react'
 import { PlusCircleIcon } from '@heroicons/react/24/outline'
 import { HeartIcon } from '@heroicons/react/24/outline'
 import { useAuth0 } from '@auth0/auth0-react'
-import Dialog from './Dialog'
+import Dialog from './HomeDialog'
 
 import { CollectionDB } from '../../models/collectionArtwork'
 import { addArtworkToCollectionApi } from '../apis/homepage'
