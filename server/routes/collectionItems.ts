@@ -5,7 +5,7 @@ import {
   addNote,
   deleteNote,
   getArtCollectionDBAndNotesById,
-} from '../db/collection'
+} from '../db/collectionItems'
 
 const router = express.Router()
 
@@ -40,7 +40,6 @@ router.post('/:collectionId/:artId', async (req, res) => {
     const collectionId = Number(req.params.collectionId)
     const artId = req.params.artId
     const note = req.body
-    console.log(note, artId, collectionId)
     const newNote = await addNote(collectionId, note, artId)
     res.json(newNote)
   } catch (err) {

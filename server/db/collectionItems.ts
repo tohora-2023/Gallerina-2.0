@@ -52,12 +52,12 @@ export async function deleteCollectionItemById(
   return getArtCollectionDBAndNotesById(collectionId)
 }
 
-export async function getNotesFromCollection(
-  collectionId: number,
-  db = connection
-) {
-  return db('notes').where({ collectionId })
-}
+// export async function getNotesFromCollection(
+//   collectionId: number,
+//   db = connection
+// ) {
+//   return db('notes').where({ collection_id: collectionId })
+// }
 
 // add a note to collection item
 export async function addNote(
@@ -68,12 +68,12 @@ export async function addNote(
 ) {
   const note = {
     ...addNote,
-    artId,
-    collectionId,
-    dateCreated: new Date(Date.now()),
+    art_id: artId,
+    collection_id: collectionId,
+    date_created: new Date(Date.now()),
   }
   await db('notes').insert(note)
-  return db('notes').where({ collectionId })
+  return db('notes').where({ collection_id: collectionId })
 }
 
 // delete a note from collection item
