@@ -41,7 +41,9 @@ export async function deleteCollection(id: number, db = connection) {
 }
 
 export async function updateCollection(id: number, Colection: ProfileCollection, db = connection) {
-  await db("collections").where({id}).update({})
+  await db("collections").where({id}).update({
+
+  })
 }
 
 // Creates a new collection
