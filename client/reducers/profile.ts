@@ -50,8 +50,23 @@ const collectionsReducer = (
       }
       case DELETE_COLLECTION_FULFILLED: 
       return {
+      data: payload,
+error: undefined,
+loading: false,
+      }
+      case DELETE_COLLECTION_PENDING:
+        return {
+        data: ,
+        error: undefined,
+        loading: true,
 
       }
+      case DELETE_COLLECTION_REJECTED:
+        return {
+          data: undefined,
+          error: payload,
+          loading: false
+        }
     default:
       return state
   }
