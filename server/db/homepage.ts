@@ -1,5 +1,5 @@
 import connection from './connection'
-import { TCollection } from '../../models/profile'
+import { AddCollection } from '../../models/profile'
 
 export function getAllArt(db = connection) {
   return db('artworks')
@@ -20,6 +20,6 @@ export function addArtworkToCollection(
   return db('collections_artworks').insert({ collection_id, artwork_id })
 }
 
-export function addNewCollection(newCollection: TCollection, db = connection ) {
+export function addNewCollection(newCollection: AddCollection, db = connection ) {
   return db('collections').insert({...newCollection})
 }

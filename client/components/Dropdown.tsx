@@ -1,10 +1,11 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
-import { Fragment } from 'react'
+import { Fragment, useState } from 'react'
 import { Menu, Transition } from '@headlessui/react'
 import { PlusCircleIcon } from '@heroicons/react/24/outline'
 import { HeartIcon } from '@heroicons/react/24/outline'
 import { useAuth0 } from '@auth0/auth0-react'
+import Dialog from './Dialog'
 
 import { TCollection } from '../../models/profile'
 import { addArtworkToCollectionApi } from '../apis/homepage'
@@ -17,8 +18,9 @@ interface ArtworkProps {
 }
 
 export default function Dropdown({ artwork, collections }: ArtworkProps) {
-  const { loginWithRedirect, isAuthenticated } = useAuth0()
+  const { loginWithRedirect, isAuthenticated, user } = useAuth0()
   const { getAccessTokenSilently } = useAuth0()
+  const [ showModal, setShowModal ] = useState(false)
 
   function handleHeartClick() {
     if (isAuthenticated) {
@@ -33,6 +35,8 @@ export default function Dropdown({ artwork, collections }: ArtworkProps) {
   }
 
   return (
+    <>
+    <Dialog artwork={artwork} onClose={() => setShowModal(false)} isOpen={showModal} />
     <Menu as="div" className="z-100 relative inline-block">
       <div>
         <Menu.Button className="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900">
@@ -53,10 +57,11 @@ export default function Dropdown({ artwork, collections }: ArtworkProps) {
       >
         <Menu.Items className="absolute right-0 z-10 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
           <div className="py-1 px-1">
+        
             <Menu.Item>
               {({ active }) => (
-                <a
-                  href="/" //set to false, on click set to open
+                <button
+                  onClick={() => setShowModal(true)}
                   className={`${
                     active ? 'bg-my-gold text-gray-900' : 'text-gray-700'
                   }
@@ -66,8 +71,8 @@ export default function Dropdown({ artwork, collections }: ArtworkProps) {
                     className="mr-2 h-5 w-5 text-gray-900"
                     aria-hidden="true"
                   />
-                  Create a New Curation
-                </a>
+                  Create a New Collection
+                </button>
               )}
             </Menu.Item>
           </div>
@@ -108,5 +113,6 @@ export default function Dropdown({ artwork, collections }: ArtworkProps) {
         </Menu.Items>
       </Transition>
     </Menu>
+    </>
   )
 }

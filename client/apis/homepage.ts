@@ -18,7 +18,7 @@ export async function addArtworkToCollectionApi(collectionId: number, artworkId:
   return response.body
 }
 
-export async function addNewCollectionApi(newCollection: TCollection): Promise<TCollection> {
+export async function addNewCollectionApi(newCollection: TCollection | undefined): Promise<TCollection> {
   const response = await request.post('/api/v1/user/add-collection').send({newCollection})
   return response.body
 }
