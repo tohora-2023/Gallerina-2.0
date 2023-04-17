@@ -12,7 +12,6 @@ export default function Collection(profile: Props) {
 
   const dispatch = useAppDispatch()
 
-
   const handleDeleteClick = async () => {
     const token = await getAccessTokenSilently()
     dispatch(deleteCollection(profile.collectionId, token))
@@ -30,8 +29,16 @@ export default function Collection(profile: Props) {
             src={profile.collectionCoverImg}
             alt={`cover for ${profile.title}`}
           />
-          <button onClick={handleDeleteClick}>Delete</button>
-          <button>Update Name</button>
+          <button
+            className=" shadow-xs absolute left-10 ml-20 transform cursor-pointer rounded-full border border-black bg-white px-2 py-0.5 font-bold tracking-wide text-black transition duration-200 hover:-translate-y-1 hover:bg-my-gold hover:shadow-2xl active:translate-y-0 active:shadow-xl"
+            onClick={handleDeleteClick}
+          >
+            Delete
+          </button>
+          <br></br>
+          <button className=" shadow-xs absolute left-10 ml-20 transform cursor-pointer rounded-full border border-black bg-white px-2 py-0.5 font-bold tracking-wide text-black transition duration-200 hover:-translate-y-1 hover:bg-my-gold hover:shadow-2xl active:translate-y-0 active:shadow-xl"
+            onClick={handleDeleteClick}
+          >Update Name</button>
         </div>
       </div>
     </>
