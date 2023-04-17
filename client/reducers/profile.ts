@@ -5,6 +5,9 @@ import {
   FETCH_COLLECTIONS_FULFILLED,
   FETCH_COLLECTIONS_REJECTED,
   ADD_COLLECTION_REJECTED,
+  DELETE_COLLECTION_PENDING,
+  DELETE_COLLECTION_REJECTED,
+  DELETE_COLLECTION_FULFILLED
 } from '../actions/collections'
 
 interface CollectionsState {
@@ -44,6 +47,10 @@ const collectionsReducer = (
         data: undefined,
         error: payload,
         loading: false,
+      }
+      case DELETE_COLLECTION_FULFILLED: 
+      return {
+
       }
     default:
       return state
