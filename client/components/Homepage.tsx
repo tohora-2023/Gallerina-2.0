@@ -24,9 +24,8 @@ export default function Home() {
   useEffect(() => {
     const getAccess = async () => {
       const token = await getAccessTokenSilently()
-      console.log(token)
       if (user) {
-        getAllCollectionsApi(token) // pass in token
+        getAllCollectionsApi(token)
           .then((collections: TCollection[]) => {
             setCollections(collections)
           })
@@ -47,7 +46,6 @@ export default function Home() {
           return (
             <div key={artwork.id} className="">
               <div className="relative break-inside-avoid-column">
-                {/* transition duration-1000 transform hover:scale-110 z-10 hover:z-20 */}
                 <img
                   className="h-auto w-full rounded-md opacity-100 hover:opacity-80"
                   src={artwork._links?.thumbnail?.href}

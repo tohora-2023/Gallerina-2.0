@@ -22,7 +22,6 @@ export default function Dropdown({ artwork, collections }: ArtworkProps) {
 
   function handleHeartClick() {
     if (isAuthenticated) {
-      // heart it will save to collection
       getAccessTokenSilently()
     } else {
       loginWithRedirect()
@@ -37,14 +36,9 @@ export default function Dropdown({ artwork, collections }: ArtworkProps) {
     <Menu as="div" className="z-100 relative inline-block">
       <div>
         <Menu.Button className="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900">
-          {/* <img className="h-5 w-5 hover:bg-my-gold" src="/heart.png" alt="heart-pin" onClick={handleHeartClick} /> */}
           <button onClick={handleHeartClick}>
             <HeartIcon2 />
           </button>
-          {/* <ChevronDownIcon
-            className="-mr-1 h-5 w-5 text-gray-400"
-            aria-hidden="true"
-          /> */}
         </Menu.Button>
       </div>
 

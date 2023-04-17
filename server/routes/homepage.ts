@@ -1,5 +1,5 @@
 import express from 'express'
-import { getCollectionsByUserId, addArtworkToCollection } from '../db/homepage'
+import { getCollectionsByUserId, addArtworkToCollection, addNewCollection } from '../db/homepage'
 import checkJwt from '../auth0'
 import { JwtRequest } from '../auth0'
 
@@ -17,7 +17,6 @@ router.get('/user/collections', checkJwt, async (req: JwtRequest, res) => {
     const collections = await getCollectionsByUserId(auth0Id)
     res.json(collections)
   } catch (error) {
-    console.log(error)
     res.status(500).json({
       error: "There was an error trying to get this user's collections",
     })
@@ -36,9 +35,28 @@ router.post('/user/collections', async (req, res) => {
     const artColl = await addArtworkToCollection(collectionId, artworkId)
     res.json(artColl)
   } catch (error) {
-    console.log(error)
     res.status(500).json({
       error: 'There was an error trying to add the artwork',
+    })
+  }
+})
+
+// ADD a new collection for a user
+router.post('/user/add-collection', async (req, res) => {
+  try{
+    const collection = req.body
+    console.log(req.body)
+    if (!collection) {
+      res.status(400).json({ error: 'New collection was invalid' })
+    }
+  
+    const newCollection = await addNewCollection(collection)
+    console.log(newCollection)
+    res.json(newCollection)
+  } catch (error) {
+    console.log(error)
+    res.status(500).json({
+      error: 'There was an error trying to add a new collection',
     })
   }
 })

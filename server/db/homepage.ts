@@ -1,7 +1,6 @@
 import connection from './connection'
-import { ArtworkCollection } from '../../models/collection-artwork'
+import { TCollection } from '../../models/profile'
 
-// gets artworks saved from external api
 export function getAllArt(db = connection) {
   return db('artworks')
 }
@@ -19,4 +18,8 @@ export function addArtworkToCollection(
   db = connection
 ) {
   return db('collections_artworks').insert({ collection_id, artwork_id })
+}
+
+export function addNewCollection(newCollection: TCollection, db = connection ) {
+  return db('collections').insert({...newCollection})
 }
