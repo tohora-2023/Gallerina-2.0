@@ -24,3 +24,7 @@ export async function addCollection(newCollection: AddCollection) {
 export async function collectionDelete(id: number, token: string): Promise<request.Response> {
   return request.delete(rootUrl + `/profile/${id}`).set('Authorization', `Bearer ${token}`)
 }
+
+export async function collectionUpdate(id: number, collection: string, token: string): Promise<request.Response> {
+  return request.put(rootUrl + `/profile/${id}`).set('Authorization', `Bearer ${token}`)
+}

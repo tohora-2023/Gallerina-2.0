@@ -5,6 +5,7 @@ import {
   getCollectionsByUserId,
   addCollection,
   collectionDelete,
+  collectionUpdate
 } from '../apis/profile'
 
 // FETCH Collections
@@ -22,10 +23,10 @@ export const DELETE_COLLECTION_PENDING = 'DELETE_COLLECTION_PENDING'
 export const DELETE_COLLECTION_FULFILLED = 'DELETE_COLLECTION_FULFILLED'
 export const DELETE_COLLECTION_REJECTED = 'DELETE_COLLECTION_REJECTED'
 
-// UPDATE Collection
-// export const UPDATE_COLLECTION_PENDING = 'UPDATE_COLLECTION_PENDING'
-// export const UPDATE_COLLECTION_FULFILLED = 'UPDATE_COLLECTION_FULFILLED'
-// export const UPDATE_COLLECTION_REJECTED = 'UPDATE_COLLECTION_REJECTED'
+//UPDATE
+export const UPDATE_COLLECTION_PENDING = 'UPDATE_COLLECTION_PENDING'
+export const UPDATE_COLLECTION_FULFILLED = 'UPDATE_COLLECTION_FULFILLED'
+export const UPDATE_COLLECTION_REJECTED = 'UPDATE_COLLECTION_REJECTED'
 
 
 export type CollectionAction =
@@ -66,6 +67,18 @@ export type CollectionAction =
     }
   | {
       type: typeof DELETE_COLLECTION_REJECTED
+      payload: string
+    }
+    | {
+      type: typeof UPDATE_COLLECTION_PENDING
+      payload: void
+    }
+  | {
+      type: typeof UPDATE_COLLECTION_FULFILLED
+      payload:
+    }
+  | {
+      type: typeof UPDATE_COLLECTION_REJECTED
       payload: string
     }
 
@@ -114,6 +127,26 @@ export function deleteCollectionRejected(error: string): CollectionAction {
   }
 }
 
+export function updateCollectionPending(): CollectionAction {
+  return {
+    type: UPDATE_COLLECTION_PENDING,
+  } as CollectionAction
+}
+
+export function updateCollectionFulfilled(collectionId: number, collection: ProfileCollection): CollectionAction {
+  return {
+    type: UPDATE_COLLECTION_FULFILLED,
+    payload: collectionId, collection
+  } as CollectionAction
+}
+
+export function updateCollectionRejected(error: string): CollectionAction {
+  return {
+    type: UPDATE_COLLECTION_REJECTED,
+    payload: error,
+  }
+}
+
 export function fetchCollections(userId: number, token: string): ThunkAction {
   return (dispatch) => {
     dispatch(fetchCollectionsPending())
@@ -138,5 +171,17 @@ export function deleteCollection(id: number, token: string): ThunkAction {
       .catch((error) => {
         dispatch(deleteCollectionRejected(error.message))
       })
+  }
+}
+
+export function updateCollection(id: number, collection: ProfileCollection, token: string): ThunkAction {
+  return (dispatch) => {
+    dispatch(updateCollectionPending())
+    return collectionUpdate(id, collection, token)
+    .then(() => {
+      dispatch(updateCollectionFulfilled(id, collection))
+    }) .catch((error) => {
+      dispatch(updateCollectionRejected(error.message))
+    })
   }
 }
