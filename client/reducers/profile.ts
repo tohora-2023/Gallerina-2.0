@@ -51,7 +51,7 @@ const collectionsReducer = (
     case DELETE_COLLECTION_FULFILLED:
       return {
         ...state,
-        data: state.data?.filter((collection) => collection.id !== payload),
+        data: state.data?.filter((collection) => collection.collectionId !== payload),
         loading: false,
       }
     case DELETE_COLLECTION_PENDING:

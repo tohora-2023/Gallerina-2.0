@@ -3,19 +3,20 @@ import { useAppDispatch, useAppSelector } from '../hooks/hooks'
 import { Link } from 'react-router-dom'
 import ProfileCollection from '../../models/profile'
 import { useAuth0 } from '@auth0/auth0-react'
+import { deleteCollection } from '../actions/collections'
 
 type Props = ProfileCollection
 export default function Collection(profile: Props) {
   const { getAccessTokenSilently, isAuthenticated, loginWithRedirect, user } =
     useAuth0()
 
-    const dispatch = useAppDispatch()
+  const dispatch = useAppDispatch()
 
-const handleDeleteClick = () => {
-  dispatch(deleteCollection(profile.collectionId))
-}
+  const token = getAccessTokenSilently()
 
-
+  const handleDeleteClick = () => {
+    dispatch(deleteCollection(profile.collectionId, token))
+  }
 
   return (
     <>
