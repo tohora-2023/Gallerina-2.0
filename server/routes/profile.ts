@@ -1,15 +1,8 @@
 import express from 'express'
 import { TCollection, TUser } from '../../models/profile'
 
-import {
-  addCollection,
-  deleteCollection,
-  getArtCollectionAndNotesById,
-  getCollections,
-  getUserByAuth,
-  getUserInfoAndCollections,
-  getCollectionsById
-} from '../db/collection'
+import {getUserInfoAndCollections, getCollectionsById, getUserByAuth, addCollection, deleteCollection} from '../db/profile'
+
 import checkJwt, { JwtRequest } from '../auth0'
 const router = express.Router()
 export default router

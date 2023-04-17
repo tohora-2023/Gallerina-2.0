@@ -6,7 +6,7 @@ import {
   deleteNote,
   getArtCollectionAndNotesById,
 } from '../db/collection'
-import { addArtworkToCollection } from '../db/homepage'
+
 const router = express.Router()
 
 // GET items in collections/:collectionId + also notes!
@@ -20,7 +20,6 @@ router.get('/:id', async (req, res) => {
     res.sendStatus(500)
   }
 })
-
 
 // delete item in collections/:id by artId
 router.delete('/:id/:artId', async (req, res) => {
