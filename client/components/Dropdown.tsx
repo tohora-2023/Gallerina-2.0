@@ -12,6 +12,7 @@ import { addArtworkToCollectionApi } from '../apis/homepage'
 import { ArtworkApi } from '../../models/external-Artwork'
 import HeartIcon2 from './HeartIcon'
 
+
 interface ArtworkProps {
   artwork: ArtworkApi
   collections: TCollection[]
@@ -45,7 +46,6 @@ export default function Dropdown({ artwork, collections }: ArtworkProps) {
           </button>
         </Menu.Button>
       </div>
-
       <Transition
         as={Fragment}
         enter="transition ease-out duration-100"
@@ -54,8 +54,17 @@ export default function Dropdown({ artwork, collections }: ArtworkProps) {
         leave="transition ease-in duration-75"
         leaveFrom="transform opacity-100 scale-100"
         leaveTo="transform opacity-0 scale-95"
+        appear={true}
       >
-        <Menu.Items className="absolute right-0 z-10 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+        <Menu.Items
+          static
+          className="absolute z-10 w-56 origin-top rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
+          style={{
+            top: 'calc(100% + 5px)',
+            left: '50%',
+            transform: 'translateX(-50%)',
+          }}
+        >
           <div className="py-1 px-1">
         
             <Menu.Item>

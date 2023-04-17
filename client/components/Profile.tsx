@@ -6,8 +6,7 @@ import { fetchCollections } from '../actions/collections'
 import { useAuth0 } from '@auth0/auth0-react'
 import { KeyboardEvent } from 'react'
 import Collection from './Collection'
-import TCollection from '../../models/profile'
-import ProfileCollection from '../../models/profile'
+import { TCollection, ProfileCollection } from '../../models/profile'
 
 export default function Profile() {
   const { getAccessTokenSilently, isAuthenticated, loginWithRedirect, user } =
@@ -27,16 +26,17 @@ export default function Profile() {
       .catch(console.error)
   }, [dispatch])
 
+
   return (
     <>
       <div>
         <div className="flex h-full items-center justify-end">
-          <button className="shadow-xs absolute left-0 ml-20 transform cursor-pointer rounded-full border border-black bg-white px-2 py-0.5 font-bold tracking-wide text-black transition duration-200 hover:-translate-y-1 hover:bg-my-gold hover:shadow-2xl active:translate-y-0 active:shadow-xl">
+          <button className=" shadow-xs absolute left-10 ml-20 transform cursor-pointer rounded-full border border-black bg-white px-2 py-0.5 font-bold tracking-wide text-black transition duration-200 hover:-translate-y-1 hover:bg-my-gold hover:shadow-2xl active:translate-y-0 active:shadow-xl">
             Create a curation
           </button>
 
           <h1 className="text-xl">{`${user?.given_name}'s Curations`}</h1>
-          {/* <h2 className="text-lg">User: {myProfile?.username}</h2> */}
+          {/* <h2 className="text-lg">User: {}</h2> */}
           <div className="">
             <img
               className="h-30 border-black-200 border-5 ml-10 w-auto rounded-full object-cover object-center"

@@ -1,5 +1,5 @@
 import type { ThunkAction } from '../store'
-import CollectionItems from '../../models/CollectionItems'
+import { AddCollectionItem, CollectionItem } from '../../models/CollectionItems'
 import {
   getAllCollectionItems,
   deleteCollectionItem,
@@ -21,7 +21,7 @@ export type CollectionItemsAction =
     }
   | {
       type: typeof FETCH_COLLECTIONITEMS_FULFILLED
-      payload: CollectionItems[]
+      payload: CollectionItem[]
     }
   | {
       type: typeof FETCH_COLLECTIONITEMS_REJECTED
@@ -49,7 +49,7 @@ export function fetchCollectionItemsPending(): CollectionItemsAction {
 }
 
 export function fetchCollectionItemsFulfilled(
-  items: CollectionItems[]
+  items: CollectionItem[]
 ): CollectionItemsAction {
   return {
     type: FETCH_COLLECTIONITEMS_FULFILLED,
