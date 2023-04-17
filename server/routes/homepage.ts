@@ -1,5 +1,10 @@
 import express from 'express'
-import { geCollectionDBsByUserId, addArtworkToCollection, addNewCollection } from '../db/homepage'
+import {
+  getCollectionsByUserId,
+  addArtworkToCollection,
+  addNewCollection,
+  getUserId,
+} from '../db/homepage'
 import checkJwt from '../auth0'
 import { JwtRequest } from '../auth0'
 
@@ -10,11 +15,10 @@ router.get('/user/collections', checkJwt, async (req: JwtRequest, res) => {
   try {
     const auth0Id = req.auth?.sub
     if (!auth0Id) {
-      console.error('No auth0Id')
       return res.status(401).send('Unauthorized')
     }
 
-    const collections = await geCollectionDBsByUserId(auth0Id)
+    const collections = await getCollectionsByUserId(auth0Id)
     res.json(collections)
   } catch (error) {
     res.status(500).json({
@@ -42,19 +46,22 @@ router.post('/user/collections', async (req, res) => {
 })
 
 // ADD a new collection for a user
-router.post('/user/add-collection', async (req, res) => {
-  try{
+router.post('/user/add-collection', checkJwt, async (req: JwtRequest, res) => {
+  try {
+    const auth0Id = req.auth?.sub
+    if (!auth0Id) {
+      return res.status(401).send('Unauthorized')
+    }
+
     const collection = req.body
-    console.log(req.body)
     if (!collection) {
       res.status(400).json({ error: 'New collection was invalid' })
     }
-  
-    const newCollection = await addNewCollection(collection)
-    console.log(newCollection)
+    
+    const newCollection = await addNewCollection(auth0Id, collection)
     res.json(newCollection)
+    
   } catch (error) {
-    console.log(error)
     res.status(500).json({
       error: 'There was an error trying to add a new collection',
     })
@@ -62,3 +69,20 @@ router.post('/user/add-collection', async (req, res) => {
 })
 
 export default router
+
+// GET user.id by auth0id
+router.get('/user-id', checkJwt, async (req: JwtRequest, res) => {
+  try {
+    const auth0Id = req.auth?.sub
+    if (!auth0Id) {
+      return res.status(401).send('Unauthorized')
+    }
+
+    const userId = await getUserId(auth0Id)
+    res.json(userId)
+  } catch (error) {
+    res.status(500).json({
+      error: "There was an error trying to get this user's collections",
+    })
+  }
+})

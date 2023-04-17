@@ -16,8 +16,7 @@ export default function CreateCollection({
   isOpen,
 }: ArtworkProps) {
   const [newCollection, setNewCollection] = useState<
-    AddCollection | undefined
-  >()
+    AddCollection | undefined >()
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
