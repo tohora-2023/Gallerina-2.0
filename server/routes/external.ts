@@ -31,10 +31,10 @@ router.get('/artworks', async (req, res) => {
       (artwork: ArtworkApi) => ({
         id: artwork.id,
         title: artwork.title,
-        artistLink: artwork._links.artists.href,
+        artist_link: artwork._links.artists.href,
         medium: artwork.medium,
         date: artwork.date,
-        imageLink: artwork._links.image.href,
+        image_link: artwork._links.image.href,
       })
     )
     // replaces imageLink with ${large}
@@ -52,11 +52,11 @@ router.get('/artworks', async (req, res) => {
 })
 
 // gets api/v1/artworks/id -- for Art-Info page (also looks at DB)
-router.get(`/artworks/:id`, async (req, res) => {
+router.get('/artworks/:id', async (req, res) => {
   try {
     const id = req.params.id
     const artwork = await getArtworkById(id)
-    // checks if artwork is in database, if not, then retrieves it from the API?
+    // checks if artwork is in database, if not, then retrieves it from the API
     if (artwork && artwork.length > 0) {
       res.json(artwork[0])
     } else {
@@ -74,7 +74,7 @@ router.get(`/artworks/:id`, async (req, res) => {
 })
 
 // gets api/v1/search -- for the Search page
-router.get(`/search`, async (req, res) => {
+router.get('/search', async (req, res) => {
   try {
     const search = req.query.search
     const xapp = await generateXappToken()
