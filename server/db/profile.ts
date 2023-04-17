@@ -41,7 +41,7 @@ export async function deleteCollection(id: number, db = connection) {
   return getCollections()
 }
 
-// Creates a new collection - by id, getCollections returns ALL collections regardless of who is logged into
+// Creates a new collection - getCollections returns ALL collections regardless of who is logged into
 export async function addCollection(
   newCollection: AddCollection,
   db = connection

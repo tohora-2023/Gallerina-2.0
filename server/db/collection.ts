@@ -20,10 +20,10 @@ export function getArtCollectionAndNotesById(
     .join('artworks', 'artworks.id', 'collections_artworks.artwork_id')
     .where('collection_id', collectionId)
     .leftOuterJoin('notes', function () {
-      this.on('artworks.id', '=', 'notes.artId').andOn(
+      this.on('artworks.id', '=', 'notes.art_id').andOn(
         'collections.id',
         '=',
-        'notes.collectionId'  // check this for camel case
+        'notes.collection_id'  // check this for camel case
       )
     })
     .select(
