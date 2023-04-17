@@ -8,9 +8,9 @@ import {
   DELETE_COLLECTION_PENDING,
   DELETE_COLLECTION_REJECTED,
   DELETE_COLLECTION_FULFILLED,
-  UPDATE_COLLECTION_NAME_PENDING,
-  UPDATE_COLLECTION_NAME_REJECTED,
-  UPDATE_COLLECTION_NAME_FULFILLED,
+  UPDATE_COLLECTION_PENDING,
+  UPDATE_COLLECTION_REJECTED,
+  UPDATE_COLLECTION_FULFILLED,
 } from '../actions/collections'
 
 interface CollectionsState {
@@ -70,18 +70,18 @@ const collectionsReducer = (
         error: payload,
         loading: false,
       }
-    case UPDATE_COLLECTION_NAME_PENDING:
+    case UPDATE_COLLECTION_PENDING:
       return {
         ...state,
         loading: true,
       }
-    case UPDATE_COLLECTION_NAME_REJECTED:
+    case UPDATE_COLLECTION_REJECTED:
       return {
         ...state,
         error: payload,
         loading: false,
       }
-    case UPDATE_COLLECTION_NAME_FULFILLED:
+    case UPDATE_COLLECTION_FULFILLED:
       return {
         ...state,
         data: state.data?.map((collection) =>
