@@ -11,9 +11,8 @@ import {
 import { CollectionTitle } from '../../models/profile'
 import { useAppDispatch } from '../hooks/hooks'
 import { ArtworkApi } from '../../models/external-Artwork'
-import { PlusCircleIcon } from "@heroicons/react/24/outline"
-import { HeartIcon } from "@heroicons/react/24/outline"
-
+import { PlusCircleIcon } from '@heroicons/react/24/outline'
+import { HeartIcon } from '@heroicons/react/24/outline'
 
 interface ArtworkProps {
   artwork: ArtworkApi
@@ -24,8 +23,6 @@ export default function Dropdown({ artwork }: ArtworkProps) {
   const [collections, setCollections] = useState<CollectionTitle[]>([])
   const { getAccessTokenSilently } = useAuth0()
   const dispatch = useAppDispatch()
-
-  console.log(artwork)
 
   useEffect(() => {
     if (user) {
@@ -38,9 +35,6 @@ export default function Dropdown({ artwork }: ArtworkProps) {
         })
     }
   }, [user])
-
-  console.log(collections)
-  console.log
 
   function handleHeartClick() {
     if (isAuthenticated) {
@@ -82,13 +76,17 @@ export default function Dropdown({ artwork }: ArtworkProps) {
             <Menu.Item>
               {({ active }) => (
                 <a
-                  href='/'
+                  href="/"
                   className={`${
                     active ? 'bg-my-gold text-gray-900' : 'text-gray-700'
                   }
                    group flex w-full items-center rounded-md px-2 py-2 text-sm`}
                 >
-                  <PlusCircleIcon className="mr-2 h-5 w-5 text-gray-900" aria-hidden="true"/>Create a New Curation
+                  <PlusCircleIcon
+                    className="mr-2 h-5 w-5 text-gray-900"
+                    aria-hidden="true"
+                  />
+                  Create a New Curation
                 </a>
               )}
             </Menu.Item>
@@ -97,12 +95,14 @@ export default function Dropdown({ artwork }: ArtworkProps) {
             <ul>
               {collections.map((collection) => {
                 return (
-                  <Menu.Item key={collection.id} >
+                  <Menu.Item key={collection.id}>
                     {({ active }) => (
                       <li
                         key={collection.id}
                         className={`${
-                          active ? 'bg-my-gold px-2 text-gray-900' : 'text-gray-700'
+                          active
+                            ? 'bg-my-gold px-2 text-gray-900'
+                            : 'text-gray-700'
                         }
                         group flex w-full items-center rounded-md px-2 py-2 text-sm`}
                       >
@@ -111,7 +111,11 @@ export default function Dropdown({ artwork }: ArtworkProps) {
                             handleSaveToCollection(collection.id, artwork.id)
                           }
                         > */}
-                          <HeartIcon className="mr-2 h-5 w-5 text-gray-900" aria-hidden="true"/>{collection.title}
+                        <HeartIcon
+                          className="mr-2 h-5 w-5 text-gray-900"
+                          aria-hidden="true"
+                        />
+                        {collection.title}
                         {/* </button> */}
                       </li>
                     )}

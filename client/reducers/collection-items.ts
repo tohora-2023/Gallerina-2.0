@@ -1,4 +1,4 @@
-import CollectionItem from '../../models/CollectionItems'
+import { CollectionItem } from '../../models/CollectionItems'
 import {
   CollectionItemsAction,
   FETCH_COLLECTIONITEMS_PENDING,

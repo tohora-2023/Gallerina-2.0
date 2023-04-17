@@ -20,7 +20,7 @@ function App() {
           <Route path="/artworks/:id" element={<ArtworkInfo />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/collections/:id" element={<CollectionItems />} />
-          <Route path="/dialog" element={<Dialog/>} />
+          <Route path="/dialog" element={<Dialog />} />
           <Route path="/*" element={<></>} />
         </Routes>
       </div>

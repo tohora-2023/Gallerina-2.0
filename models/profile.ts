@@ -1,4 +1,4 @@
-export default interface ProfileCollection {
+export interface ProfileCollection {
   collectionId: number
   collectionCoverImg: string
   userId: number

@@ -1,5 +1,5 @@
 exports.up = function (knex) {
-  return knex.schema.createTable('notes', (table) => {
+  return knex.schema.createTable('artworks', (table) => {
     table.string('id').primary()
     table.string('title')
     table.string('imageLink')
@@ -10,5 +10,5 @@ exports.up = function (knex) {
 }
 
 exports.down = function (knex) {
-  return knex.schema.dropTable('notes')
+  return knex.schema.dropTable('artworks')
 }

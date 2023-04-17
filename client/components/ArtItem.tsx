@@ -1,5 +1,5 @@
 import { Link, useParams } from 'react-router-dom'
-import CollectionItem from '../../models/CollectionItems'
+import { CollectionItem } from '../../models/CollectionItems'
 import { deleteItem } from '../actions/collection-items'
 import { useAppDispatch } from '../hooks/hooks'
 type Props = CollectionItem
@@ -7,6 +7,7 @@ export default function ArtItem(art: Props) {
   const dispatch = useAppDispatch()
   const params = useParams()
   const Collectionid = Number(params.id)
+
   function handleDelete() {
     dispatch(deleteItem(Collectionid, art.artworkId))
   }
@@ -35,6 +36,9 @@ export default function ArtItem(art: Props) {
           >
             View
           </Link>
+        </div>
+        <div className="mt-3 hidden text-white group-hover:block">
+          <p>{art.note}</p>
         </div>
       </div>
     </>
