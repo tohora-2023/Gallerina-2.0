@@ -4,7 +4,7 @@ import {
   deleteCollectionItemById,
   addNote,
   deleteNote,
-  getArCollectionDBAndNotesById,
+  getArtCollectionDBAndNotesById,
 } from '../db/collection'
 
 const router = express.Router()
@@ -13,7 +13,7 @@ const router = express.Router()
 router.get('/:id', async (req, res) => {
   try {
     const id = Number(req.params.id)
-    const collection = await getArCollectionDBAndNotesById(id)
+    const collection = await getArtCollectionDBAndNotesById(id)
     res.json(collection)
   } catch (err) {
     console.log(err)

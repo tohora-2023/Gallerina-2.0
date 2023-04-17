@@ -7,7 +7,7 @@ export function geCollectionDBs(db = connection) {
 }
 
 // GET A COLLECTION, ARTWORKS AND NOTES BY ID
-export function getArCollectionDBAndNotesById(
+export function getArtCollectionDBAndNotesById(
   collectionId: number,
   db = connection
 ) {
@@ -18,17 +18,17 @@ export function getArCollectionDBAndNotesById(
       'collections_artworks.collection_id'
     )
     .join('artworks', 'artworks.id', 'collections_artworks.artwork_id')
-    .where('collection_id', collectionId)
+    .where('collections_artworks.collection_id', collectionId)
     .leftOuterJoin('notes', function () {
       this.on('artworks.id', '=', 'notes.art_id').andOn(
         'collections.id',
         '=',
-        'notes.collection_id' // check this for camel case
+        'notes.collection_id'
       )
     })
     .select(
-      'artwork_id as artworkId',
-      'collection_id as collectionId',
+      'collections_artworks.artwork_id as artworkId',
+      'collections_artworks.collection_id as collectionId',
       'collections.user_id as collectionOwnerId',
       'collections.title as collectionTitle',
       'artworks.title as artTitle',
@@ -49,7 +49,7 @@ export async function deleteCollectionItemById(
   await db('collections_artworks')
     .where({ artwork_id: artId, collection_id: collectionId })
     .del()
-  return getArCollectionDBAndNotesById(collectionId)
+  return getArtCollectionDBAndNotesById(collectionId)
 }
 
 export async function getNotesFromCollection(
