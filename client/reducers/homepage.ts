@@ -8,7 +8,7 @@ import {
 } from '../actions/homepage'
 
 interface ArtworkState {
-  data: ArtworkApi | undefined
+  data: ArtworkApi[] | undefined
   error: string | undefined
   loading: boolean
 }
