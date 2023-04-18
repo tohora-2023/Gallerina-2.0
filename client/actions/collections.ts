@@ -69,13 +69,14 @@ export type CollectionAction =
       type: typeof DELETE_COLLECTION_REJECTED
       payload: string
     }
+    //UPDATE
     | {
       type: typeof UPDATE_COLLECTION_PENDING
       payload: void
     }
   | {
       type: typeof UPDATE_COLLECTION_FULFILLED
-      payload:
+      payload: ProfileCollection
     }
   | {
       type: typeof UPDATE_COLLECTION_REJECTED

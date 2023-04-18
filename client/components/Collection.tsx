@@ -11,6 +11,8 @@ export default function Collection(profile: Props) {
   const { getAccessTokenSilently, isAuthenticated, loginWithRedirect, user } =
     useAuth0()
 
+  const [amendCollection, setAmendCollection] = useState<ProfileCollection>()
+
   const dispatch = useAppDispatch()
 
   const [showForm, setShowForm] = useState(false) // Add state variable
@@ -22,6 +24,10 @@ export default function Collection(profile: Props) {
 
   const handleUpdateClick = async () => {
     setShowForm(true) // Display the form when the button is clicked
+  }
+
+  const handleUpdateSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+
   }
 
   return (
@@ -51,7 +57,7 @@ export default function Collection(profile: Props) {
           </button>
 
           {showForm && (
-            <form>
+            <form onSubmit={handleUpdateSubmit}>
               <label>
                 New Collection Name:
                 <input type="text" name="name" />
