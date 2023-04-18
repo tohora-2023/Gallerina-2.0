@@ -22,7 +22,6 @@ export default function Profile() {
       .catch(console.error)
   }, [dispatch])
 
-
   return (
     <>
       <div>

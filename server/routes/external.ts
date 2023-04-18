@@ -47,11 +47,10 @@ router.get('/artworks', async (req, res) => {
         medium: item.medium,
         date: item.date,
         image_link: item.imageLink.replace('{image_version}', 'large'),
-        artist_link: item.artistLink
+        artist_link: item.artistLink,
       }
     })
- 
-  
+
     await addArtworksToDB(artworksSnake)
   } catch (err) {
     console.log(err)
@@ -66,9 +65,16 @@ router.get('/artworks/:id', async (req, res) => {
     const snakeArtwork = await getArtworkById(id)
     // checks if artwork is in database, if not, then retrieves it from the API
     if (snakeArtwork && snakeArtwork.length > 0) {
-      const artwork = snakeArtwork[0] 
-      // CONVERT TO CAMEL CASE TMRW
-      res.json(artwork[0])
+      const artwork: ArtworkSnakeCaseDatabase = snakeArtwork[0]
+      const camelArtwork = {
+        id: artwork.id,
+        title: artwork.title,
+        medium: artwork.medium,
+        date: artwork.date,
+        imageLink: artwork.image_link,
+        artistLink: artwork.artist_link,
+      }
+      res.json(camelArtwork)
     } else {
       const xapp = await generateXappToken()
       const response = await request

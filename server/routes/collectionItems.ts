@@ -4,8 +4,8 @@ import {
   deleteCollectionItemById,
   addNote,
   deleteNote,
-  getArCollectionDBAndNotesById,
-} from '../db/collection'
+  getArtCollectionDBAndNotesById,
+} from '../db/collectionItems'
 
 const router = express.Router()
 
@@ -13,7 +13,7 @@ const router = express.Router()
 router.get('/:id', async (req, res) => {
   try {
     const id = Number(req.params.id)
-    const collection = await getArCollectionDBAndNotesById(id)
+    const collection = await getArtCollectionDBAndNotesById(id)
     res.json(collection)
   } catch (err) {
     console.log(err)
@@ -40,7 +40,6 @@ router.post('/:collectionId/:artId', async (req, res) => {
     const collectionId = Number(req.params.collectionId)
     const artId = req.params.artId
     const note = req.body
-    console.log(note, artId, collectionId)
     const newNote = await addNote(collectionId, note, artId)
     res.json(newNote)
   } catch (err) {
@@ -54,6 +53,7 @@ router.delete('/:collectionId/:artId/:noteId', async (req, res) => {
   try {
     const noteId = Number(req.params.noteId)
     await deleteNote(noteId)
+    res.sendStatus(200)
   } catch (err) {
     console.log(err)
     res.sendStatus(500)

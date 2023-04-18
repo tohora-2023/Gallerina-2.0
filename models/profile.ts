@@ -1,4 +1,4 @@
-export interface ProfileCollection {
+export default interface ProfileCollection {
   collectionId: number
   collectionCoverImg: string
   userId: number
@@ -7,9 +7,18 @@ export interface ProfileCollection {
   auth0id: string
 }
 
-export interface User {
+export interface TCollection {
+  id: number
+  title: string
+  cover_img: string
+  user_id: number
+}
+
+export interface TUser {
   id: number
   auth0id: string
   username: string
 }
 
+export type AddCollection = Partial<Omit<TCollection, 'id'>>
+export type CollectionTitle = Partial<Omit<TCollection, 'coverImg' | 'userId'>>
