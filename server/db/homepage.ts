@@ -29,8 +29,12 @@ export async function addNewCollection(
   newCollection: AddCollection,
   db = connection
 ) {
-  const {id} = await getUserId(auth0id)
+  const { id } = await getUserId(auth0id)
   return db('collections')
-    .insert({ user_id: id, cover_img: newCollection.coverImg, title: newCollection.title })
+    .insert({
+      user_id: id,
+      cover_img: newCollection.coverImg,
+      title: newCollection.title,
+    })
     .returning(['title'])
 }

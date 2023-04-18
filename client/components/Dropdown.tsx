@@ -19,10 +19,15 @@ interface ArtworkProps {
   setCollections: (collections: CollectionDB[]) => void
 }
 
-export default function Dropdown({ artwork, collections, coverImg, setCollections }: ArtworkProps) {
+export default function Dropdown({
+  artwork,
+  collections,
+  coverImg,
+  setCollections,
+}: ArtworkProps) {
   const { loginWithRedirect, isAuthenticated } = useAuth0()
   const { getAccessTokenSilently } = useAuth0()
-  const [ showModal, setShowModal] = useState(false)
+  const [showModal, setShowModal] = useState(false)
 
   function handleHeartClick() {
     if (isAuthenticated) {
