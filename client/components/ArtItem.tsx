@@ -6,7 +6,11 @@ import { useState } from 'react'
 import NewNoteForm from './NewNoteForm'
 import { deleteNote } from '../apis/collectionItems'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faNoteSticky, faTrash } from '@fortawesome/free-solid-svg-icons'
+import {
+  faNoteSticky,
+  faTrash,
+  faMessage,
+} from '@fortawesome/free-solid-svg-icons'
 type Props = CollectionItem
 
 export default function ArtItem(art: Props) {
@@ -57,10 +61,7 @@ export default function ArtItem(art: Props) {
         </div>
         <div className="mt-3 hidden group-hover:block">
           <button onClick={() => setShowAddNote(true)}>
-            <FontAwesomeIcon
-              icon={faMessagePlus}
-              style={{ color: '#ffffff' }}
-            />
+            <FontAwesomeIcon icon={faMessage} style={{ color: '#ffffff' }} />
           </button>
           {art.noteName && (
             <div className="flex justify-between">
