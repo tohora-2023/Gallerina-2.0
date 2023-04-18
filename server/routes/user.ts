@@ -1,9 +1,10 @@
 import express from 'express'
+import checkJwt, { JwtRequest } from '../auth0'
 
 import { addUser } from '../db/user'
 import { AddUser } from '../../models/profile'
-import router from './homepage'
-import checkJwt, { JwtRequest } from '../auth0'
+
+const router = express.Router()
 
 router.post('/', checkJwt, async (req: JwtRequest, res) => {
   try {
@@ -17,3 +18,5 @@ router.post('/', checkJwt, async (req: JwtRequest, res) => {
     res.sendStatus(500).json({ err: 'There was an error.' })
   }
 })
+
+export default router
