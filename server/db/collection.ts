@@ -1,17 +1,18 @@
 import connection from './connection'
-import AddCollection from '../../models/profile'
-import ProfileCollection from '../../models/profile'
+import { AddCollection } from '../../models/profile'
+import { ProfileCollection } from '../../models/profile'
 
 export function getCollections(db = connection) {
   return db('collections').select()
 }
 
 export function getCollectionsById(id: number, db = connection) {
-  return db("collections").join("users", "users.id", "collections.user_id")
-  .where('collections.id', id )
+  return db('collections')
+    .join('users', 'users.id', 'collections.user_id')
+    .where('collections.id', id)
 }
 // collections = { id, title, cover_img, user_id}
-// users = { id, username, auth0id } 
+// users = { id, username, auth0id }
 // { id, title, cover_img, user_id, id, username, auth0id }
 
 // finds user by auth0id
@@ -40,8 +41,12 @@ export async function deleteCollection(id: number, db = connection) {
   return getCollections()
 }
 
-export async function updateCollection(id: number, title: string, db = connection) {
-  await db("collections").where({id}).update({title})
+export async function updateCollection(
+  id: number,
+  title: string,
+  db = connection
+) {
+  await db('collections').where({ id }).update({ title })
 }
 
 // Creates a new collection

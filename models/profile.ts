@@ -20,5 +20,7 @@ export interface TUser {
   username: string
 }
 
+export type AddUser = Omit<TUser, 'id'>
+
 export type AddCollection = Partial<Omit<TCollection, 'id'>>
 export type CollectionTitle = Partial<Omit<TCollection, 'coverImg' | 'userId'>>
