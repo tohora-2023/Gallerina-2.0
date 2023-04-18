@@ -6,7 +6,7 @@ import { useState } from 'react'
 import NewNoteForm from './NewNoteForm'
 import { deleteNote } from '../apis/collectionItems'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faNoteSticky } from '@fortawesome/free-solid-svg-icons'
+import { faNoteSticky, faTrash } from '@fortawesome/free-solid-svg-icons'
 type Props = CollectionItem
 
 export default function ArtItem(art: Props) {
@@ -44,8 +44,10 @@ export default function ArtItem(art: Props) {
           {art.artTitle}
         </p>
         <div className="flex justify-between">
-          <p onClick={handleDelete}>X</p>
-
+          <button onClick={handleDelete}>
+            {' '}
+            <FontAwesomeIcon icon={faTrash} style={{ color: '#ffffff' }} />
+          </button>
           <Link
             to={`/artworks/${art.artworkId}`}
             className="hidden rounded-full bg-white px-2 text-black group-hover:block"
@@ -53,21 +55,22 @@ export default function ArtItem(art: Props) {
             View
           </Link>
         </div>
-        <div className="mt-3 hidden text-white group-hover:block">
-          <FontAwesomeIcon
-            icon={faNoteSticky}
-            style={{ color: '#ffffff' }}
-            onClick={() => setShowAddNote(true)}
-          />
+        <div className="mt-3 hidden group-hover:block">
+          <button onClick={() => setShowAddNote(true)}>
+            <FontAwesomeIcon
+              icon={faMessagePlus}
+              style={{ color: '#ffffff' }}
+            />
+          </button>
           {art.noteName && (
             <div className="flex justify-between">
               <p className="mr-2 font-bold">{art.noteName} </p>
               <p>{art.note}</p>
-              <button
-                className="rounded-lg bg-white p-1 text-black"
-                onClick={handleDeleteNote}
-              >
-                Delete Note
+              <button onClick={handleDeleteNote}>
+                <FontAwesomeIcon
+                  icon={faMessageXmark}
+                  style={{ color: '#ffffff' }}
+                />
               </button>
             </div>
           )}
