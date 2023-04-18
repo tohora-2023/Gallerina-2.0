@@ -3,7 +3,7 @@ import { Fragment, useState, FormEvent } from 'react'
 import { useAuth0 } from '@auth0/auth0-react'
 
 import { addNewCollectionApi, getAllCollectionsApi } from '../apis/homepage'
-import { AddCollection} from '../../models/collectionArtwork'
+import { AddCollection } from '../../models/collectionArtwork'
 import CollectionConfirmation from './CollectionConfirmation'
 
 interface ModalProps {
@@ -11,8 +11,10 @@ interface ModalProps {
   isOpen: boolean
 }
 
-export default function CreateCollection({ onClose, isOpen}: ModalProps) {
-  const [newCollection, setNewCollection] = useState<AddCollection | undefined>()
+export default function CreateCollection({ onClose, isOpen }: ModalProps) {
+  const [newCollection, setNewCollection] = useState<
+    AddCollection | undefined
+  >()
   const { getAccessTokenSilently } = useAuth0()
   const [showUpdateAlert, setShowUpdateAlert] = useState(false)
 
@@ -22,9 +24,11 @@ export default function CreateCollection({ onClose, isOpen}: ModalProps) {
     await addNewCollectionApi(token, newCollection)
     setNewCollection({ title: '' })
     setShowUpdateAlert(true)
+
     setTimeout(() => {
       setShowUpdateAlert(false)
-    }, 2000)
+      window.location.reload() // reload the page after waiting 0.5 seconds
+    }, 500)
   }
 
   return (
@@ -63,31 +67,34 @@ export default function CreateCollection({ onClose, isOpen}: ModalProps) {
                     as="h3"
                     className="text-center text-lg font-medium leading-6 text-gray-900"
                   >
-                    Name New Curation
+                    Name New Collection
                   </Dialog.Title>
                   <form onSubmit={handleSubmit} aria-label="Add Curation">
-                    <input
-                      type="text"
-                      name="title"
-                      id="curationTitle"
-                      placeholder="Curation name"
-                      value={newCollection?.title}
-                      onChange={(e) =>
-                        setNewCollection({
-                          ...newCollection,
-                          title: e.target.value,
-                        })
-                      }
-                    />
+                    <div className="flex flex-col items-center">
+                      <input
+                        type="text"
+                        name="title"
+                        id="curationTitle"
+                        placeholder="Curation name"
+                        value={newCollection?.title}
+                        onChange={(e) =>
+                          setNewCollection({
+                            ...newCollection,
+                            title: e.target.value,
+                          })
+                        }
+                        style={{ textAlign: 'center' }}
+                      />
 
-                    <div className="mt-4">
-                      <button
-                        type="submit"
-                        className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
-                        onClick={onClose}
-                      >
-                        Create
-                      </button>
+                      <div className="mt-4">
+                        <button
+                          type="submit"
+                          className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                          onClick={onClose}
+                        >
+                          Create
+                        </button>
+                      </div>
                     </div>
                   </form>
                 </Dialog.Panel>
