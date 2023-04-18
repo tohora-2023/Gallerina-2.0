@@ -8,6 +8,7 @@ import CollectionItems from './CollectionItems'
 import Search from './Search'
 
 function App() {
+  // useEffect that sends a api request, to add the user into the users table
   return (
     <>
       <Navbar />
