@@ -1,28 +1,34 @@
 import { Dialog, Transition } from '@headlessui/react'
 import { Fragment, useState, FormEvent } from 'react'
-import { ArtworkApi } from '../../models/externalArtwork'
+import { useAuth0 } from '@auth0/auth0-react'
+
 import { addNewCollectionApi } from '../apis/homepage'
-import { AddCollection } from '../../models/collectionArtwork'
+import { AddCollection, CollectionDB } from '../../models/collectionArtwork'
 
 interface ArtworkProps {
-  artwork: ArtworkApi
   onClose: () => void
   isOpen: boolean
+  coverImg: string
+  setCollections: (collections: CollectionDB[]) => void
+  collections: CollectionDB[]
 }
 
 export default function CreateCollection({
-  artwork,
   onClose,
   isOpen,
+  coverImg,
+  setCollections,
+  collections
 }: ArtworkProps) {
-  const [newCollection, setNewCollection] = useState<
-    AddCollection | undefined
-  >()
+  const [newCollection, setNewCollection] = useState<AddCollection | undefined>()
+  const { getAccessTokenSilently } = useAuth0()
 
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
-    addNewCollectionApi(newCollection)
-    setNewCollection(newCollection)
+    const token = await getAccessTokenSilently()
+    const updateCollection = await addNewCollectionApi(token, {...newCollection, coverImg})
+    setNewCollection({ title: '' })
+    setCollections([...collections, updateCollection])
   }
 
   return (
@@ -66,21 +72,19 @@ export default function CreateCollection({
                       id="curationTitle"
                       placeholder="Curation name"
                       value={newCollection?.title}
-                      onClick={(e) =>
+                      onChange={(e) =>
                         setNewCollection({
                           ...newCollection,
-                          title: e.target.value,
+                          title: e.target.value
                         })
                       }
                     />
 
                     <div className="mt-4">
                       <button
-                        type="button"
+                        type="submit"
                         className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
-                        onClick={() => {
-                          closeModal()
-                        }}
+                        onClick={onClose}
                       >
                         Create
                       </button>

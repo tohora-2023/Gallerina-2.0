@@ -2,10 +2,9 @@ import request from 'superagent'
 import { AddCollection } from '../../models/collectionArtwork'
 import { ProfileCollection } from '../../models/profile'
 
-
 const rootUrl = '/api/v1'
 
-export async function geCollectionDBsByUserId(
+export async function getCollectionDBsByUserId(
   id: number,
   token: string
 ): Promise<ProfileCollection[]> {
@@ -21,6 +20,11 @@ export async function addCollection(newCollection: AddCollection) {
   await request.post(rootUrl + '/newcollection').send(newCollection)
 }
 
-export async function collectionDelete(id: number, token: string): Promise<request.Response> {
-  return request.delete(rootUrl + `/profile/${id}`).set('Authorization', `Bearer ${token}`)
+export async function collectionDelete(
+  id: number,
+  token: string
+): Promise<request.Response> {
+  return request
+    .delete(rootUrl + `/profile/${id}`)
+    .set('Authorization', `Bearer ${token}`)
 }

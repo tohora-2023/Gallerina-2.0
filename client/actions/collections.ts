@@ -1,18 +1,15 @@
 //  PROFILE RELATED COLLECTION FUNCTIONS -- API + REDUCER CALLED PROFILE.TS
 import type { ThunkAction } from '../store'
-import { ProfileCollection} from '../../models/profile'
-import {AddCollection} from '../../models/collectionArtwork'
-import {
-  geCollectionDBsByUserId,
-  collectionDelete,
-} from '../apis/profile'
+import { ProfileCollection } from '../../models/profile'
+import { AddCollection } from '../../models/collectionArtwork'
+import { getCollectionDBsByUserId, collectionDelete } from '../apis/profile'
 
 // SET profile pending & error states
 export const SET_PENDING = 'SET_PENDING'
 export const SET_ERROR = 'SET_ERROR'
 
-// set profile actions success 
-export const SET_FETCH_COLLECTIONS= 'SET_FETCH_COLLECTIONS' 
+// set profile actions success
+export const SET_FETCH_COLLECTIONS = 'SET_FETCH_COLLECTIONS'
 export const SET_ADD_COLLECTION = 'SET_ADD_COLLECTION'
 export const SET_DELETE_COLLECTION = 'SET_DELETE_COLLECTION'
 
@@ -20,7 +17,7 @@ export type CollectionAction =
   | {
       type: typeof SET_ERROR
       payload: string
-    } 
+    }
   | {
       type: typeof SET_PENDING
       payload: void
@@ -76,7 +73,7 @@ export function deleteCollectionFulfilled(
 export function fetchCollections(userId: number, token: string): ThunkAction {
   return (dispatch) => {
     dispatch(setPending())
-    return geCollectionDBsByUserId(userId, token)
+    return getCollectionDBsByUserId(userId, token)
       .then((collections) => {
         dispatch(fetchCollectionsFullfilied(collections))
       })

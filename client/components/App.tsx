@@ -4,7 +4,6 @@ import Navbar from './Navbar'
 import Home from './Homepage'
 import ArtworkInfo from './ArtworkInfo'
 import Profile from './Profile'
-import Collection from './Collection'
 import CollectionItems from './CollectionItems'
 import Search from './Search'
 
