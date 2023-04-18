@@ -76,7 +76,7 @@ export type CollectionAction =
     }
   | {
       type: typeof UPDATE_COLLECTION_FULFILLED
-      payload: ProfileCollection
+      payload: {collectionId: number, title: string}
     }
   | {
       type: typeof UPDATE_COLLECTION_REJECTED
@@ -134,10 +134,10 @@ export function updateCollectionPending(): CollectionAction {
   } as CollectionAction
 }
 
-export function updateCollectionFulfilled(collectionId: number, collection: ProfileCollection): CollectionAction {
+export function updateCollectionFulfilled(collectionId: number, title: string): CollectionAction {
   return {
     type: UPDATE_COLLECTION_FULFILLED,
-    payload: collectionId, collection
+    payload: {collectionId, title}
   } as CollectionAction
 }
 
@@ -175,12 +175,12 @@ export function deleteCollection(id: number, token: string): ThunkAction {
   }
 }
 
-export function updateCollection(id: number, collection: ProfileCollection, token: string): ThunkAction {
+export function updateCollection(id: number, title: string, token: string): ThunkAction {
   return (dispatch) => {
     dispatch(updateCollectionPending())
-    return collectionUpdate(id, collection, token)
+    return collectionUpdate(id, title, token)
     .then(() => {
-      dispatch(updateCollectionFulfilled(id, collection))
+      dispatch(updateCollectionFulfilled(id, title))
     }) .catch((error) => {
       dispatch(updateCollectionRejected(error.message))
     })

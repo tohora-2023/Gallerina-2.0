@@ -103,7 +103,6 @@ router.patch('/:CollectionId', checkJwt, async (req: JwtRequest, res) => {
     if (userCollection[0].auth0id === auth0Id) {
       const {title} = req.body
       await updateCollection(collectionId, title)
-
       res.sendStatus(200)
     } else {
       return res.status(401).send('Unauthorized')

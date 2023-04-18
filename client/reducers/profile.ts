@@ -84,11 +84,15 @@ const collectionsReducer = (
     case UPDATE_COLLECTION_FULFILLED:
       return {
         ...state,
-        data: state.data?.map((collection) =>
-          collection.collectionId === payload.collectionId
-            ? payload
-            : collection
-        ),
+        data: state.data?.map((collection) => {
+          if (collection.collectionId === payload.collectionId) {
+            return {
+              ...collection,
+              title: payload.title,
+            }
+          }
+          return collection
+        }),
         loading: false,
       }
     default:
