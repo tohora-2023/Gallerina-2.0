@@ -28,7 +28,7 @@ export default function Dropdown({
 }: ArtworkProps) {
   const { loginWithRedirect, isAuthenticated } = useAuth0()
   const { getAccessTokenSilently } = useAuth0()
-  const [ showModal, setShowModal] = useState(false)
+  const [showModal, setShowModal] = useState(false)
   const [showUpdateAlert, setShowUpdateAlert] = useState(false)
 
   function handleHeartClick() {
@@ -45,7 +45,6 @@ export default function Dropdown({
     setTimeout(() => {
       setShowUpdateAlert(false)
     }, 2000)
-    
   }
 
   return (
@@ -113,7 +112,7 @@ export default function Dropdown({
                   return (
                     <Menu.Item key={collection.id}>
                       {({ active }) => (
-                        <li
+                        <button
                           key={collection.id}
                           className={`${
                             active
@@ -121,20 +120,16 @@ export default function Dropdown({
                               : 'text-gray-700'
                           }
                         group flex w-full items-center rounded-md px-2 py-2 text-sm`}
+                          onClick={() =>
+                            handleSaveToCollection(collection.id, artwork.id)
+                          }
                         >
-                          <button
-                            className="group flex"
-                            onClick={() =>
-                              handleSaveToCollection(collection.id, artwork.id)
-                            }
-                          >
-                            <HeartIcon
-                              className="mr-2 h-5 w-5 text-gray-900"
-                              aria-hidden="true"
-                            />
-                            {collection.title}
-                          </button>
-                        </li>
+                          <HeartIcon
+                            className="mr-2 h-5 w-5 text-gray-900"
+                            aria-hidden="true"
+                          />
+                          {collection.title}
+                        </button>
                       )}
                     </Menu.Item>
                   )
