@@ -45,7 +45,7 @@ export default function Home() {
       <div className="columns-4 gap-x-12 space-y-12 2xl:columns-5">
         {data?.map((artwork: ArtworkApi) => {
           return (
-            <div key={artwork.id} className="">
+            <div key={artwork.id}>
               <div className="relative break-inside-avoid-column">
                 <img
                   className="h-auto w-full rounded-md opacity-100 hover:opacity-80"

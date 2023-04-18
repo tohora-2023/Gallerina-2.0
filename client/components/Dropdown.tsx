@@ -11,6 +11,7 @@ import { CollectionDB } from '../../models/collectionArtwork'
 import { addArtworkToCollectionApi } from '../apis/homepage'
 import { ArtworkApi } from '../../models/externalArtwork'
 import HeartIcon2 from './HeartIcon'
+import CollectionConfirmation from './CollectionConfirmation'
 
 interface ArtworkProps {
   artwork: ArtworkApi
@@ -28,6 +29,7 @@ export default function Dropdown({
   const { loginWithRedirect, isAuthenticated } = useAuth0()
   const { getAccessTokenSilently } = useAuth0()
   const [ showModal, setShowModal] = useState(false)
+  const [showUpdateAlert, setShowUpdateAlert] = useState(false)
 
   function handleHeartClick() {
     if (isAuthenticated) {
@@ -39,6 +41,11 @@ export default function Dropdown({
 
   function handleSaveToCollection(collectionId: number, artworkId: string) {
     addArtworkToCollectionApi(collectionId, artworkId)
+    setShowUpdateAlert(true)
+    setTimeout(() => {
+      setShowUpdateAlert(false)
+    }, 2000)
+    
   }
 
   return (
@@ -49,6 +56,10 @@ export default function Dropdown({
         coverImg={coverImg}
         setCollections={setCollections}
         collections={collections}
+      />
+      <CollectionConfirmation
+        onClose={() => setShowUpdateAlert(false)}
+        isOpen={showUpdateAlert}
       />
       <Menu as="div" className="z-100 relative inline-block">
         <div>

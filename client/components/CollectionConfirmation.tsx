@@ -1,5 +1,6 @@
 import { Dialog, Transition } from '@headlessui/react'
 import { Fragment } from 'react'
+import { HeartIcon } from '@heroicons/react/24/outline'
 
 interface AlertProps {
   onClose: () => void
@@ -8,7 +9,7 @@ interface AlertProps {
 
 export default function CollectionConfirmation({
   onClose,
-  isOpen,
+  isOpen
 }: AlertProps) {
   return (
     <Transition appear show={isOpen} as={Fragment}>
@@ -28,7 +29,10 @@ export default function CollectionConfirmation({
           <div className="flex min-h-full items-center justify-center p-4 text-center">
             <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
               <Dialog.Description className="text-center text-lg font-medium leading-6 text-gray-900">
-                Your collection has been updated.
+                <HeartIcon className="group flex mr-2 h-8 w-8 text-gray-900 fill-my-gold" stroke="#A48948" aria-hidden="true"
+                />
+                Saved to your Collection
+                {/* {`Saved to your ${} collection`} */}
               </Dialog.Description>
             </Dialog.Panel>
           </div>
