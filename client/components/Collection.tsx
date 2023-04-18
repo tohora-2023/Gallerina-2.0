@@ -37,16 +37,16 @@ export default function Collection(profile: Props) {
     setShowForm(false)
   }
 
-
   return (
     <>
-      <div className="flex justify-center p-1">
-        <div>
+      <div className="flex justify-center  ">
+        <div className="shadow-xs border-grey mx-2 mb-2 transform cursor-pointer rounded-lg border bg-white p-2 text-center font-bold tracking-wide text-black transition duration-200 hover:-translate-y-1 hover:bg-my-gold hover:shadow-2xl active:translate-y-0 active:shadow-xl">
           <Link to={`/collections/${profile.collectionId}`}>
             {profile.title}
           </Link>
           <br />
           <img
+            className=""
             src={profile.collectionCoverImg}
             alt={`cover for ${profile.title}`}
           />
