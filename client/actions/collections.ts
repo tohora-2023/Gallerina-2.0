@@ -1,12 +1,8 @@
 import type { ThunkAction } from '../store'
-import TCollection from '../../models/profile'
-import ProfileCollection, { AddCollection } from '../../models/profile'
-import {
-  getCollectionsByUserId,
-  addCollection,
-  collectionDelete,
-  collectionUpdate,
-} from '../apis/profile'
+import { ProfileCollection } from '../../models/profile'
+import { AddCollection } from '../../models/collectionArtwork'
+import { getCollectionDBsByUserId, collectionDelete } from '../apis/profile'
+
 
 // FETCH Collections
 export const FETCH_COLLECTIONS_PENDING = 'FETCH_COLLECTIONS_PENDING'
@@ -27,6 +23,7 @@ export const DELETE_COLLECTION_REJECTED = 'DELETE_COLLECTION_REJECTED'
 export const UPDATE_COLLECTION_PENDING = 'UPDATE_COLLECTION_PENDING'
 export const UPDATE_COLLECTION_FULFILLED = 'UPDATE_COLLECTION_FULFILLED'
 export const UPDATE_COLLECTION_REJECTED = 'UPDATE_COLLECTION_REJECTED'
+
 
 export type CollectionAction =
   // FETCH Collection
@@ -153,7 +150,7 @@ export function updateCollectionRejected(error: string): CollectionAction {
 export function fetchCollections(userId: number, token: string): ThunkAction {
   return (dispatch) => {
     dispatch(fetchCollectionsPending())
-    return getCollectionsByUserId(userId, token)
+    return getCollectionDBsByUserId(userId, token)
       .then((collections) => {
         dispatch(fetchCollectionsFullfilied(collections))
       })

@@ -4,7 +4,9 @@ import { join } from 'node:path'
 import home from './routes/homepage'
 import external from './routes/external'
 import profile from './routes/profile'
+
 import collectionItems from './routes/collectionItems'
+
 // use this when implementing addToCollection button functionality
 import artworkInfo from './routes/artworkInfo'
 

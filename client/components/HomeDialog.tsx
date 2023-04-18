@@ -1,32 +1,53 @@
 import { Dialog, Transition } from '@headlessui/react'
 import { Fragment, useState, FormEvent } from 'react'
-import { ArtworkApi } from '../../models/externalArtwork'
+import { useAuth0 } from '@auth0/auth0-react'
+
 import { addNewCollectionApi } from '../apis/homepage'
-import { AddCollection } from '../../models/collectionArtwork'
+import { AddCollection, CollectionDB } from '../../models/collectionArtwork'
+import CollectionConfirmation from './CollectionConfirmation'
 
 interface ArtworkProps {
-  artwork: ArtworkApi
   onClose: () => void
   isOpen: boolean
+  coverImg: string
+  setCollections: (collections: CollectionDB[]) => void
+  collections: CollectionDB[]
 }
 
 export default function CreateCollection({
-  artwork,
   onClose,
   isOpen,
+  coverImg,
+  setCollections,
+  collections,
 }: ArtworkProps) {
   const [newCollection, setNewCollection] = useState<
     AddCollection | undefined
   >()
+  const { getAccessTokenSilently } = useAuth0()
+  const [showUpdateAlert, setShowUpdateAlert] = useState(false)
 
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
-    addNewCollectionApi(newCollection)
-    setNewCollection(newCollection)
+    const token = await getAccessTokenSilently()
+    const updateCollection = await addNewCollectionApi(token, {
+      ...newCollection,
+      coverImg,
+    })
+    setNewCollection({ title: '' })
+    setCollections([...collections, updateCollection])
+    setShowUpdateAlert(true)
+    setTimeout(() => {
+      setShowUpdateAlert(false)
+    }, 2000)
   }
 
   return (
     <>
+      <CollectionConfirmation
+        onClose={() => setShowUpdateAlert(false)}
+        isOpen={showUpdateAlert}
+      />
       <Transition appear show={isOpen} as={Fragment}>
         <Dialog as="div" className="relative z-10" onClose={onClose}>
           <Transition.Child
@@ -66,7 +87,7 @@ export default function CreateCollection({
                       id="curationTitle"
                       placeholder="Curation name"
                       value={newCollection?.title}
-                      onClick={(e) =>
+                      onChange={(e) =>
                         setNewCollection({
                           ...newCollection,
                           title: e.target.value,
@@ -76,11 +97,9 @@ export default function CreateCollection({
 
                     <div className="mt-4">
                       <button
-                        type="button"
+                        type="submit"
                         className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
-                        onClick={() => {
-                          closeModal()
-                        }}
+                        onClick={onClose}
                       >
                         Create
                       </button>

@@ -1,5 +1,6 @@
 import { ArtworkApi } from '../../models/externalArtwork'
 import { getAllArtworks } from '../apis/homepage'
+
 import type { ThunkAction } from '../store'
 
 export const FETCH_ARTWORKS_PENDING = 'FETCH_ARTWORKS_PENDING'

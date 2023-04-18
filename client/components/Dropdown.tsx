@@ -5,8 +5,8 @@ import { Menu, Transition } from '@headlessui/react'
 import { PlusCircleIcon } from '@heroicons/react/24/outline'
 import { HeartIcon } from '@heroicons/react/24/outline'
 import { useAuth0 } from '@auth0/auth0-react'
-import Dialog from './HomeDialog'
 
+import Dialog from './HomeDialog'
 import { CollectionDB } from '../../models/collectionArtwork'
 import { addArtworkToCollectionApi } from '../apis/homepage'
 import { ArtworkApi } from '../../models/externalArtwork'
@@ -15,10 +15,17 @@ import HeartIcon2 from './HeartIcon'
 interface ArtworkProps {
   artwork: ArtworkApi
   collections: CollectionDB[]
+  coverImg: string
+  setCollections: (collections: CollectionDB[]) => void
 }
 
-export default function Dropdown({ artwork, collections }: ArtworkProps) {
-  const { loginWithRedirect, isAuthenticated, user } = useAuth0()
+export default function Dropdown({
+  artwork,
+  collections,
+  coverImg,
+  setCollections,
+}: ArtworkProps) {
+  const { loginWithRedirect, isAuthenticated } = useAuth0()
   const { getAccessTokenSilently } = useAuth0()
   const [showModal, setShowModal] = useState(false)
 
@@ -37,9 +44,11 @@ export default function Dropdown({ artwork, collections }: ArtworkProps) {
   return (
     <>
       <Dialog
-        artwork={artwork}
         onClose={() => setShowModal(false)}
         isOpen={showModal}
+        coverImg={coverImg}
+        setCollections={setCollections}
+        collections={collections}
       />
       <Menu as="div" className="z-100 relative inline-block">
         <div>

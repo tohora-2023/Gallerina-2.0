@@ -1,11 +1,10 @@
 import request from 'superagent'
-import { TCollection } from '../../models/profile'
-import ProfileCollection from '../../models/profile'
-import { AddCollection } from '../../models/profile'
+import { AddCollection } from '../../models/collectionArtwork'
+import { ProfileCollection } from '../../models/profile'
 
 const rootUrl = '/api/v1'
 
-export async function getCollectionsByUserId(
+export async function getCollectionDBsByUserId(
   id: number,
   token: string
 ): Promise<ProfileCollection[]> {
@@ -40,3 +39,4 @@ export async function collectionUpdate(
     .send({ title })
     .set('Authorization', `Bearer ${token}`)
 }
+
