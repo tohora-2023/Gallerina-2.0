@@ -1,6 +1,6 @@
 import express from 'express'
-import TCollection, { TUser } from '../../models/profile'
-import ProfileCollection from '../../models/profile'
+import {TCollection, TUser } from '../../models/profile'
+import {ProfileCollection} from '../../models/profile'
 import {
   addCollection,
   deleteCollection,
@@ -72,7 +72,6 @@ router.delete('/:CollectionId', checkJwt, async (req: JwtRequest, res) => {
     const collectionId = Number(req.params.CollectionId)
     // Get the collection by the collectionId { id, title, cover_img, user_id }
     const userCollection = await geCollectionDBsById(collectionId)
-    console.log(userCollection)
     // if (!auth0Id === collection.user_id)
     if (userCollection[0].auth0id === auth0Id) {
       await deleteCollection(collectionId)
@@ -101,7 +100,6 @@ router.patch('/:CollectionId', checkJwt, async (req: JwtRequest, res) => {
     const collectionId = Number(req.params.CollectionId)
 
     const userCollection = await getCollectionsById(collectionId)
-    console.log(userCollection)
 
     if (userCollection[0].auth0id === auth0Id) {
       const { title } = req.body

@@ -1,7 +1,7 @@
 import type { ThunkAction } from '../store'
 import { ProfileCollection } from '../../models/profile'
 import { AddCollection } from '../../models/collectionArtwork'
-import { getCollectionDBsByUserId, collectionDelete } from '../apis/profile'
+import { getCollectionDBsByUserId, collectionDelete, collectionUpdate } from '../apis/profile'
 
 
 // FETCH Collections
