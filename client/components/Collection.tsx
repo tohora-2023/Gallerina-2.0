@@ -11,7 +11,7 @@ export default function Collection(profile: Props) {
   const { getAccessTokenSilently, isAuthenticated, loginWithRedirect, user } =
     useAuth0()
 
-  const [amendCollection, setAmendCollection] = useState<ProfileCollection>()
+  const [amendTitle, setAmendTitle] = useState<ProfileCollection>()
 
   const dispatch = useAppDispatch()
 
@@ -26,9 +26,9 @@ export default function Collection(profile: Props) {
     setShowForm(true) // Display the form when the button is clicked
   }
 
-  const handleUpdateSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleUpdateSubmit = (e: React.FormEvent<HTMLFormElement>) => {}
 
-  }
+  console.log(profile)
 
   return (
     <>
@@ -42,12 +42,10 @@ export default function Collection(profile: Props) {
             src={profile.collectionCoverImg}
             alt={`cover for ${profile.title}`}
           />
-          <button
-            className=" shadow-xs absolute left-10 ml-20 transform cursor-pointer rounded-full border border-black bg-white px-2 py-0.5 font-bold tracking-wide text-black transition duration-200 hover:-translate-y-1 hover:bg-my-gold hover:shadow-2xl active:translate-y-0 active:shadow-xl"
-            onClick={handleDeleteClick}
-          >
-            Delete
+          <button className=" shadow-xs absolute left-10 ml-20 transform cursor-pointer rounded-full border border-black bg-white px-2 py-0.5 font-bold tracking-wide text-black transition duration-200 hover:-translate-y-1 hover:bg-my-gold hover:shadow-2xl active:translate-y-0 active:shadow-xl">
+            <FontAwesomeIcon icon={faTrash} />
           </button>
+
           <br></br>
           <button
             className=" shadow-xs absolute left-10 ml-20 transform cursor-pointer rounded-full border border-black bg-white px-2 py-0.5 font-bold tracking-wide text-black transition duration-200 hover:-translate-y-1 hover:bg-my-gold hover:shadow-2xl active:translate-y-0 active:shadow-xl"

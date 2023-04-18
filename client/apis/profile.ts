@@ -25,6 +25,6 @@ export async function collectionDelete(id: number, token: string): Promise<reque
   return request.delete(rootUrl + `/profile/${id}`).set('Authorization', `Bearer ${token}`)
 }
 
-export async function collectionUpdate(id: number, collection: string, token: string): Promise<request.Response> {
-  return request.put(rootUrl + `/profile/${id}`).set('Authorization', `Bearer ${token}`)
+export async function collectionUpdate(id: number, title: string, token: string): Promise<request.Response> {
+  return await request.patch(rootUrl + `/profile/${id}`).send({title}).set('Authorization', `Bearer ${token}`)
 }

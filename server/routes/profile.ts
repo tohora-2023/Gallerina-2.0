@@ -87,7 +87,7 @@ router.delete('/:CollectionId', checkJwt, async (req: JwtRequest, res) => {
   }
 })
 
-router.put('/:CollectionId', checkJwt, async (req: JwtRequest, res) => {
+router.patch('/:CollectionId', checkJwt, async (req: JwtRequest, res) => {
   try {
     const auth0Id = req.auth?.sub
 
@@ -101,7 +101,8 @@ router.put('/:CollectionId', checkJwt, async (req: JwtRequest, res) => {
     console.log(userCollection)
 
     if (userCollection[0].auth0id === auth0Id) {
-      await updateCollection(collectionId, req.body as ProfileCollection)
+      const {title} = req.body
+      await updateCollection(collectionId, title)
 
       res.sendStatus(200)
     } else {
