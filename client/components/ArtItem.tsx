@@ -61,17 +61,20 @@ export default function ArtItem(art: Props) {
         </div>
         <div className="mt-3 hidden group-hover:block">
           <button onClick={() => setShowAddNote(true)}>
-            <FontAwesomeIcon icon={faMessage} style={{ color: '#ffffff' }} />
+            {/* <FontAwesomeIcon
+              icon={faMessagePlus}
+              style={{ color: '#ffffff' }}
+            /> */}
           </button>
           {art.noteName && (
             <div className="flex justify-between">
               <p className="mr-2 font-bold">{art.noteName} </p>
               <p>{art.note}</p>
               <button onClick={handleDeleteNote}>
-                <FontAwesomeIcon
+                {/* <FontAwesomeIcon
                   icon={faMessageXmark}
                   style={{ color: '#ffffff' }}
-                />
+                /> */}
               </button>
             </div>
           )}

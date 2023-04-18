@@ -93,6 +93,7 @@ export default function CreateCollection({
                       id="curationTitle"
                       placeholder="Curation name"
                       value={newCollection?.title}
+                      maxLength={15}
                       onChange={(e) =>
                         setNewCollection({
                           ...newCollection,
