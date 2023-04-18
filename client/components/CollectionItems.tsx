@@ -23,6 +23,7 @@ export default function CollectionItems() {
   useEffect(() => {
     dispatch(geCollectionDBItems(id))
   }, [dispatch, id])
+
   return (
     <>
       <div className="h-full w-full">

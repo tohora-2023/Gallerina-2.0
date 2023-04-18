@@ -1,15 +1,30 @@
 import { Link, useParams } from 'react-router-dom'
-import { CollectionItem } from '../../models/collectionContent'
-import { deleteItem } from '../actions/collectionItems'
+import { CollectionItem, AddNote } from '../../models/collectionContent'
+import { addNoteToArtwork, deleteItem } from '../actions/collectionItems'
 import { useAppDispatch } from '../hooks/hooks'
+import { FormEvent, ChangeEvent, useState } from 'react'
 type Props = CollectionItem
 export default function ArtItem(art: Props) {
+  const [newNote, setNewNote] = useState({ noteName: '', note: '' } as AddNote)
   const dispatch = useAppDispatch()
   const params = useParams()
   const Collectionid = Number(params.id)
 
+  // DELETE COLLECTION ITEM
   function handleDelete() {
     dispatch(deleteItem(Collectionid, art.artworkId))
+  }
+
+  // DELETE NOTE
+
+  // COLLECTION NOTE
+  function handleChange(event: ChangeEvent<HTMLInputElement>) {
+    setNewNote({ note: event.target.value, noteName: event.target.value })
+  }
+
+  function handleAddNote(e: FormEvent) {
+    e.preventDefault()
+    dispatch(addNoteToArtwork(Collectionid, newNote, art.artworkId))
   }
 
   return (
