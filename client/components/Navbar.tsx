@@ -49,7 +49,7 @@ export default function Navbar() {
                 activeButton === 'home'
                   ? 'bg-my-gold'
                   : 'bg-white hover:bg-my-gold'
-              } shadow-xs mr-1 transform px-3 py-0.5 font-bold tracking-wide text-black transition duration-200 hover:-translate-y-1 hover:shadow-2xl active:translate-y-0 active:shadow-xl lg:mt-0 lg:inline-block `}
+              } shadow-xs mr-5 transform px-3 py-0.5 font-bold tracking-wide text-black transition duration-200 hover:-translate-y-1 hover:shadow-2xl active:translate-y-0 active:shadow-xl lg:mt-0 lg:inline-block `}
               onClick={() => setActiveButton('home')}
             >
               Home
@@ -71,7 +71,7 @@ export default function Navbar() {
           {isAuthenticated && (
             <Link to={`/profile`}>
               <button
-                className={` mt-4  mr-1 ml-1 block cursor-pointer rounded-full border border-black ${
+                className={` mt-4  mr-5 ml-5 block cursor-pointer rounded-full border border-black ${
                   activeButton === 'profile'
                     ? 'bg-my-gold'
                     : 'bg-white hover:bg-my-gold'
