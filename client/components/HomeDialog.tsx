@@ -4,6 +4,7 @@ import { useAuth0 } from '@auth0/auth0-react'
 
 import { addNewCollectionApi } from '../apis/homepage'
 import { AddCollection, CollectionDB } from '../../models/collectionArtwork'
+import CollectionConfirmation from './CollectionConfirmation'
 
 interface ArtworkProps {
   onClose: () => void
@@ -18,21 +19,35 @@ export default function CreateCollection({
   isOpen,
   coverImg,
   setCollections,
-  collections
+  collections,
 }: ArtworkProps) {
-  const [newCollection, setNewCollection] = useState<AddCollection | undefined>()
+  const [newCollection, setNewCollection] = useState<
+    AddCollection | undefined
+  >()
   const { getAccessTokenSilently } = useAuth0()
+  const [showUpdateAlert, setShowUpdateAlert] = useState(false)
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
     const token = await getAccessTokenSilently()
-    const updateCollection = await addNewCollectionApi(token, {...newCollection, coverImg})
+    const updateCollection = await addNewCollectionApi(token, {
+      ...newCollection,
+      coverImg,
+    })
     setNewCollection({ title: '' })
     setCollections([...collections, updateCollection])
+    setShowUpdateAlert(true)
+    setTimeout(() => {
+      setShowUpdateAlert(false)
+    }, 2000)
   }
 
   return (
     <>
+      <CollectionConfirmation
+        onClose={() => setShowUpdateAlert(false)}
+        isOpen={showUpdateAlert}
+      />
       <Transition appear show={isOpen} as={Fragment}>
         <Dialog as="div" className="relative z-10" onClose={onClose}>
           <Transition.Child
@@ -75,7 +90,7 @@ export default function CreateCollection({
                       onChange={(e) =>
                         setNewCollection({
                           ...newCollection,
-                          title: e.target.value
+                          title: e.target.value,
                         })
                       }
                     />
