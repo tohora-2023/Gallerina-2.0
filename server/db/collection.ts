@@ -1,63 +1,17 @@
 import connection from './connection'
-import { AddCollection } from '../../models/collectionArtwork'
-import { geCollectionDBs } from './collectionItems'
-// moved user-related info from collection.ts to profile.ts
-
-// collections = { id, title, cover_img, user_id}
-// users = { id, username, auth0id }
-// { id, title, cover_img, user_id, id, username, auth0id }
-
-// finds user by auth0id
-export async function geUserByAuth(auth: string, db = connection) {
-  return db('users').where({ auth0id: auth }).first()
-}
-
-// gets user profile info
-export async function geUserInfoAndCollections(user: number, db = connection) {
-  return db('users')
-    .join('collections', 'users.id', 'collections.user_id')
-    .where('users.id', user)
-    .select(
-      'collections.id as collectionId',
-      'collections.cover_img as collectionCoverImg',
-      'collections.user_id as userId',
-      'collections.title',
-      'users.username',
-      'users.auth0id'
-    )
-}
-
-// gets collections by ID -- collection ID? or userId? A collection only has one id?
-export function geCollectionDBsById(id: number, db = connection) {
-  return db('collections')
-    .join('users', 'users.id', 'collections.user_id')
-    .where('collections.id', id)
-}
-
-// Creates a new collection - geCollectionDBs returns ALL collections regardless of who is logged into
-export async function addCollection(
-  newCollection: AddCollection,
-  db = connection
-) {
-  await db('collections').insert(newCollection)
-  return geCollectionDBs()
-}
-
-//
-//
-//
+import AddCollection from '../../models/profile'
+import ProfileCollection from '../../models/profile'
 
 export function getCollections(db = connection) {
   return db('collections').select()
 }
 
 export function getCollectionsById(id: number, db = connection) {
-  return db('collections')
-    .join('users', 'users.id', 'collections.user_id')
-    .where('collections.id', id)
+  return db("collections").join("users", "users.id", "collections.user_id")
+  .where('collections.id', id )
 }
 // collections = { id, title, cover_img, user_id}
-// users = { id, username, auth0id }
+// users = { id, username, auth0id } 
 // { id, title, cover_img, user_id, id, username, auth0id }
 
 // finds user by auth0id
@@ -86,12 +40,17 @@ export async function deleteCollection(id: number, db = connection) {
   return getCollections()
 }
 
-export async function updateCollection(
-  id: number,
-  title: string,
+export async function updateCollection(id: number, title: string, db = connection) {
+  await db("collections").where({id}).update({title})
+}
+
+// Creates a new collection
+export async function addCollection(
+  newCollection: AddCollection,
   db = connection
 ) {
-  await db('collections').where({ id }).update({ title })
+  await db('collections').insert(newCollection)
+  return getCollections()
 }
 
 // GET A COLLECTION AND ARTWORKS BY ID
