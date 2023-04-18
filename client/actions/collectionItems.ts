@@ -1,4 +1,5 @@
 import type { ThunkAction } from '../store'
+
 import { CollectionItem } from '../../models/collectionContent'
 import {
   getAllCollectionItems,
@@ -23,12 +24,12 @@ export type CollectionItemsAction =
       payload: string
     }
 
- export function setError(errMessage: string): CollectionItemsAction {
-      return {
-        type: SET_ERROR,
-        payload: errMessage,
-      }
-    }
+export function setError(errMessage: string): CollectionItemsAction {
+  return {
+    type: SET_ERROR,
+    payload: errMessage,
+  }
+}
 
 export function setPending(): CollectionItemsAction {
   return {
@@ -44,8 +45,6 @@ export function fetchCollectionItemsFulfilled(
     payload: items,
   }
 }
-
-
 
 export function geCollectionDBItems(id: number): ThunkAction {
   return (dispatch) => {
