@@ -5,7 +5,7 @@ import {
   getCollectionsByUserId,
   addCollection,
   collectionDelete,
-  collectionUpdate
+  collectionUpdate,
 } from '../apis/profile'
 
 // FETCH Collections
@@ -27,7 +27,6 @@ export const DELETE_COLLECTION_REJECTED = 'DELETE_COLLECTION_REJECTED'
 export const UPDATE_COLLECTION_PENDING = 'UPDATE_COLLECTION_PENDING'
 export const UPDATE_COLLECTION_FULFILLED = 'UPDATE_COLLECTION_FULFILLED'
 export const UPDATE_COLLECTION_REJECTED = 'UPDATE_COLLECTION_REJECTED'
-
 
 export type CollectionAction =
   // FETCH Collection
@@ -69,14 +68,14 @@ export type CollectionAction =
       type: typeof DELETE_COLLECTION_REJECTED
       payload: string
     }
-    //UPDATE
-    | {
+  //UPDATE
+  | {
       type: typeof UPDATE_COLLECTION_PENDING
       payload: void
     }
   | {
       type: typeof UPDATE_COLLECTION_FULFILLED
-      payload: {collectionId: number, title: string}
+      payload: { collectionId: number; title: string }
     }
   | {
       type: typeof UPDATE_COLLECTION_REJECTED
@@ -134,10 +133,13 @@ export function updateCollectionPending(): CollectionAction {
   } as CollectionAction
 }
 
-export function updateCollectionFulfilled(collectionId: number, title: string): CollectionAction {
+export function updateCollectionFulfilled(
+  collectionId: number,
+  title: string
+): CollectionAction {
   return {
     type: UPDATE_COLLECTION_FULFILLED,
-    payload: {collectionId, title}
+    payload: { collectionId, title },
   } as CollectionAction
 }
 
@@ -175,14 +177,19 @@ export function deleteCollection(id: number, token: string): ThunkAction {
   }
 }
 
-export function updateCollection(id: number, title: string, token: string): ThunkAction {
+export function updateCollection(
+  id: number,
+  title: string,
+  token: string
+): ThunkAction {
   return (dispatch) => {
     dispatch(updateCollectionPending())
     return collectionUpdate(id, title, token)
-    .then(() => {
-      dispatch(updateCollectionFulfilled(id, title))
-    }) .catch((error) => {
-      dispatch(updateCollectionRejected(error.message))
-    })
+      .then(() => {
+        dispatch(updateCollectionFulfilled(id, title))
+      })
+      .catch((error) => {
+        dispatch(updateCollectionRejected(error.message))
+      })
   }
 }

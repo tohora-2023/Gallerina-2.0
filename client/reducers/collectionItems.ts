@@ -1,10 +1,10 @@
-import CollectionItem from '../../models/CollectionItems'
+import { CollectionItem } from '../../models/collectionContent'
 import {
   CollectionItemsAction,
-  FETCH_COLLECTIONITEMS_PENDING,
+  SET_PENDING,
   FETCH_COLLECTIONITEMS_FULFILLED,
-  FETCH_COLLECTIONITEMS_REJECTED,
-} from '../actions/collection-items'
+  SET_ERROR,
+} from '../actions/collectionItems'
 
 interface CollectionItemsState {
   data: CollectionItem[] | undefined
@@ -24,7 +24,7 @@ const collectionItemsReducer = (
 ): CollectionItemsState => {
   const { type, payload } = action
   switch (type) {
-    case FETCH_COLLECTIONITEMS_PENDING:
+    case SET_PENDING:
       return {
         data: undefined,
         error: undefined,
@@ -36,7 +36,7 @@ const collectionItemsReducer = (
         error: undefined,
         loading: false,
       }
-    case FETCH_COLLECTIONITEMS_REJECTED:
+    case SET_ERROR:
       return {
         data: undefined,
         error: payload,

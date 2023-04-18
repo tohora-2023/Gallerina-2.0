@@ -1,9 +1,9 @@
 import { useEffect } from 'react'
 import { useAppDispatch, useAppSelector } from '../hooks/hooks'
-import { getCollectionItems } from '../actions/collection-items'
+import { geCollectionDBItems } from '../actions/collectionItems'
 import { useParams } from 'react-router-dom'
 import ArtItem from './ArtItem'
-import CollectionItem from '../../models/CollectionItems'
+import { CollectionItem } from '../../models/collectionContent'
 
 export default function CollectionItems() {
   const {
@@ -20,10 +20,8 @@ export default function CollectionItems() {
     (art) => art.collectionId === id
   )
 
-  console.log(collectionDetail)
-
   useEffect(() => {
-    dispatch(getCollectionItems(id))
+    dispatch(geCollectionDBItems(id))
   }, [dispatch, id])
   return (
     <>
@@ -36,7 +34,7 @@ export default function CollectionItems() {
           {error && <p>Unfortunately we cannot reach our database</p>}
           <div className="flex flex-wrap">
             {collectionItems?.map((art: CollectionItem) => (
-              <ArtItem key={art.collectionId} {...art} />
+              <ArtItem key={art.artworkId} {...art} />
             ))}
           </div>
         </div>

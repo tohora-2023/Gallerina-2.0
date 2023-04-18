@@ -1,3 +1,5 @@
+// ARTSY.net --> For info on the API used https://developers.artsy.net/
+// external api is in snake case
 export interface ArtworkApi {
   id: string
   slug: string

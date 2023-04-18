@@ -1,4 +1,4 @@
-import { ArtworkApi } from '../../models/external-Artwork'
+import { ArtworkApi } from '../../models/externalArtwork'
 
 import {
   ArtAction,
@@ -8,7 +8,7 @@ import {
 } from '../actions/homepage'
 
 interface ArtworkState {
-  data: ArtworkApi | undefined
+  data: ArtworkApi[] | undefined
   error: string | undefined
   loading: boolean
 }

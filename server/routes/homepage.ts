@@ -1,25 +1,22 @@
 import express from 'express'
-import { getCollectionsByUserId, addArtworkToCollection } from '../db/homepage'
-import { ArtworkCollection } from '../../models/collection-artwork'
-// import checkJwt from '../auth0'
-// import { JwtRequest } from '../auth0'
+import { geCollectionDBsByUserId, addArtworkToCollection, addNewCollection } from '../db/homepage'
+import checkJwt from '../auth0'
+import { JwtRequest } from '../auth0'
 
 const router = express.Router()
 
 // GETS user collections for dropdown in homepage
-router.get('/user/collections', async (req, res) => {
+router.get('/user/collections', checkJwt, async (req: JwtRequest, res) => {
   try {
-    const auth0Id = 'bsd24gyg55w56dd7a' // refactor so that it checks user's auth0id
-
+    const auth0Id = req.auth?.sub
     if (!auth0Id) {
       console.error('No auth0Id')
       return res.status(401).send('Unauthorized')
     }
 
-    const collections = await getCollectionsByUserId(auth0Id)
+    const collections = await geCollectionDBsByUserId(auth0Id)
     res.json(collections)
   } catch (error) {
-    console.log(error)
     res.status(500).json({
       error: "There was an error trying to get this user's collections",
     })
@@ -38,9 +35,28 @@ router.post('/user/collections', async (req, res) => {
     const artColl = await addArtworkToCollection(collectionId, artworkId)
     res.json(artColl)
   } catch (error) {
-    console.log(error)
     res.status(500).json({
       error: 'There was an error trying to add the artwork',
+    })
+  }
+})
+
+// ADD a new collection for a user
+router.post('/user/add-collection', async (req, res) => {
+  try{
+    const collection = req.body
+    console.log(req.body)
+    if (!collection) {
+      res.status(400).json({ error: 'New collection was invalid' })
+    }
+  
+    const newCollection = await addNewCollection(collection)
+    console.log(newCollection)
+    res.json(newCollection)
+  } catch (error) {
+    console.log(error)
+    res.status(500).json({
+      error: 'There was an error trying to add a new collection',
     })
   }
 })

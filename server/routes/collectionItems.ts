@@ -1,37 +1,23 @@
 import express from 'express'
 
 import {
-  getArtCollectionById,
   deleteCollectionItemById,
-} from '../db/collection'
-import { addArtworkToCollection } from '../db/homepage'
+  addNote,
+  deleteNote,
+  getArtCollectionDBAndNotesById,
+} from '../db/collectionItems'
+
 const router = express.Router()
 
-// GET items in collections/:id
+// GET items in collections/:collectionId + also notes!
 router.get('/:id', async (req, res) => {
   try {
     const id = Number(req.params.id)
-    const collection = await getArtCollectionById(id)
+    const collection = await getArtCollectionDBAndNotesById(id)
     res.json(collection)
   } catch (err) {
     console.log(err)
     res.sendStatus(500)
-  }
-})
-
-// add artwork to a collection
-// api/v1/collections/:id
-router.post('/', async (req, res) => {
-  try {
-    const { collectionId, artworkId } = req.body
-
-    const artColl = await addArtworkToCollection(collectionId, artworkId)
-    res.json(artColl)
-  } catch (error) {
-    console.log(error)
-    res.status(500).json({
-      error: 'There was an error trying to add the artwork',
-    })
   }
 })
 
@@ -42,6 +28,32 @@ router.delete('/:id/:artId', async (req, res) => {
     const artId = req.params.artId
     const collection = await deleteCollectionItemById(id, artId)
     res.json(collection)
+  } catch (err) {
+    console.log(err)
+    res.sendStatus(500)
+  }
+})
+
+// ADD NOTE for artId in collection
+router.post('/:collectionId/:artId', async (req, res) => {
+  try {
+    const collectionId = Number(req.params.collectionId)
+    const artId = req.params.artId
+    const note = req.body
+    const newNote = await addNote(collectionId, note, artId)
+    res.json(newNote)
+  } catch (err) {
+    console.log(err)
+    res.sendStatus(500)
+  }
+})
+
+// DELETE NOTE
+router.delete('/:collectionId/:artId/:noteId', async (req, res) => {
+  try {
+    const noteId = Number(req.params.noteId)
+    await deleteNote(noteId)
+    res.sendStatus(200)
   } catch (err) {
     console.log(err)
     res.sendStatus(500)

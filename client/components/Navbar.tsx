@@ -41,14 +41,6 @@ export default function Navbar() {
         </Link>
       </div>
 
-      <div className="block lg:hidden">
-        <button
-          className="flex items-center rounded border border-gray-600 px-3 py-2 text-white hover:border-white hover:text-white"
-          type="button"
-          aria-label="Toggle menu"
-        ></button>
-      </div>
-
       <div className="ml-auto w-full lg:w-auto">
         <div className="flex justify-end">
           <Link to="/">

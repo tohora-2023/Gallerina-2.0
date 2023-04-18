@@ -10,7 +10,10 @@ import {
   getUserByAuth,
   getUserInfoAndCollections,
   getCollectionsById,
-} from '../db/collection'
+  geUserInfoAndCollections,
+  geUserByAuth,
+  geCollectionDBsById,
+} from '../db/profile'
 import checkJwt, { JwtRequest } from '../auth0'
 const router = express.Router()
 export default router
@@ -23,8 +26,8 @@ router.get('/', checkJwt, async (req: JwtRequest, res) => {
       console.error('No auth0Id')
       return res.status(401).send('Unauthorized')
     }
-    const user: TUser = await getUserByAuth(auth0Id)
-    const profile = await getUserInfoAndCollections(user.id)
+    const user: TUser = await geUserByAuth(auth0Id)
+    const profile = await geUserInfoAndCollections(user.id)
     res.json(profile)
   } catch (err) {
     console.log(err)
@@ -68,7 +71,7 @@ router.delete('/:CollectionId', checkJwt, async (req: JwtRequest, res) => {
     }
     const collectionId = Number(req.params.CollectionId)
     // Get the collection by the collectionId { id, title, cover_img, user_id }
-    const userCollection = await getCollectionsById(collectionId)
+    const userCollection = await geCollectionDBsById(collectionId)
     console.log(userCollection)
     // if (!auth0Id === collection.user_id)
     if (userCollection[0].auth0id === auth0Id) {
@@ -101,7 +104,7 @@ router.patch('/:CollectionId', checkJwt, async (req: JwtRequest, res) => {
     console.log(userCollection)
 
     if (userCollection[0].auth0id === auth0Id) {
-      const {title} = req.body
+      const { title } = req.body
       await updateCollection(collectionId, title)
       res.sendStatus(200)
     } else {

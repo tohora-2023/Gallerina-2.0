@@ -1,5 +1,5 @@
-import { ChangeEvent, FormEvent, useEffect, useState } from 'react'
-import { ArtworkApi } from '../../models/external-Artwork'
+import { FormEvent, useState } from 'react'
+import { ArtworkApi } from '../../models/externalArtwork'
 import { getArtworksFromSearch } from '../apis/search'
 import LoadingSpinner from './LoadingSpinner'
 

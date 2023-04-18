@@ -1,25 +1,37 @@
 import request from 'superagent'
-import { ArtworkCollection } from '../../models/collection-artwork'
 
-import { ArtworkApi } from '../../models/external-Artwork'
-import TCollection from '../../models/profile'
+import { ArtworkApi } from '../../models/externalArtwork'
+import { CollectionDB } from '../../models/collectionArtwork'
 
-export async function getAllArtworks(): Promise<ArtworkApi> {
+export async function getAllArtworks(): Promise<ArtworkApi[]> {
   const response = await request.get('/api/v1/artworks')
   return response.body
 }
 
-export async function getAllCollectionsApi(): Promise<TCollection[]> {
-  const response = await request.get('/api/v1/home/user/collections')
+export async function getAllCollectionsApi(
+  token: string
+): Promise<CollectionDB[]> {
+  const response = await request
+    .get('/api/v1/home/user/collections')
+    .set('Authorization', `Bearer ${token}`)
   return response.body
 }
 
 export async function addArtworkToCollectionApi(
   collectionId: number,
-  artworkId: number
+  artworkId: string
 ) {
   const response = await request
     .post('/api/v1/home/user/collections')
-    .send(collectionId, artworkId)
+    .send({ collectionId, artworkId })
+  return response.body
+}
+
+export async function addNewCollectionApi(
+  newCollection: CollectionDB | undefined
+): Promise<CollectionDB> {
+  const response = await request
+    .post('/api/v1/user/add-collection')
+    .send({ newCollection })
   return response.body
 }

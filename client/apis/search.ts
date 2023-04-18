@@ -1,5 +1,5 @@
 import request from 'superagent'
-import { ArtworkApi } from '../../models/external-Artwork'
+import { ArtworkApi } from '../../models/externalArtwork'
 
 export async function getArtworksFromSearch(
   search: string

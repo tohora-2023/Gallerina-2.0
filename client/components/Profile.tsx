@@ -1,17 +1,12 @@
 import { useEffect } from 'react'
-import { Link, Route, RouteProps, useParams } from 'react-router-dom'
 import { useAppDispatch, useAppSelector } from '../hooks/hooks'
-// import { fetchResults } from
 import { fetchCollections } from '../actions/collections'
 import { useAuth0 } from '@auth0/auth0-react'
-import { KeyboardEvent } from 'react'
+import { ProfileCollection } from '../../models/profile'
 import Collection from './Collection'
-import TCollection from '../../models/profile'
-import ProfileCollection from '../../models/profile'
 
 export default function Profile() {
-  const { getAccessTokenSilently, isAuthenticated, loginWithRedirect, user } =
-    useAuth0()
+  const { getAccessTokenSilently, user } = useAuth0()
 
   const dispatch = useAppDispatch()
 
@@ -36,7 +31,7 @@ export default function Profile() {
           </button>
 
           <h1 className="text-xl">{`${user?.given_name}'s Curations`}</h1>
-          {/* <h2 className="text-lg">User: {myProfile?.username}</h2> */}
+          {/* <h2 className="text-lg">User: {}</h2> */}
           <div className="">
             <img
               className="h-30 border-black-200 border-5 ml-10 w-auto rounded-full object-cover object-center"
