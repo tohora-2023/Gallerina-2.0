@@ -52,7 +52,6 @@ export default function Home() {
                   alt={artwork.slug}
                 />
                 <div className="text-center font-garamond text-sm font-bold text-black">
-                  {/* {artwork._links?.thumbnail?.href} */}
                   <Dropdown artwork={artwork} coverImg={artwork._links?.thumbnail?.href} collections={collections} setCollections={setCollections} />
                   <Link to={`/artworks/${artwork.id}`}>{artwork.title}</Link>
                 </div>

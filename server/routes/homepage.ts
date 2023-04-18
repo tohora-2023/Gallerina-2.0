@@ -59,7 +59,6 @@ router.post('/user/add-collection', checkJwt, async (req: JwtRequest, res) => {
     const [newCollection] = await addNewCollection(auth0Id, collection)
     res.json(newCollection)
   } catch (error) {
-    console.log(error)
     res.status(500).json({
       error: 'There was an error trying to add a new collection',
     })
