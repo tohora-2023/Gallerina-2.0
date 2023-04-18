@@ -39,4 +39,3 @@ export async function collectionUpdate(
     .send({ title })
     .set('Authorization', `Bearer ${token}`)
 }
-

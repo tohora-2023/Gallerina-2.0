@@ -40,6 +40,7 @@ router.post('/:collectionId/:artId', async (req, res) => {
     const collectionId = Number(req.params.collectionId)
     const artId = req.params.artId
     const note = req.body
+
     const newNote = await addNote(collectionId, note, artId)
     res.json(newNote)
   } catch (err) {
@@ -49,11 +50,13 @@ router.post('/:collectionId/:artId', async (req, res) => {
 })
 
 // DELETE NOTE
-router.delete('/:collectionId/:artId/:noteId', async (req, res) => {
+router.delete('/:collectionId/notes/:noteId', async (req, res) => {
   try {
+    const collectionId = Number(req.params.collectionId)
     const noteId = Number(req.params.noteId)
     await deleteNote(noteId)
-    res.sendStatus(200)
+    const collection = await getArtCollectionDBAndNotesById(collectionId)
+    res.json(collection)
   } catch (err) {
     console.log(err)
     res.sendStatus(500)

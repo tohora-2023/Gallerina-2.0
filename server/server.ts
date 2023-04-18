@@ -10,6 +10,9 @@ import collectionItems from './routes/collectionItems'
 // use this when implementing addToCollection button functionality
 import artworkInfo from './routes/artworkInfo'
 
+// use this when implementing addToCollection button functionality
+// import artworkInfo from './routes/artworkInfo'
+
 const server = express()
 
 server.use(express.json())

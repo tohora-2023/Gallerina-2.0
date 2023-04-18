@@ -23,9 +23,11 @@ export default function CollectionItems() {
   useEffect(() => {
     dispatch(geCollectionDBItems(id))
   }, [dispatch, id])
+
   return (
     <>
       <div className="h-full w-full">
+        {!collectionDetail && <p>Add something to your collection!</p>}
         <h1 className="p-3 text-3xl font-extrabold">
           {collectionDetail?.collectionTitle}
         </h1>
