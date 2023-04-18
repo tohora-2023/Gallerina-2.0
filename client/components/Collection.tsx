@@ -37,7 +37,6 @@ export default function Collection(profile: Props) {
     setShowForm(false)
   }
 
-  console.log(profile)
 
   return (
     <>
