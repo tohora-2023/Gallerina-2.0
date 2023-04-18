@@ -5,6 +5,8 @@ import { useAppDispatch } from '../hooks/hooks'
 import { useState } from 'react'
 import NewNoteForm from './NewNoteForm'
 import { deleteNote } from '../apis/collectionItems'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faNoteSticky } from '@fortawesome/free-solid-svg-icons'
 type Props = CollectionItem
 
 export default function ArtItem(art: Props) {
@@ -32,7 +34,7 @@ export default function ArtItem(art: Props) {
         isOpen={showAddNote}
         collectionItem={art}
       />
-      <div className="group m-3 h-fit w-fit flex-col rounded-md p-2 transition-transform ease-in-out hover:scale-105 hover:bg-my-gold hover:duration-500">
+      <div className="hover:duration-00 group m-3 h-fit w-fit flex-col rounded-md p-2 transition-transform ease-in-out hover:bg-my-gold">
         <img
           className="h-80 w-80 font-quicksand"
           src={art.artImageLink}
@@ -42,12 +44,8 @@ export default function ArtItem(art: Props) {
           {art.artTitle}
         </p>
         <div className="flex justify-between">
-          <button
-            className="hidden rounded-full bg-white px-2 text-rose-500 group-hover:block"
-            onClick={handleDelete}
-          >
-            X
-          </button>
+          <p onClick={handleDelete}>X</p>
+
           <Link
             to={`/artworks/${art.artworkId}`}
             className="hidden rounded-full bg-white px-2 text-black group-hover:block"
@@ -56,12 +54,11 @@ export default function ArtItem(art: Props) {
           </Link>
         </div>
         <div className="mt-3 hidden text-white group-hover:block">
-          <button
+          <FontAwesomeIcon
+            icon={faNoteSticky}
+            style={{ color: '#ffffff' }}
             onClick={() => setShowAddNote(true)}
-            className="mt-2 rounded-lg bg-white p-1 text-black group-hover:block"
-          >
-            Add Note
-          </button>
+          />
           {art.noteName && (
             <div className="flex justify-between">
               <p className="mr-2 font-bold">{art.noteName} </p>

@@ -33,7 +33,7 @@ export default function Navbar() {
       <div>
         <Link to="/">
           <img
-            src="./logo4.png"
+            src="/logo4.png"
             alt="gallerina logo"
             className="ml-10 h-12 w-auto scale-150 transform"
             onClick={() => setActiveButton('')}

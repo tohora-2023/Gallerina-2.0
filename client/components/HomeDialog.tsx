@@ -2,7 +2,10 @@ import { Dialog, Transition } from '@headlessui/react'
 import { Fragment, useState, FormEvent } from 'react'
 import { useAuth0 } from '@auth0/auth0-react'
 
-import { addNewCollectionApi } from '../apis/homepage'
+import {
+  addArtworkToCollectionApi,
+  addNewCollectionApi,
+} from '../apis/homepage'
 import { AddCollection, CollectionDB } from '../../models/collectionArtwork'
 import CollectionConfirmation from './CollectionConfirmation'
 
@@ -12,6 +15,7 @@ interface ArtworkProps {
   coverImg: string
   setCollections: (collections: CollectionDB[]) => void
   collections: CollectionDB[]
+  artworkId: string
 }
 
 export default function CreateCollection({
@@ -20,6 +24,7 @@ export default function CreateCollection({
   coverImg,
   setCollections,
   collections,
+  artworkId,
 }: ArtworkProps) {
   const [newCollection, setNewCollection] = useState<
     AddCollection | undefined
@@ -35,6 +40,7 @@ export default function CreateCollection({
       coverImg,
     })
     setNewCollection({ title: '' })
+    addArtworkToCollectionApi(updateCollection.id, artworkId)
     setCollections([...collections, updateCollection])
     setShowUpdateAlert(true)
     setTimeout(() => {
