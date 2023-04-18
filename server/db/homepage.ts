@@ -36,5 +36,5 @@ export async function addNewCollection(
       cover_img: newCollection.coverImg,
       title: newCollection.title,
     })
-    .returning(['title'])
+    .returning(['id', 'title'])
 }

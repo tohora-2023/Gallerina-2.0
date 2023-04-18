@@ -18,6 +18,7 @@ interface ArtworkProps {
   collections: CollectionDB[]
   coverImg: string
   setCollections: (collections: CollectionDB[]) => void
+  artworkId: string
 }
 
 export default function Dropdown({
@@ -55,6 +56,7 @@ export default function Dropdown({
         coverImg={coverImg}
         setCollections={setCollections}
         collections={collections}
+        artworkId={artwork.id}
       />
       <CollectionConfirmation
         onClose={() => setShowUpdateAlert(false)}

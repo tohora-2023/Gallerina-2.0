@@ -12,7 +12,7 @@ import { getAllCollectionsApi } from '../apis/homepage'
 
 export default function Home() {
   const { loading, data, error } = useAppSelector((state) => state.artworkState)
-  const [ collections, setCollections ] = useState<CollectionDB[]>([])
+  const [collections, setCollections] = useState<CollectionDB[]>([])
   const { user } = useAuth0()
   const { getAccessTokenSilently } = useAuth0()
 
@@ -53,7 +53,13 @@ export default function Home() {
                   alt={artwork.slug}
                 />
                 <div className="text-center font-garamond text-sm font-bold text-black">
-                  <Dropdown artwork={artwork} coverImg={artwork._links?.thumbnail?.href} collections={collections} setCollections={setCollections} />
+                  <Dropdown
+                    artwork={artwork}
+                    artworkId={artwork.id}
+                    coverImg={artwork._links?.thumbnail?.href}
+                    collections={collections}
+                    setCollections={setCollections}
+                  />
                   <Link to={`/artworks/${artwork.id}`}>{artwork.title}</Link>
                 </div>
               </div>
