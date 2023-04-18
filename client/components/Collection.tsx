@@ -15,7 +15,7 @@ export default function Collection(profile: Props) {
   const { getAccessTokenSilently, isAuthenticated, loginWithRedirect, user } =
     useAuth0()
 
-  const [amendTitle, setAmendTitle] = useState<ProfileCollection>()
+  const [amendTitle, setAmendTitle] = useState(profile.title)
 
   const dispatch = useAppDispatch()
 
@@ -30,7 +30,12 @@ export default function Collection(profile: Props) {
     setShowForm(true) // Display the form when the button is clicked
   }
 
-  const handleUpdateSubmit = (e: React.FormEvent<HTMLFormElement>) => {}
+  const handleUpdateSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    const token = await getAccessTokenSilently()
+    dispatch(updateCollection(profile.collectionId, amendTitle, token))
+    setShowForm(false)
+  }
 
   console.log(profile)
 
@@ -66,6 +71,9 @@ export default function Collection(profile: Props) {
                   name="name"
                   id="name"
                   className="text-grey-darkest border py-2 px-3"
+                  value={amendTitle}
+                  required
+                  onChange={(e) => setAmendTitle(e.target.value)}
                 />
               </div>
               <div className="flex justify-between">
