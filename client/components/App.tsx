@@ -1,4 +1,6 @@
 import { Routes, Route } from 'react-router-dom'
+import { useAuth0 } from '@auth0/auth0-react'
+import { useEffect } from 'react'
 
 import Navbar from './Navbar'
 import Home from './Homepage'
@@ -6,8 +8,23 @@ import ArtworkInfo from './ArtworkInfo'
 import Profile from './Profile'
 import CollectionItems from './CollectionItems'
 import Search from './Search'
+import { addNewUser } from '../apis/user'
 
 function App() {
+  const { getAccessTokenSilently, user } = useAuth0()
+
+  useEffect(() => {
+    const getAccess = async () => {
+      const token = await getAccessTokenSilently()
+      const username = user?.name
+      if (username == null) {
+        return console.log('Username doesnt exist')
+      }
+      addNewUser(token, username)
+    }
+    getAccess().catch(console.error)
+  }, [user, getAccessTokenSilently])
+
   return (
     <>
       <Navbar />
