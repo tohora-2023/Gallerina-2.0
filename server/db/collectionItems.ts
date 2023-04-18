@@ -1,5 +1,5 @@
 import connection from './connection'
-import { AddNote } from '../../models/collectionContent'
+import { AddNoteSnake } from '../../models/collectionContent'
 
 // gets all collections - regardless of wwho is logged in
 export function geCollectionDBs(db = connection) {
@@ -62,7 +62,7 @@ export async function deleteCollectionItemById(
 // add a note to collection item
 export async function addNote(
   collectionId: number,
-  addNote: AddNote,
+  addNote: AddNoteSnake,
   artId: string,
   db = connection
 ) {

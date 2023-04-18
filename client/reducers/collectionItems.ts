@@ -51,7 +51,7 @@ const collectionItemsReducer = (
             return {
               ...collectionItem,
               note: payload.note.note,
-              noteName: payload.note.noteName,
+              noteName: payload.note.note_name,
             }
           }
           return collectionItem

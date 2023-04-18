@@ -18,15 +18,20 @@ export default function CreateCollection({
   isOpen,
   coverImg,
   setCollections,
-  collections
+  collections,
 }: ArtworkProps) {
-  const [newCollection, setNewCollection] = useState<AddCollection | undefined>()
+  const [newCollection, setNewCollection] = useState<
+    AddCollection | undefined
+  >()
   const { getAccessTokenSilently } = useAuth0()
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
     const token = await getAccessTokenSilently()
-    const updateCollection = await addNewCollectionApi(token, {...newCollection, coverImg})
+    const updateCollection = await addNewCollectionApi(token, {
+      ...newCollection,
+      coverImg,
+    })
     setNewCollection({ title: '' })
     setCollections([...collections, updateCollection])
   }
@@ -75,7 +80,7 @@ export default function CreateCollection({
                       onChange={(e) =>
                         setNewCollection({
                           ...newCollection,
-                          title: e.target.value
+                          title: e.target.value,
                         })
                       }
                     />

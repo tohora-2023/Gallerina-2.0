@@ -1,5 +1,5 @@
 import request from 'superagent'
-import { CollectionItem, AddNote } from '../../models/collectionContent'
+import { CollectionItem, AddNoteSnake } from '../../models/collectionContent'
 
 const rootUrl = '/api/v1'
 
@@ -22,10 +22,20 @@ export async function deleteCollectionItem(
 
 export async function addNote(
   collectionId: number,
-  note: AddNote,
+  note: AddNoteSnake,
   artId: string
 ) {
   await request
     .post(`${rootUrl}/collections/${collectionId}/${artId}`)
     .send(note)
+}
+
+export async function deleteNote(
+  collectionId: number,
+  noteId: number
+): Promise<CollectionItem[]> {
+  const response = await request.delete(
+    `${rootUrl}/collections/${collectionId}/notes/${noteId}`
+  )
+  return response.body
 }

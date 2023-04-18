@@ -1,34 +1,37 @@
 import { Link, useParams } from 'react-router-dom'
-import { CollectionItem, AddNote } from '../../models/collectionContent'
-import { addNoteToArtwork, deleteItem } from '../actions/collectionItems'
+import { CollectionItem } from '../../models/collectionContent'
+import { deleteItem, deleteNoteFromArtwork } from '../actions/collectionItems'
 import { useAppDispatch } from '../hooks/hooks'
-import { FormEvent, ChangeEvent, useState } from 'react'
+import { useState } from 'react'
+import NewNoteForm from './NewNoteForm'
+import { deleteNote } from '../apis/collectionItems'
 type Props = CollectionItem
+
 export default function ArtItem(art: Props) {
-  const [newNote, setNewNote] = useState({ noteName: '', note: '' } as AddNote)
+  // CONDITIONAL FORM RENDER LOGIC
+  const [showAddNote, setShowAddNote] = useState(false)
+
   const dispatch = useAppDispatch()
   const params = useParams()
   const Collectionid = Number(params.id)
 
-  // DELETE COLLECTION ITEM
+  // COLLECTION ITEM
   function handleDelete() {
     dispatch(deleteItem(Collectionid, art.artworkId))
   }
 
-  // DELETE NOTE
-
-  // COLLECTION NOTE
-  function handleChange(event: ChangeEvent<HTMLInputElement>) {
-    setNewNote({ note: event.target.value, noteName: event.target.value })
-  }
-
-  function handleAddNote(e: FormEvent) {
-    e.preventDefault()
-    dispatch(addNoteToArtwork(Collectionid, newNote, art.artworkId))
+  // NOTE
+  function handleDeleteNote() {
+    dispatch(deleteNoteFromArtwork(Collectionid, art.noteId))
   }
 
   return (
     <>
+      <NewNoteForm
+        onClose={() => setShowAddNote(false)}
+        isOpen={showAddNote}
+        collectionItem={art}
+      />
       <div className="group m-3 h-fit w-fit flex-col rounded-md p-2 transition-transform ease-in-out hover:scale-105 hover:bg-my-gold hover:duration-500">
         <img
           className="h-80 w-80 font-quicksand"
@@ -53,7 +56,24 @@ export default function ArtItem(art: Props) {
           </Link>
         </div>
         <div className="mt-3 hidden text-white group-hover:block">
-          <p>{art.note}</p>
+          <button
+            onClick={() => setShowAddNote(true)}
+            className="mt-2 rounded-lg bg-white p-1 text-black group-hover:block"
+          >
+            Add Note
+          </button>
+          {art.noteName && (
+            <div className="flex justify-between">
+              <p className="mr-2 font-bold">{art.noteName} </p>
+              <p>{art.note}</p>
+              <button
+                className="rounded-lg bg-white p-1 text-black"
+                onClick={handleDeleteNote}
+              >
+                Delete Note
+              </button>
+            </div>
+          )}
         </div>
       </div>
     </>
