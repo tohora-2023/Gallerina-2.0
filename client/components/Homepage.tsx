@@ -11,7 +11,7 @@ import { getAllCollectionsApi } from '../apis/homepage'
 
 export default function Home() {
   const { loading, data, error } = useAppSelector((state) => state.artworkState)
-  const [collections, seCollectionDBs] = useState<CollectionDB[]>([])
+  const [ collections, setCollections ] = useState<CollectionDB[]>([])
   const { user } = useAuth0()
   const { getAccessTokenSilently } = useAuth0()
 
@@ -27,7 +27,7 @@ export default function Home() {
       if (user) {
         getAllCollectionsApi(token)
           .then((collections: CollectionDB[]) => {
-            seCollectionDBs(collections)
+            setCollections(collections)
           })
           .catch((error: Error) => {
             console.log(error)
@@ -52,7 +52,8 @@ export default function Home() {
                   alt={artwork.slug}
                 />
                 <div className="text-center font-garamond text-sm font-bold text-black">
-                  <Dropdown artwork={artwork} collections={collections} />
+                  {/* {artwork._links?.thumbnail?.href} */}
+                  <Dropdown artwork={artwork} coverImg={artwork._links?.thumbnail?.href} collections={collections} setCollections={setCollections} />
                   <Link to={`/artworks/${artwork.id}`}>{artwork.title}</Link>
                 </div>
               </div>

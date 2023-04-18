@@ -6,7 +6,7 @@ import external from './routes/external'
 import profile from './routes/profile'
 import collection from './routes/collection'
 // use this when implementing addToCollection button functionality 
-import artworkInfo from './routes/artworkInfo' 
+// import artworkInfo from './routes/artworkInfo' 
 
 const server = express()
 

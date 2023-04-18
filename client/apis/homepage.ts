@@ -1,7 +1,7 @@
 import request from 'superagent'
 
 import { ArtworkApi } from '../../models/externalArtwork'
-import { CollectionDB } from '../../models/collectionArtwork'
+import { AddCollection, CollectionDB } from '../../models/collectionArtwork'
 
 export async function getAllArtworks(): Promise<ArtworkApi[]> {
   const response = await request.get('/api/v1/artworks')
@@ -27,11 +27,10 @@ export async function addArtworkToCollectionApi(
   return response.body
 }
 
-export async function addNewCollectionApi(
-  newCollection: CollectionDB | undefined
-): Promise<CollectionDB> {
+export async function addNewCollectionApi(token: string, newCollection: AddCollection | undefined): Promise<CollectionDB> {
   const response = await request
-    .post('/api/v1/user/add-collection')
+    .post('/api/v1/home/user/add-collection')
+    .set('Authorization', `Bearer ${token}`)
     .send({ newCollection })
   return response.body
 }

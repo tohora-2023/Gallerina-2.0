@@ -3,7 +3,6 @@ import {
   getCollectionsByUserId,
   addArtworkToCollection,
   addNewCollection,
-  getUserId,
 } from '../db/homepage'
 import checkJwt from '../auth0'
 import { JwtRequest } from '../auth0'
@@ -22,7 +21,7 @@ router.get('/user/collections', checkJwt, async (req: JwtRequest, res) => {
     res.json(collections)
   } catch (error) {
     res.status(500).json({
-      error: "There was an error trying to get this user's collections",
+      error: 'There was an error trying to get this users collections',
     })
   }
 })
@@ -53,15 +52,14 @@ router.post('/user/add-collection', checkJwt, async (req: JwtRequest, res) => {
       return res.status(401).send('Unauthorized')
     }
 
-    const collection = req.body
+    const collection = req.body.newCollection
     if (!collection) {
       res.status(400).json({ error: 'New collection was invalid' })
     }
-    
-    const newCollection = await addNewCollection(auth0Id, collection)
+    const [newCollection] = await addNewCollection(auth0Id, collection)
     res.json(newCollection)
-    
   } catch (error) {
+    console.log(error)
     res.status(500).json({
       error: 'There was an error trying to add a new collection',
     })
@@ -69,20 +67,3 @@ router.post('/user/add-collection', checkJwt, async (req: JwtRequest, res) => {
 })
 
 export default router
-
-// GET user.id by auth0id
-router.get('/user-id', checkJwt, async (req: JwtRequest, res) => {
-  try {
-    const auth0Id = req.auth?.sub
-    if (!auth0Id) {
-      return res.status(401).send('Unauthorized')
-    }
-
-    const userId = await getUserId(auth0Id)
-    res.json(userId)
-  } catch (error) {
-    res.status(500).json({
-      error: "There was an error trying to get this user's collections",
-    })
-  }
-})
