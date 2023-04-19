@@ -8,7 +8,10 @@ import { useAuth0 } from '@auth0/auth0-react'
 
 import Dialog from './HomeDialog'
 import { CollectionDB } from '../../models/collectionArtwork'
-import { addArtworkToCollectionApi, getAllCollectionsApi } from '../apis/homepage'
+import {
+  addArtworkToCollectionApi,
+  getAllCollectionsApi,
+} from '../apis/homepage'
 import { ArtworkApi } from '../../models/externalArtwork'
 import HeartIcon2 from './HeartIcon'
 import CollectionConfirmation from './CollectionConfirmation'
@@ -18,10 +21,7 @@ interface ArtworkProps {
   artworkId?: string
 }
 
-export default function Dropdown({
-  coverImg,
-  artworkId
-}: ArtworkProps) {
+export default function Dropdown({ coverImg, artworkId }: ArtworkProps) {
   const { user, loginWithRedirect, isAuthenticated } = useAuth0()
   const { getAccessTokenSilently } = useAuth0()
   const [showModal, setShowModal] = useState(false)
@@ -43,7 +43,7 @@ export default function Dropdown({
     }
     getAccess().catch(console.error)
   }, [user, getAccessTokenSilently])
-  
+
   function handleHeartClick() {
     if (isAuthenticated) {
       getAccessTokenSilently()
@@ -75,13 +75,14 @@ export default function Dropdown({
         isOpen={showUpdateAlert}
       />
       <Menu as="div" className="z-100 relative inline-block">
-        <div>
-          <Menu.Button >
-            <button className="mt-1 w-1/4 rounded-2xl p-3 outline hover:bg-my-gold hover:text-white" onClick={handleHeartClick}>
-              Add  to a Collection
-            </button>
-          </Menu.Button>
-        </div>
+        <Menu.Button>
+          <button
+            className="text-center shadow-xs inline-block transform cursor-pointer rounded-full border border-black bg-white px-2 py-0.5 font-bold tracking-wide text-black transition duration-200 hover:-translate-y-1 hover:border-white hover:bg-my-gold hover:text-white hover:shadow-2xl active:translate-y-0 active:shadow-xl"
+            onClick={handleHeartClick}
+          >
+            Add to a Collection
+          </button>
+        </Menu.Button>
         <Transition
           as={Fragment}
           enter="transition ease-out duration-100"
@@ -109,7 +110,7 @@ export default function Dropdown({
                     className={`${
                       active ? 'bg-my-gold text-gray-900' : 'text-gray-700'
                     }
-                   group flex w-full items-center rounded-md px-2 py-2 text-sm`}
+                   group  flex w-full items-center rounded-md px-2 py-2 text-sm `}
                   >
                     <PlusCircleIcon
                       className="mr-2 h-5 w-5 text-gray-900"
