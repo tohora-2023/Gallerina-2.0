@@ -39,34 +39,36 @@ export default function Home() {
   }, [user, getAccessTokenSilently])
 
   return (
-    <div>
-      {error && <p>{error}</p>}
-      {loading && <LoadingSpinner />}
-      <div className="columns-4 gap-x-12 space-y-12 2xl:columns-5">
-        {data?.map((artwork: ArtworkApi) => {
-          return (
-            <div key={artwork.id}>
-              <div className="relative break-inside-avoid-column">
-                <img
-                  className="h-auto w-full rounded-md opacity-100 hover:opacity-80"
-                  src={artwork._links?.thumbnail?.href}
-                  alt={artwork.slug}
-                />
-                <div className="text-center font-garamond text-sm font-bold text-black">
-                  <Dropdown
-                    artwork={artwork}
-                    artworkId={artwork.id}
-                    coverImg={artwork._links?.thumbnail?.href}
-                    collections={collections}
-                    setCollections={setCollections}
+    <>
+      <div className="min-h-screen">
+        {error && <p>{error}</p>}
+        {loading && <LoadingSpinner />}
+        <div className="columns-4 gap-x-12 space-y-12 2xl:columns-5">
+          {data?.map((artwork: ArtworkApi) => {
+            return (
+              <div key={artwork.id}>
+                <div className="relative break-inside-avoid-column">
+                  <img
+                    className="h-auto w-full rounded-md opacity-100 hover:opacity-80"
+                    src={artwork._links?.thumbnail?.href}
+                    alt={artwork.slug}
                   />
-                  <Link to={`/artworks/${artwork.id}`}>{artwork.title}</Link>
+                  <div className="text-center font-garamond text-sm font-bold text-black">
+                    <Dropdown
+                      artwork={artwork}
+                      artworkId={artwork.id}
+                      coverImg={artwork._links?.thumbnail?.href}
+                      collections={collections}
+                      setCollections={setCollections}
+                    />
+                    <Link to={`/artworks/${artwork.id}`}>{artwork.title}</Link>
+                  </div>
                 </div>
               </div>
-            </div>
-          )
-        })}
+            )
+          })}
+        </div>
       </div>
-    </div>
+    </>
   )
 }

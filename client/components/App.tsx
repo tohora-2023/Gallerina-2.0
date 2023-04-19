@@ -28,12 +28,12 @@ function App() {
   return (
     <>
       <Navbar />
-      <div className="border-black-200 bg-white-200 m-20 max-h-screen rounded-2xl border p-10">
+      <div className="bg-white-200 m-20 rounded-2xl border-2 border-my-gold p-10">
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/search" element={<Search />} />
-          <Route path="/artworks/:id" element={<ArtworkInfo />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/artworks/:id" element={<ArtworkInfo />} />
           <Route path="/collections/:id" element={<CollectionItems />} />
           <Route path="/*" element={<></>} />
         </Routes>

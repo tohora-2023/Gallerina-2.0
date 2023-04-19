@@ -28,8 +28,8 @@ export default function ArtworkInfo() {
     const art = data as ArtworkDatabase
     return (
       <>
-        <div className="relative flex h-full flex-col items-center">
-          <div className="space-between w-full flex flex-row justify-between items-center">
+        <div className="relative flex h-full flex-col items-center max-h-screen">
+          <div className="space-between w-full flex flex-row justify-between items-center ">
             <div className="justify-self-start w-40" />
             <h2 className="text-center justify-self-center text-2xl font-extrabold mb-4">{art.title}</h2>
             <div className="text-end justify-self-end w-40">

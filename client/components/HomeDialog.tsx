@@ -84,14 +84,14 @@ export default function CreateCollection({
                     as="h3"
                     className="text-center text-lg font-medium leading-6 text-gray-900"
                   >
-                    Name New Curation
+                    Create a New Collection
                   </Dialog.Title>
-                  <form onSubmit={handleSubmit} aria-label="Add Curation">
+                  <form onSubmit={handleSubmit} aria-label="Add Collection">
                     <input
                       type="text"
                       name="title"
-                      id="curationTitle"
-                      placeholder="Curation name"
+                      id="colletionTitle"
+                      placeholder="Collection name"
                       value={newCollection?.title}
                       maxLength={15}
                       onChange={(e) =>

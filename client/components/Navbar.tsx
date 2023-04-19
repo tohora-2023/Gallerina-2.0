@@ -29,7 +29,7 @@ export default function Navbar() {
   }
 
   return (
-    <nav className="bg-white-200 border-black-200 flex flex-wrap items-center justify-between border p-6">
+    <nav className="bg-white-200 border-my-gold border-b-2 flex flex-wrap items-center justify-between p-6">
       <div>
         <Link to="/">
           <img
