@@ -1,5 +1,6 @@
 export default function LoadingSpinner() {
     return (
+      <div className="flex items-center justify-center h-screen">
       <svg
         className="mx-20 mb-80 h-20 w-20 animate-spin"
         width="480"
@@ -8,6 +9,7 @@ export default function LoadingSpinner() {
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
+
         <path
           opacity="0.3"
           d="M480 240C480 372.548 372.548 480 240 480C107.452 480 0 372.548 0 240C0 107.452 107.452 0 240 0C372.548 0 480 107.452 480 240ZM74.8361 240C74.8361 331.218 148.782 405.164 240 405.164C331.218 405.164 405.164 331.218 405.164 240C405.164 148.782 331.218 74.8361 240 74.8361C148.782 74.8361 74.8361 148.782 74.8361 240Z"
@@ -18,6 +20,7 @@ export default function LoadingSpinner() {
           fill="#A08452"
         />
       </svg>
+      </div>
     )
   }
   

@@ -5,6 +5,7 @@ import { ArtworkDatabase } from '../../models/artwork'
 import LoadingSpinner from './LoadingSpinner'
 import { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
+import Dropdown from './ArtworkInfoDropdown'
 
 export default function ArtworkInfo() {
   const { loading, data, error } = useAppSelector((state) => state.artInfoState)
@@ -27,20 +28,26 @@ export default function ArtworkInfo() {
     const art = data as ArtworkDatabase
     return (
       <>
-        <div className="flex flex-col">
-          <div className="flex justify-between">
-            <h2 className="w-1/2 text-2xl font-extrabold">{art.title}</h2>
-            <button className="mt-1 w-1/4 rounded-2xl p-3 outline hover:bg-my-gold hover:text-white">
-              Add to a Collection
-            </button>
+        <div className="relative flex h-full flex-col items-center max-h-screen">
+          <div className="space-between w-full flex flex-row justify-between items-center ">
+            <div className="justify-self-start w-40" />
+            <h2 className="text-center justify-self-center text-2xl font-extrabold mb-4">{art.title}</h2>
+            <div className="text-end justify-self-end w-40">
+              <Dropdown artworkId={artId} coverImg={art.imageLink} />
+            </div>
           </div>
-          <img
-            src={art.imageLink}
-            alt={art.title}
-            className="max-h-lg max-w-lg"
-          />
-          <p>Medium: {art.medium}</p>
-          <p>Date: {art.date}</p>
+
+          <div>
+            <img
+              src={art.imageLink}
+              alt={art.title}
+              className="max-h-lg max-w-lg"
+            />
+            <div className="text-center mt-4 text-xl">
+              <p>Medium: {art.medium}</p>
+              <p>Date: {art.date}</p>
+            </div>
+          </div>
         </div>
       </>
     )
@@ -54,9 +61,13 @@ export default function ArtworkInfo() {
           {loading && <LoadingSpinner />}
           <div className="flex justify-between">
             <h2 className="w-1/2 text-2xl font-extrabold">{art.title}</h2>
-            <button className="mt-1 w-1/4 rounded-2xl p-3 outline hover:bg-my-gold hover:text-white">
-              Add to a Collection
-            </button>
+            <Dropdown
+              artworkId={artId}
+              coverImg={art._links.image.href.replace(
+                '{image_version}',
+                'large'
+              )}
+            />
           </div>
           <img
             className="max-h-lg max-w-lg"
