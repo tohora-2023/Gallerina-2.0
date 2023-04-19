@@ -42,7 +42,7 @@ export default function Collection(profile: Props) {
         profile={profile}
       />
       <div className="mt-10 mb-10 flex justify-center">
-        <div className="shadow-xs border-grey w-full transform cursor-pointer rounded-lg border bg-white text-center font-bold tracking-wide text-black transition duration-200 hover:-translate-y-1 hover:bg-my-gold hover:shadow-2xl active:translate-y-0 active:shadow-xl">
+        <div className="shadow-xs border-grey w-full transform cursor-pointer rounded-lg border bg-white text-center font-bold tracking-wide text-black transition duration-200 hover:-translate-y-1 hover:bg-my-gold hover:shadow-2xl hover:text-white active:translate-y-0 active:shadow-xl">
           <div className="grid grid-cols-2 items-center gap-4 pt-10 pb-10">
             <Link to={`/collections/${profile.collectionId}`}>
               <img
@@ -51,20 +51,20 @@ export default function Collection(profile: Props) {
                 alt={`cover for ${profile.title}`}
               />
             </Link>
-            <div className="mb-10 self-center text-3xl">
+            <div className="mb-10 self-center text-3xl hover:text-white">
               <Link to={`/collections/${profile.collectionId}`}>
                 {profile.title}
               </Link>
               <div className="mt-10 flex justify-center text-base">
                 <button
                   onClick={() => setShowDelete(true)}
-                  className="shadow-xs mx-2 mb-2 transform cursor-pointer rounded-full border border-black bg-white px-2 py-0.5 font-bold tracking-wide text-black transition duration-200  hover:bg-my-gold hover:shadow-2xl active:translate-y-0 active:shadow-xl"
+                  className="shadow-xs mx-2 mb-2 transform cursor-pointer rounded-full border border-black bg-white px-2 py-0.5 font-bold tracking-wide text-black transition duration-200 hover:shadow-2xl active:translate-y-0 active:shadow-xl"
                 >
                   <FontAwesomeIcon icon={faTrash} /> Delete
                 </button>
                 <button
                   onClick={handleUpdateClick}
-                  className="shadow-xs z-10 mx-2 mb-2 transform cursor-pointer rounded-full border border-black bg-white px-2 py-0.5 font-bold tracking-wide text-black transition duration-200  hover:bg-my-gold hover:shadow-2xl active:translate-y-0 active:shadow-xl"
+                  className="shadow-xs z-10 mx-2 mb-2 transform cursor-pointer rounded-full border border-black bg-white px-2 py-0.5 font-bold tracking-wide text-black transition duration-200 hover:shadow-2xl active:translate-y-0 active:shadow-xl"
                 >
                   <FontAwesomeIcon icon={faPen} /> Rename
                 </button>
