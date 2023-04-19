@@ -9,6 +9,7 @@ import Dropdown from './ArtworkInfoDropdown'
 
 export default function ArtworkInfo() {
   const { loading, data, error } = useAppSelector((state) => state.artInfoState)
+
   const params = useParams()
   const artId = params.id
 
@@ -20,7 +21,7 @@ export default function ArtworkInfo() {
     }
   }, [dispatch, artId])
 
-  if (!data || error) {
+  if (!data || error || !artId) {
     return <p>An error occurred</p>
   }
 
@@ -28,11 +29,13 @@ export default function ArtworkInfo() {
     const art = data as ArtworkDatabase
     return (
       <>
-        <div className="relative flex h-full flex-col items-center max-h-screen">
-          <div className="space-between w-full flex flex-row justify-between items-center ">
-            <div className="justify-self-start w-40" />
-            <h2 className="text-center justify-self-center text-2xl font-extrabold mb-4">{art.title}</h2>
-            <div className="text-end justify-self-end w-40">
+        <div className="relative flex h-full max-h-screen flex-col items-center">
+          <div className="space-between flex w-full flex-row items-center justify-between ">
+            <div className="w-40 justify-self-start" />
+            <h2 className="mb-4 justify-self-center text-center text-2xl font-extrabold">
+              {art.title}
+            </h2>
+            <div className="w-40 justify-self-end text-end">
               <Dropdown artworkId={artId} coverImg={art.imageLink} />
             </div>
           </div>
@@ -43,7 +46,7 @@ export default function ArtworkInfo() {
               alt={art.title}
               className="max-h-lg max-w-lg"
             />
-            <div className="text-center mt-4 text-xl">
+            <div className="mt-4 text-center text-xl">
               <p>Medium: {art.medium}</p>
               <p>Date: {art.date}</p>
             </div>

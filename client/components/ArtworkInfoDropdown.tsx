@@ -12,6 +12,8 @@ import {
   addArtworkToCollectionApi,
   getAllCollectionsApi,
 } from '../apis/homepage'
+import { ArtworkApi } from '../../models/externalArtwork'
+import HeartIcon2 from './HeartIcon'
 import CollectionConfirmation from './CollectionConfirmation'
 
 interface ArtworkProps {
@@ -25,6 +27,7 @@ export default function Dropdown({ coverImg, artworkId }: ArtworkProps) {
   const [showModal, setShowModal] = useState(false)
   const [showUpdateAlert, setShowUpdateAlert] = useState(false)
   const [collections, setCollections] = useState<CollectionDB[]>([])
+  const [error, setError] = useState(false)
 
   useEffect(() => {
     const getAccess = async () => {
@@ -50,12 +53,23 @@ export default function Dropdown({ coverImg, artworkId }: ArtworkProps) {
     }
   }
 
-  function handleSaveToCollection(collectionId: number, artworkId: string) {
+  async function handleSaveToCollection(
+    collectionId: number,
+    artworkId: string
+  ) {
+    setError(false)
     addArtworkToCollectionApi(collectionId, artworkId)
-    setShowUpdateAlert(true)
-    setTimeout(() => {
-      setShowUpdateAlert(false)
-    }, 2000)
+      .catch((err) => {
+        console.log(err)
+        setError(true)
+      })
+      .then(() => {
+        setShowUpdateAlert(true)
+        setTimeout(() => {
+          setShowUpdateAlert(false)
+        }, 2000)
+      })
+      .catch(() => {})
   }
 
   return (
@@ -71,6 +85,7 @@ export default function Dropdown({ coverImg, artworkId }: ArtworkProps) {
       <CollectionConfirmation
         onClose={() => setShowUpdateAlert(false)}
         isOpen={showUpdateAlert}
+        message={error ? 'Already exists in collection' : 'Saved to collection'}
       />
       <Menu as="div" className="z-100 relative inline-block">
         <Menu.Button>
