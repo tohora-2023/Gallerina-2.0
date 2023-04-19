@@ -30,7 +30,7 @@ export default function CreateCollection({
     AddCollection | undefined
   >()
   const { getAccessTokenSilently } = useAuth0()
-  const [showUpdateAlert, setShowUpdateAlert] = useState(false)
+  const [ showUpdateAlert, setShowUpdateAlert ] = useState(false)
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
