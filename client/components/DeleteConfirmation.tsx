@@ -29,7 +29,7 @@ export default function DeleteConfirmation({
             <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
               <Dialog.Description className="text-center text-lg font-medium leading-6 text-gray-900">
                 <div className="space-between flex text-center items-center justify-center">
-                Your Collection has been Deleted 
+                Your Collection has been deleted 
                 </div>
               </Dialog.Description>
             </Dialog.Panel>
