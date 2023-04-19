@@ -83,7 +83,7 @@ export default function Collection(profile: Props) {
                   type="text"
                   name="name"
                   id="name"
-                  className="text-grey-darkest rounded border border-my-gold py-2 px-3 focus:outline-my-gold"
+                  className="text-grey-darkest rounded border border-my-gold py-2 px-3 focus:outline-my-gold hover:text-black text-black"
                   value={amendTitle}
                   required
                   onChange={(e) => setAmendTitle(e.target.value)}
