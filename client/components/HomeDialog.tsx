@@ -16,7 +16,6 @@ interface ArtworkProps {
   setCollections: (collections: CollectionDB[]) => void
   collections: CollectionDB[]
   artworkId: string
-  error: boolean
 }
 
 export default function CreateCollection({
@@ -26,37 +25,49 @@ export default function CreateCollection({
   setCollections,
   collections,
   artworkId,
-  error,
 }: ArtworkProps) {
   const [newCollection, setNewCollection] = useState<
     AddCollection | undefined
   >()
   const { getAccessTokenSilently } = useAuth0()
   const [showUpdateAlert, setShowUpdateAlert] = useState(false)
+  const [error, setError] = useState(false)
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
     const token = await getAccessTokenSilently()
-    const updateCollection = await addNewCollectionApi(token, {
+
+    setError(false)
+    addNewCollectionApi(token, {
       ...newCollection,
       coverImg,
     })
-    setNewCollection({ title: '' })
-    addArtworkToCollectionApi(updateCollection.id, artworkId)
-    setCollections([...collections, updateCollection])
-    setShowUpdateAlert(true)
-    setTimeout(() => {
-      setShowUpdateAlert(false)
-    }, 2000)
+      .then((newCollection) => {
+        setNewCollection({ title: '' })
+        setCollections([...collections, newCollection])
+        return addArtworkToCollectionApi(newCollection.id, artworkId)
+      })
+      .catch((err) => {
+        console.error(err)
+        setError(true)
+      })
+      .then(() => {
+        setShowUpdateAlert(true)
+        setTimeout(() => {
+          setShowUpdateAlert(false)
+        }, 2000)
+      })
+      .catch(() => {})
   }
 
   return (
     <>
-      {error && <p>This Artwork already exists in this collection</p>}
       <CollectionConfirmation
         onClose={() => setShowUpdateAlert(false)}
         isOpen={showUpdateAlert}
-        error={error}
+        message={
+          error ? 'Already exist in collection' : 'Saved to your collection'
+        }
       />
       <Transition appear show={isOpen} as={Fragment}>
         <Dialog as="div" className="relative z-10" onClose={onClose}>
@@ -91,9 +102,9 @@ export default function CreateCollection({
                     Create A New Collection
                   </Dialog.Title>
                   <form onSubmit={handleSubmit} aria-label="Add Collection">
-                    <div className="flex flex-col items-center mt-4">
+                    <div className="mt-4 flex flex-col items-center">
                       <input
-                        className='focus:outline-my-gold rounded border-2 border-my-gold'
+                        className="rounded border-2 border-my-gold focus:outline-my-gold"
                         type="text"
                         name="title"
                         id="colletionTitle"
@@ -111,7 +122,7 @@ export default function CreateCollection({
                       <div className="mt-4">
                         <button
                           type="submit"
-                          className="inline-flex justify-center rounded-md border border-transparent bg-my-gold px-4 py-2 hover:border-my-gold hover:text-black text-sm font-medium text-white hover:bg-white focus:outline-none focus-visible:ring-2 focus-visible:ring-my-gold focus-visible:ring-offset-2"
+                          className="inline-flex justify-center rounded-md border border-transparent bg-my-gold px-4 py-2 text-sm font-medium text-white hover:border-my-gold hover:bg-white hover:text-black focus:outline-none focus-visible:ring-2 focus-visible:ring-my-gold focus-visible:ring-offset-2"
                           onClick={onClose}
                         >
                           Create

@@ -9,6 +9,7 @@ import Dropdown from './ArtworkInfoDropdown'
 
 export default function ArtworkInfo() {
   const { loading, data, error } = useAppSelector((state) => state.artInfoState)
+
   const params = useParams()
   const artId = params.id
 

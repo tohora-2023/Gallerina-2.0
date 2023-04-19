@@ -1,5 +1,5 @@
 import { useAppDispatch } from '../hooks/hooks'
-import { Link} from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { ProfileCollection } from '../../models/profile'
 import { useAuth0 } from '@auth0/auth0-react'
 import { updateCollection } from '../actions/collections'
@@ -12,20 +12,19 @@ import Delete from './DeleteModal'
 type Props = ProfileCollection
 
 export default function Collection(profile: Props) {
-  const { getAccessTokenSilently } =
-    useAuth0()
+  const { getAccessTokenSilently } = useAuth0()
 
-  const [ amendTitle, setAmendTitle ] = useState(profile.title)
+  const [amendTitle, setAmendTitle] = useState(profile.title)
 
   const dispatch = useAppDispatch()
 
-  const [ showForm, setShowForm ] = useState(false) 
+  const [showForm, setShowForm] = useState(false)
 
-  const [ showDelete, setShowDelete ] = useState(false)
+  const [showDelete, setShowDelete] = useState(false)
 
   const handleUpdateClick = async () => {
     console.log('clicked')
-    setShowForm(true) 
+    setShowForm(true)
   }
 
   const handleUpdateSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -37,7 +36,7 @@ export default function Collection(profile: Props) {
 
   return (
     <>
-       <Delete
+      <Delete
         onClose={() => setShowDelete(false)}
         isOpen={showDelete}
         profile={profile}
@@ -45,18 +44,18 @@ export default function Collection(profile: Props) {
       <div className="mt-10 mb-10 flex justify-center">
         <div className="shadow-xs border-grey w-full transform cursor-pointer rounded-lg border bg-white text-center font-bold tracking-wide text-black transition duration-200 hover:-translate-y-1 hover:bg-my-gold hover:shadow-2xl active:translate-y-0 active:shadow-xl">
           <div className="grid grid-cols-2 items-center gap-4 pt-10 pb-10">
-          <Link to={`/collections/${profile.collectionId}`}>
-            <img
-              className="self-align-left mx-auto h-full rounded-md"
-              src={profile.collectionCoverImg}
-              alt={`cover for ${profile.title}`}
-            />
-            </Link>
-            <div className="self-center text-3xl mb-10">
             <Link to={`/collections/${profile.collectionId}`}>
+              <img
+                className="self-align-left mx-auto h-full rounded-md"
+                src={profile.collectionCoverImg}
+                alt={`cover for ${profile.title}`}
+              />
+            </Link>
+            <div className="mb-10 self-center text-3xl">
+              <Link to={`/collections/${profile.collectionId}`}>
                 {profile.title}
-                </Link>
-              <div className="flex justify-center text-base mt-10">
+              </Link>
+              <div className="mt-10 flex justify-center text-base">
                 <button
                   onClick={() => setShowDelete(true)}
                   className="shadow-xs mx-2 mb-2 transform cursor-pointer rounded-full border border-black bg-white px-2 py-0.5 font-bold tracking-wide text-black transition duration-200  hover:bg-my-gold hover:shadow-2xl active:translate-y-0 active:shadow-xl"
@@ -84,7 +83,7 @@ export default function Collection(profile: Props) {
                   type="text"
                   name="name"
                   id="name"
-                  className="text-grey-darkest border py-2 px-3"
+                  className="text-grey-darkest rounded border border-my-gold py-2 px-3 focus:outline-my-gold"
                   value={amendTitle}
                   required
                   onChange={(e) => setAmendTitle(e.target.value)}
@@ -108,9 +107,7 @@ export default function Collection(profile: Props) {
             </form>
           )}
         </div>
-        
       </div>
-      
     </>
   )
 }

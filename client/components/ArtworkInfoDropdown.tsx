@@ -12,6 +12,8 @@ import {
   addArtworkToCollectionApi,
   getAllCollectionsApi,
 } from '../apis/homepage'
+import { ArtworkApi } from '../../models/externalArtwork'
+import HeartIcon2 from './HeartIcon'
 import CollectionConfirmation from './CollectionConfirmation'
 
 interface ArtworkProps {
@@ -55,18 +57,19 @@ export default function Dropdown({ coverImg, artworkId }: ArtworkProps) {
     collectionId: number,
     artworkId: string
   ) {
-    try {
-      const response = await addArtworkToCollectionApi(collectionId, artworkId)
-      console.log(response)
-      setShowUpdateAlert(true)
-      setError(false)
-      setTimeout(() => {
-        setShowUpdateAlert(false)
-      }, 2000)
-    } catch (err) {
-      console.log(err)
-      setError(true)
-    }
+    setError(false)
+    addArtworkToCollectionApi(collectionId, artworkId)
+      .catch((err) => {
+        console.log(err)
+        setError(true)
+      })
+      .then(() => {
+        setShowUpdateAlert(true)
+        setTimeout(() => {
+          setShowUpdateAlert(false)
+        }, 2000)
+      })
+      .catch(() => {})
   }
 
   return (
@@ -78,12 +81,11 @@ export default function Dropdown({ coverImg, artworkId }: ArtworkProps) {
         setCollections={setCollections}
         collections={collections}
         artworkId={artworkId}
-        error={error}
       />
       <CollectionConfirmation
         onClose={() => setShowUpdateAlert(false)}
         isOpen={showUpdateAlert}
-        error={error}
+        message={error ? 'Already exists in collection' : 'Saved to collection'}
       />
       <Menu as="div" className="z-100 relative inline-block">
         <Menu.Button>

@@ -29,9 +29,9 @@ export default function Dropdown({
 }: ArtworkProps) {
   const { loginWithRedirect, isAuthenticated } = useAuth0()
   const { getAccessTokenSilently } = useAuth0()
-  const [ showModal, setShowModal] = useState(false)
-  const [ showUpdateAlert, setShowUpdateAlert ] = useState(false)
-
+  const [showModal, setShowModal] = useState(false)
+  const [showUpdateAlert, setShowUpdateAlert] = useState(false)
+  const [error, setError] = useState(false)
   function handleHeartClick() {
     if (isAuthenticated) {
       getAccessTokenSilently()
@@ -41,11 +41,19 @@ export default function Dropdown({
   }
 
   function handleSaveToCollection(collectionId: number, artworkId: string) {
+    setError(false)
     addArtworkToCollectionApi(collectionId, artworkId)
-    setShowUpdateAlert(true)
-    setTimeout(() => {
-      setShowUpdateAlert(false)
-    }, 2000)
+      .catch((err) => {
+        console.error(err)
+        setError(true)
+      })
+      .then(() => {
+        setShowUpdateAlert(true)
+        setTimeout(() => {
+          setShowUpdateAlert(false)
+        }, 2000)
+      })
+      .catch(() => {})
   }
 
   return (
@@ -61,6 +69,7 @@ export default function Dropdown({
       <CollectionConfirmation
         onClose={() => setShowUpdateAlert(false)}
         isOpen={showUpdateAlert}
+        message={error ? 'Already saved to collection' : 'Saved to collection'}
       />
       <Menu as="div" className="z-100 relative inline-block">
         <Menu.Button className="relative inline-flex w-full translate-y-2 transform justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900">

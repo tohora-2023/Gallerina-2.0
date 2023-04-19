@@ -5,13 +5,13 @@ import { HeartIcon } from '@heroicons/react/24/outline'
 interface AlertProps {
   onClose: () => void
   isOpen: boolean
-  error: boolean
+  message: string | undefined
 }
 
 export default function CollectionConfirmation({
   onClose,
   isOpen,
-  error,
+  message,
 }: AlertProps) {
   return (
     <Transition appear show={isOpen} as={Fragment}>
@@ -37,12 +37,7 @@ export default function CollectionConfirmation({
                     stroke="#A48948"
                     aria-hidden="true"
                   />
-
-                  {error ? (
-                    <p>This Artwork already exists in this collection</p>
-                  ) : (
-                    <p>Saved to your Collection </p>
-                  )}
+                  <p>{message}</p>
                 </div>
               </Dialog.Description>
             </Dialog.Panel>
