@@ -30,12 +30,12 @@ export default function Search() {
   }
 
   return (
-    <div className="min-h-screen">
-      <h1>Search for Artworks</h1>
+    <div className="min-h-screen text-2xl">
+      <h1 className='font-extrabold'>Search for Artworks</h1>
       <form className="w-1/2 rounded-md" onSubmit={handleSubmit}>
         <input
           type="text"
-          className="rounded-md border-4 border-my-gold"
+          className="rounded border-2 border-my-gold focus:outline-my-gold mt-4 text-l"
           value={search}
           onChange={handleChange}
         />
