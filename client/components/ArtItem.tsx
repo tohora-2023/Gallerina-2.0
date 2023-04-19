@@ -47,8 +47,8 @@ export default function ArtItem(art: Props) {
         <p className="m-0 w-80 pt-1 font-medium group-hover:text-white">
           {art.artTitle}
         </p>
-        <div className="flex w-full justify-between">
-          <div className="flex ">
+        <div className="flex w-full justify-between pb-2">
+          <div className="flex">
             <button onClick={handleDelete}>
               {' '}
               <FontAwesomeIcon icon={faTrash} style={{ color: '#ffffff' }} />
@@ -60,23 +60,34 @@ export default function ArtItem(art: Props) {
               <FontAwesomeIcon icon={faEye} style={{ color: '#ffffff' }} />
             </Link>
           </div>
-          <div className="flex">
-            <button onClick={() => setShowAddNote(true)} className="mr-2">
-              <FontAwesomeIcon icon={faFile} style={{ color: '#ffffff' }} />
-            </button>
-            <button onClick={handleDeleteNote}>
-              <FontAwesomeIcon
-                icon={faFileCircleXmark}
-                style={{ color: '#ffffff' }}
-              />
-            </button>
+
+          <div className="flex pb-1">
+            {art.note ? (
+              <button
+                onClick={handleDeleteNote}
+                className="hidden group-hover:block"
+              >
+                <FontAwesomeIcon
+                  icon={faFileCircleXmark}
+                  style={{ color: '#ffffff' }}
+                />
+              </button>
+            ) : (
+              <button
+                onClick={() => setShowAddNote(true)}
+                className="mr-2 hidden group-hover:block"
+              >
+                <FontAwesomeIcon icon={faFile} style={{ color: '#ffffff' }} />
+              </button>
+            )}
           </div>
         </div>
-        <div className="hidden group-hover:block">
-          {art.noteName && (
-            <div className="flex justify-between">
-              <p className="mr-2 font-bold">{art.noteName} </p>
-              <p>{art.note}</p>
+
+        <div className="hidden border-t-2 pt-2 group-hover:block">
+          {art.note && (
+            <div className="">
+              <p className="font-semibold text-white">My Note</p>
+              <p className="font-light text-white">{art.note}</p>
             </div>
           )}
         </div>
