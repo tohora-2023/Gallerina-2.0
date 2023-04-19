@@ -29,7 +29,7 @@ export default function Navbar() {
   }
 
   return (
-    <nav className="bg-white-200 border-my-gold border-b-2 flex flex-wrap items-center justify-between p-6">
+    <nav className="bg-white-200 flex flex-wrap items-center justify-between border-b-2 border-my-gold p-6">
       <div>
         <Link to="/">
           <img
@@ -41,7 +41,7 @@ export default function Navbar() {
         </Link>
       </div>
 
-      <div className="ml-auto w-fz  ull lg:w-auto">
+      <div className="w-fz ull  ml-auto lg:w-auto">
         <div className="flex justify-end">
           <Link to="/">
             <button
@@ -71,7 +71,7 @@ export default function Navbar() {
           {isAuthenticated && (
             <Link to={`/profile`}>
               <button
-                className={` mt-4  mr-5 ml-5 block cursor-pointer rounded-full border border-my-gold ${
+                className={` mt-4   ml-5 block cursor-pointer rounded-full border border-my-gold ${
                   activeButton === 'profile'
                     ? 'bg-my-gold text-white'
                     : 'bg-white hover:border-white hover:bg-my-gold hover:text-white'
@@ -92,7 +92,7 @@ export default function Navbar() {
                 }
               }}
               tabIndex={0}
-              className="shadow-xs bg-white0 inline-block transform cursor-pointer rounded-full border border-my-gold bg-white px-3 py-0 font-bold tracking-wide text-black transition duration-200 hover:-translate-y-1 hover:border-white  hover:bg-my-gold hover:text-white hover:shadow-2xl active:translate-y-0 active:shadow-xl "
+              className=" shadow-xs bg-white0 ml-5 inline-block transform cursor-pointer rounded-full border border-my-gold bg-white px-3 py-0 font-bold tracking-wide text-black transition duration-200 hover:-translate-y-1 hover:border-white  hover:bg-my-gold hover:text-white hover:shadow-2xl active:translate-y-0 active:shadow-xl "
             >
               Logout
             </button>
@@ -104,7 +104,7 @@ export default function Navbar() {
                   handleKeyDownLogin
                 }
               }}
-              className="shadow-xs gold inline-block transform cursor-pointer rounded-full border  border-my-gold bg-white px-2 py-0.5 font-bold tracking-wide text-black transition duration-200 hover:-translate-y-1 hover:border-white hover:bg-my-gold hover:text-white hover:shadow-2xl active:translate-y-0 active:shadow-xl "
+              className="shadow-xs gold ml-5 inline-block transform cursor-pointer rounded-full border  border-my-gold bg-white px-2 py-0.5 font-bold tracking-wide text-black transition duration-200 hover:-translate-y-1 hover:border-white hover:bg-my-gold hover:text-white hover:shadow-2xl active:translate-y-0 active:shadow-xl "
             >
               Login
             </button>
