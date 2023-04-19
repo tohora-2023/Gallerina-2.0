@@ -68,25 +68,8 @@ export default function NewNoteForm({
                   >
                     {collectionItem.artTitle}
                   </Dialog.Title>
-                  <Dialog.Title
-                    as="h3"
-                    className="text-center text-lg font-medium leading-6 text-gray-900"
-                  >
-                    Note Title
-                  </Dialog.Title>
+
                   <form onSubmit={handleSubmit} aria-label="Add a Note">
-                    <input
-                      type="text"
-                      name="note_name"
-                      id="note_name"
-                      placeholder="Note title"
-                      onChange={(e) =>
-                        setNewNote({
-                          ...newNote,
-                          note_name: e.target.value,
-                        })
-                      }
-                    />
                     <Dialog.Title
                       as="h3"
                       className="text-center text-lg font-medium leading-6 text-gray-900"
