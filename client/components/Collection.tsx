@@ -8,6 +8,7 @@ import { useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPen } from '@fortawesome/free-solid-svg-icons'
 import { faTrash } from '@fortawesome/free-solid-svg-icons'
+import Modal from 'react-modal'
 
 type Props = ProfileCollection
 
@@ -44,73 +45,71 @@ export default function Collection(profile: Props) {
 
   return (
     <>
-      
-        <div className="mt-10 mb-10 flex justify-center">
-          <div className="shadow-xs border-grey w-full transform cursor-pointer rounded-lg border bg-white text-center font-bold tracking-wide text-black transition duration-200 hover:-translate-y-1 hover:bg-my-gold hover:shadow-2xl active:translate-y-0 active:shadow-xl">
-            <div className="grid grid-cols-2 gap-4 items-center pt-10 pb-10">
-              <img
-                className="self-align-left mx-auto rounded-md h-full"
-                src={profile.collectionCoverImg}
-                alt={`cover for ${profile.title}`}
-              />
-              <div className="text-3xl self-center">
+      <div className="mt-10 mb-10 flex justify-center">
+        <div className="shadow-xs border-grey w-full transform cursor-pointer rounded-lg border bg-white text-center font-bold tracking-wide text-black transition duration-200 hover:-translate-y-1 hover:bg-my-gold hover:shadow-2xl active:translate-y-0 active:shadow-xl">
+          <div className="grid grid-cols-2 items-center gap-4 pt-10 pb-10">
+            <img
+              className="self-align-left mx-auto h-full rounded-md"
+              src={profile.collectionCoverImg}
+              alt={`cover for ${profile.title}`}
+            />
+            <div className="self-center text-3xl">
               <Link to={`/collections/${profile.collectionId}`}>
                 {profile.title}
-                </Link>
-                <div className="flex justify-center text-base">
-                  <button
-                    onClick={handleDeleteClick}
-                    className="shadow-xs mx-2 mb-2 transform cursor-pointer rounded-full border border-black bg-white px-2 py-0.5 font-bold tracking-wide text-black transition duration-200  hover:bg-my-gold hover:shadow-2xl active:translate-y-0 active:shadow-xl"
-                  >
-                    <FontAwesomeIcon icon={faTrash} /> Delete
-                  </button>
-                  <button
-                    onClick={handleUpdateClick}
-                    className="z-10 shadow-xs mx-2 mb-2 transform cursor-pointer rounded-full border border-black bg-white px-2 py-0.5 font-bold tracking-wide text-black transition duration-200  hover:bg-my-gold hover:shadow-2xl active:translate-y-0 active:shadow-xl"
-                  >
-                    <FontAwesomeIcon icon={faPen} /> Rename
-                  </button>
-                </div>
+              </Link>
+              <div className="flex justify-center text-base">
+                <button
+                  onClick={handleDeleteClick}
+                  className="shadow-xs mx-2 mb-2 transform cursor-pointer rounded-full border border-black bg-white px-2 py-0.5 font-bold tracking-wide text-black transition duration-200  hover:bg-my-gold hover:shadow-2xl active:translate-y-0 active:shadow-xl"
+                >
+                  <FontAwesomeIcon icon={faTrash} /> Delete
+                </button>
+                <button
+                  onClick={handleUpdateClick}
+                  className="shadow-xs z-10 mx-2 mb-2 transform cursor-pointer rounded-full border border-black bg-white px-2 py-0.5 font-bold tracking-wide text-black transition duration-200  hover:bg-my-gold hover:shadow-2xl active:translate-y-0 active:shadow-xl"
+                >
+                  <FontAwesomeIcon icon={faPen} /> Rename
+                </button>
               </div>
             </div>
-
-            {showForm && (
-              <form onSubmit={handleUpdateSubmit} className="mt-4">
-                <div className="mb-4 flex flex-col">
-                  <label htmlFor="name" className="mb-2 text-center font-bold">
-                    New Collection Name:
-                  </label>
-                  <input
-                    maxLength="40"
-                    type="text"
-                    name="name"
-                    id="name"
-                    className="text-grey-darkest border py-2 px-3"
-                    value={amendTitle}
-                    required
-                    onChange={(e) => setAmendTitle(e.target.value)}
-                  />
-                </div>
-                <div className="flex justify-between">
-                  <button
-                    type="submit"
-                    className="shadow-xs mx-2 transform cursor-pointer rounded-full border border-black bg-white px-2 py-0.5 font-bold tracking-wide text-black transition duration-200 hover:-translate-y-1 hover:bg-my-gold hover:shadow-2xl active:translate-y-0 active:shadow-xl"
-                  >
-                    Update
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => setShowForm(false)}
-                    className="shadow-xs mx-2 transform cursor-pointer rounded-full border border-black bg-white px-2 py-0.5 font-bold tracking-wide text-black transition duration-200 hover:-translate-y-1 hover:bg-my-gold hover:shadow-2xl active:translate-y-0 active:shadow-xl"
-                  >
-                    Cancel
-                  </button>
-                </div>
-              </form>
-            )}
           </div>
+
+          {showForm && (
+            <form onSubmit={handleUpdateSubmit} className="mt-4">
+              <div className="mb-4 flex flex-col">
+                <label htmlFor="name" className="mb-2 text-center font-bold">
+                  New Collection Name:
+                </label>
+                <input
+                  maxLength="40"
+                  type="text"
+                  name="name"
+                  id="name"
+                  className="text-grey-darkest border py-2 px-3"
+                  value={amendTitle}
+                  required
+                  onChange={(e) => setAmendTitle(e.target.value)}
+                />
+              </div>
+              <div className="flex justify-between">
+                <button
+                  type="submit"
+                  className="shadow-xs mx-2 transform cursor-pointer rounded-full border border-black bg-white px-2 py-0.5 font-bold tracking-wide text-black transition duration-200 hover:-translate-y-1 hover:bg-my-gold hover:shadow-2xl active:translate-y-0 active:shadow-xl"
+                >
+                  Update
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setShowForm(false)}
+                  className="shadow-xs mx-2 transform cursor-pointer rounded-full border border-black bg-white px-2 py-0.5 font-bold tracking-wide text-black transition duration-200 hover:-translate-y-1 hover:bg-my-gold hover:shadow-2xl active:translate-y-0 active:shadow-xl"
+                >
+                  Cancel
+                </button>
+              </div>
+            </form>
+          )}
         </div>
-      
+      </div>
     </>
   )
 }
