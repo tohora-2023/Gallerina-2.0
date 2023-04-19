@@ -16,7 +16,6 @@ export default function NewNoteForm({
   isOpen,
   onClose,
 }: CollectionItemProps) {
-
   const dispatch = useAppDispatch()
   const params = useParams()
   const collectionId = Number(params.id)
@@ -72,12 +71,13 @@ export default function NewNoteForm({
                   <form onSubmit={handleSubmit} aria-label="Add a Note">
                     <Dialog.Title
                       as="h3"
-                      className="text-center text-lg font-medium leading-6 text-gray-900"
+                      className="mt-4 text-center text-lg font-medium leading-6 text-gray-900"
                     >
                       Note:
                     </Dialog.Title>
-                    <div className="w-full flex-col justify-center">
+                    <div className="mt-4 flex flex-col items-center">
                       <input
+                        className="rounded border-2 border-my-gold focus:outline-my-gold"
                         type="text"
                         name="note"
                         id="note"
@@ -89,15 +89,16 @@ export default function NewNoteForm({
                           })
                         }
                       />
-                    </div>
-                    <div className="mt-4">
-                      <button
-                        type="submit"
-                        className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
-                        onClick={onClose}
-                      >
-                        Submit
-                      </button>
+
+                      <div className="mt-4">
+                        <button
+                          type="submit"
+                          className="inline-flex justify-center rounded-md border border-transparent bg-my-gold px-4 py-2 text-sm font-medium text-white hover:border-my-gold hover:bg-white hover:text-black focus:outline-none focus-visible:ring-2 focus-visible:ring-my-gold focus-visible:ring-offset-2"
+                          onClick={onClose}
+                        >
+                          Submit
+                        </button>
+                      </div>
                     </div>
                   </form>
                 </Dialog.Panel>
