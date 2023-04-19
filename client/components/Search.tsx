@@ -39,25 +39,30 @@ export default function Search() {
           onChange={handleChange}
         />
       </form>
-      {error && <p>An error occurred</p>}
       {loading && <LoadingSpinner />}
-
-      <div className="flex flex-wrap">
-        {artworks?.map((art) => {
-          return (
-            <div key={art.id}>
-              <h3>
-                {art.title}, {art.date}
-              </h3>
-              <img
-                className="m-3"
-                src={art._links.image.href.replace('{image_version}', 'large')}
-                alt={art.slug}
-              />
-            </div>
-          )
-        })}
-      </div>
+      {error ? (
+        <p>An error occurred</p>
+      ) : (
+        <div className="flex flex-wrap">
+          {artworks?.map((art) => {
+            return (
+              <div key={art.id}>
+                <h3>
+                  {art.title}, {art.date}
+                </h3>
+                <img
+                  className="m-3"
+                  src={art._links.image.href.replace(
+                    '{image_version}',
+                    'large'
+                  )}
+                  alt={art.slug}
+                />
+              </div>
+            )
+          })}
+        </div>
+      )}
     </div>
   )
 }

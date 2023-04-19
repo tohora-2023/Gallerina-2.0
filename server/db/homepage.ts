@@ -17,7 +17,10 @@ export function addArtworkToCollection(
   artwork_id: string,
   db = connection
 ) {
-  return db('collections_artworks').insert({ collection_id, artwork_id })
+  return db('collections_artworks')
+    .insert({ collection_id, artwork_id })
+    .onConflict('artwork_id')
+    .ignore()
 }
 
 export function getUserId(auth0id: string, db = connection) {
