@@ -8,6 +8,7 @@ import { useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPen } from '@fortawesome/free-solid-svg-icons'
 import { faTrash } from '@fortawesome/free-solid-svg-icons'
+import Modal from 'react-modal'
 
 type Props = ProfileCollection
 
@@ -22,15 +23,16 @@ export default function Collection(profile: Props) {
   const [showForm, setShowForm] = useState(false) // Add state variable
 
   const handleDeleteClick = async () => {
-    if(confirm("Are you sure you want to delete?")) {
-    const token = await getAccessTokenSilently()
-    dispatch(deleteCollection(profile.collectionId, token))
-  } else {
-    return
-  }
+    if (confirm('Are you sure you want to delete?')) {
+      const token = await getAccessTokenSilently()
+      dispatch(deleteCollection(profile.collectionId, token))
+    } else {
+      return
+    }
   }
 
   const handleUpdateClick = async () => {
+    console.log('clicked')
     setShowForm(true) // Display the form when the button is clicked
   }
 
@@ -43,33 +45,34 @@ export default function Collection(profile: Props) {
 
   return (
     <>
-    <Link to={`/collections/${profile.collectionId}`}>
-      <div className="flex justify-center mt-10 mb-10">
+      <div className="mt-10 mb-10 flex justify-center">
         <div className="shadow-xs border-grey w-full transform cursor-pointer rounded-lg border bg-white text-center font-bold tracking-wide text-black transition duration-200 hover:-translate-y-1 hover:bg-my-gold hover:shadow-2xl active:translate-y-0 active:shadow-xl">
-          <div className="grid grid-cols-2 gap-4">
-          <img
-            className="mt-10 mb-10 self-align-left mx-auto"
-            src={profile.collectionCoverImg}
-            alt={`cover for ${profile.title}`}
-          />
-            <div className='mt-10 text-3xl'>
-          
-            {profile.title}
-          
-          <div className="mt-10 flex justify-center text-lg">
-            <button className="shadow-xs mx-2 mb-2 transform cursor-pointer rounded-full border border-black bg-white px-2 py-0.5 font-bold tracking-wide text-black transition duration-200 hover:-translate-y-1 hover:bg-my-gold hover:shadow-2xl active:translate-y-0 active:shadow-xl">
-              <FontAwesomeIcon icon={faTrash} onClick={handleDeleteClick} />
-            </button>
-            <button className="shadow-xs mx-2 mb-2 transform cursor-pointer rounded-full border border-black bg-white px-2 py-0.5 font-bold tracking-wide text-black transition duration-200 hover:-translate-y-1 hover:bg-my-gold hover:shadow-2xl active:translate-y-0 active:shadow-xl">
-              <FontAwesomeIcon icon={faPen} onClick={handleUpdateClick} />
-            </button>
+          <div className="grid grid-cols-2 items-center gap-4 pt-10 pb-10">
+            <img
+              className="self-align-left mx-auto h-full rounded-md"
+              src={profile.collectionCoverImg}
+              alt={`cover for ${profile.title}`}
+            />
+            <div className="self-center text-3xl">
+              <Link to={`/collections/${profile.collectionId}`}>
+                {profile.title}
+              </Link>
+              <div className="flex justify-center text-base">
+                <button
+                  onClick={handleDeleteClick}
+                  className="shadow-xs mx-2 mb-2 transform cursor-pointer rounded-full border border-black bg-white px-2 py-0.5 font-bold tracking-wide text-black transition duration-200  hover:bg-my-gold hover:shadow-2xl active:translate-y-0 active:shadow-xl"
+                >
+                  <FontAwesomeIcon icon={faTrash} /> Delete
+                </button>
+                <button
+                  onClick={handleUpdateClick}
+                  className="shadow-xs z-10 mx-2 mb-2 transform cursor-pointer rounded-full border border-black bg-white px-2 py-0.5 font-bold tracking-wide text-black transition duration-200  hover:bg-my-gold hover:shadow-2xl active:translate-y-0 active:shadow-xl"
+                >
+                  <FontAwesomeIcon icon={faPen} /> Rename
+                </button>
+              </div>
+            </div>
           </div>
-          
-          </div>
-          
-          </div>
-          
-          
 
           {showForm && (
             <form onSubmit={handleUpdateSubmit} className="mt-4">
@@ -77,7 +80,8 @@ export default function Collection(profile: Props) {
                 <label htmlFor="name" className="mb-2 text-center font-bold">
                   New Collection Name:
                 </label>
-                <input maxlength="40"
+                <input
+                  maxLength="40"
                   type="text"
                   name="name"
                   id="name"
@@ -105,9 +109,7 @@ export default function Collection(profile: Props) {
             </form>
           )}
         </div>
-        
       </div>
-      </Link>
     </>
   )
 }
