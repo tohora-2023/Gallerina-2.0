@@ -42,7 +42,7 @@ export default function Collection(profile: Props) {
         profile={profile}
       />
       <div className="mt-10 mb-10 flex justify-center">
-        <div className="shadow-xs border-grey w-full transform cursor-pointer rounded-lg border bg-white text-center font-bold tracking-wide text-black transition duration-200 hover:-translate-y-1 hover:bg-my-gold hover:shadow-2xl hover:text-white active:translate-y-0 active:shadow-xl">
+        <div className="shadow-xs border-grey w-full transform cursor-pointer rounded-lg border bg-white text-center font-bold tracking-wide text-black transition duration-200 hover:-translate-y-1 hover:bg-my-gold hover:text-white hover:shadow-2xl active:translate-y-0 active:shadow-xl">
           <div className="grid grid-cols-2 items-center gap-4 pt-10 pb-10">
             <Link to={`/collections/${profile.collectionId}`}>
               <img
@@ -83,10 +83,11 @@ export default function Collection(profile: Props) {
                   type="text"
                   name="name"
                   id="name"
-                  className="text-grey-darkest rounded border border-my-gold py-2 px-3 focus:outline-my-gold"
+                  className="text-grey-darkest rounded border border-my-gold py-2 px-3 hover:text-black focus:outline-my-gold"
                   value={amendTitle}
                   required
                   onChange={(e) => setAmendTitle(e.target.value)}
+                  style={{ color: 'black' }}
                 />
               </div>
               <div className="flex justify-between">
