@@ -4,12 +4,12 @@ import { deleteItem, deleteNoteFromArtwork } from '../actions/collectionItems'
 import { useAppDispatch } from '../hooks/hooks'
 import { useState } from 'react'
 import NewNoteForm from './NewNoteForm'
-import { deleteNote } from '../apis/collectionItems'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
-  faNoteSticky,
+  faFileCircleXmark,
   faTrash,
-  faMessage,
+  faFile,
+  faEye,
 } from '@fortawesome/free-solid-svg-icons'
 type Props = CollectionItem
 
@@ -47,35 +47,36 @@ export default function ArtItem(art: Props) {
         <p className="m-0 w-80 pt-1 font-medium group-hover:text-white">
           {art.artTitle}
         </p>
-        <div className="flex justify-between">
-          <button onClick={handleDelete}>
-            {' '}
-            <FontAwesomeIcon icon={faTrash} style={{ color: '#ffffff' }} />
-          </button>
-          <Link
-            to={`/artworks/${art.artworkId}`}
-            className="hidden rounded-full bg-white px-2 text-black group-hover:block"
-          >
-            View
-          </Link>
+        <div className="flex w-full justify-between">
+          <div className="flex ">
+            <button onClick={handleDelete}>
+              {' '}
+              <FontAwesomeIcon icon={faTrash} style={{ color: '#ffffff' }} />
+            </button>
+            <Link
+              to={`/artworks/${art.artworkId}`}
+              className="ml-2 hidden group-hover:block"
+            >
+              <FontAwesomeIcon icon={faEye} style={{ color: '#ffffff' }} />
+            </Link>
+          </div>
+          <div className="flex">
+            <button onClick={() => setShowAddNote(true)} className="mr-2">
+              <FontAwesomeIcon icon={faFile} style={{ color: '#ffffff' }} />
+            </button>
+            <button onClick={handleDeleteNote}>
+              <FontAwesomeIcon
+                icon={faFileCircleXmark}
+                style={{ color: '#ffffff' }}
+              />
+            </button>
+          </div>
         </div>
-        <div className="mt-3 hidden group-hover:block">
-          <button onClick={() => setShowAddNote(true)}>
-            {/* <FontAwesomeIcon
-              icon={faMessagePlus}
-              style={{ color: '#ffffff' }}
-            /> */}
-          </button>
+        <div className="hidden group-hover:block">
           {art.noteName && (
             <div className="flex justify-between">
               <p className="mr-2 font-bold">{art.noteName} </p>
               <p>{art.note}</p>
-              <button onClick={handleDeleteNote}>
-                {/* <FontAwesomeIcon
-                  icon={faMessageXmark}
-                  style={{ color: '#ffffff' }}
-                /> */}
-              </button>
             </div>
           )}
         </div>
