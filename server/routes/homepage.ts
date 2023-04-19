@@ -52,9 +52,12 @@ router.post('/user/add-collection', checkJwt, async (req: JwtRequest, res) => {
       return res.status(401).send('Unauthorized')
     }
 
-    const collection = req.body.newCollection
+    let collection = req.body.newCollection
     if (!collection) {
       res.status(400).json({ error: 'New collection was invalid' })
+    }
+    if (!collection.coverImg) {
+     collection = {...collection, coverImg: '/placeholder-image.png'}  
     }
     const [newCollection] = await addNewCollection(auth0Id, collection)
     res.json(newCollection)

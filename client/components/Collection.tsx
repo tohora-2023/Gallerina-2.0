@@ -57,11 +57,11 @@ export default function Collection(profile: Props) {
               alt={`cover for ${profile.title}`}
             />
             </Link>
-            <div className="self-center text-3xl">
+            <div className="self-center text-3xl mb-10">
             <Link to={`/collections/${profile.collectionId}`}>
                 {profile.title}
                 </Link>
-              <div className="flex justify-center text-base">
+              <div className="flex justify-center text-base mt-10">
                 <button
                   onClick={handleDeleteClick}
                   className="shadow-xs mx-2 mb-2 transform cursor-pointer rounded-full border border-black bg-white px-2 py-0.5 font-bold tracking-wide text-black transition duration-200  hover:bg-my-gold hover:shadow-2xl active:translate-y-0 active:shadow-xl"
