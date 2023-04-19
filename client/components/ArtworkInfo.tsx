@@ -28,19 +28,26 @@ export default function ArtworkInfo() {
     const art = data as ArtworkDatabase
     return (
       <>
-        <div className="flex flex-col items-center relative">
-          <div className="flex w-full">
-            <h2 className="w-1/2 text-center text-2xl font-extrabold">{art.title}</h2>
+        <div className="relative flex h-full flex-col items-center">
+          <div className="space-between w-full flex flex-row justify-between items-center">
+            <div className="justify-self-start w-40" />
+            <h2 className="text-center justify-self-center text-2xl font-extrabold mb-4">{art.title}</h2>
+            <div className="text-end justify-self-end w-40">
+              <Dropdown artworkId={artId} coverImg={art.imageLink} />
+            </div>
           </div>
-          <div className='text-end'><Dropdown artworkId={artId} coverImg={art.imageLink} />
+
+          <div>
+            <img
+              src={art.imageLink}
+              alt={art.title}
+              className="max-h-lg max-w-lg"
+            />
+            <div className="text-center mt-4 text-xl">
+              <p>Medium: {art.medium}</p>
+              <p>Date: {art.date}</p>
+            </div>
           </div>
-          <img
-            src={art.imageLink}
-            alt={art.title}
-            className="max-h-lg max-w-lg"
-          />
-          <p>Medium: {art.medium}</p>
-          <p>Date: {art.date}</p>
         </div>
       </>
     )
@@ -50,33 +57,33 @@ export default function ArtworkInfo() {
     const art = data as ArtworkApi
     return (
       <>
-          <div>
-            {loading && <LoadingSpinner />}
-            <div className="flex justify-between">
-              <h2 className="w-1/2 text-2xl font-extrabold">{art.title}</h2>
-              <Dropdown
-                artworkId={artId}
-                coverImg={art._links.image.href.replace(
-                  '{image_version}',
-                  'large'
-                )}
-              />
-            </div>
-            <img
-              className="max-h-lg max-w-lg"
-              src={art._links.image.href.replace('{image_version}', 'large')}
-              alt={art.slug}
+        <div>
+          {loading && <LoadingSpinner />}
+          <div className="flex justify-between">
+            <h2 className="w-1/2 text-2xl font-extrabold">{art.title}</h2>
+            <Dropdown
+              artworkId={artId}
+              coverImg={art._links.image.href.replace(
+                '{image_version}',
+                'large'
+              )}
             />
-            <ul>
-              <li>Date: {art.date}</li>
-              <li>Medium: {art.medium}</li>
-              <li>
-                Height: {art.dimensions.cm.height}cm, Width:{' '}
-                {art.dimensions.cm.width}cm
-              </li>
-            </ul>
-            <p>{art.blurb}</p>
           </div>
+          <img
+            className="max-h-lg max-w-lg"
+            src={art._links.image.href.replace('{image_version}', 'large')}
+            alt={art.slug}
+          />
+          <ul>
+            <li>Date: {art.date}</li>
+            <li>Medium: {art.medium}</li>
+            <li>
+              Height: {art.dimensions.cm.height}cm, Width:{' '}
+              {art.dimensions.cm.width}cm
+            </li>
+          </ul>
+          <p>{art.blurb}</p>
+        </div>
       </>
     )
   }

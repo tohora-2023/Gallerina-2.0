@@ -36,7 +36,6 @@ export default function Profile() {
           </button>
 
           <h1 className="text-xl">{`${user?.given_name}'s Collections`}</h1>
-          {/* <h2 className="text-lg">User: {}</h2> */}
           <div className="">
             <img
               className="h-30 border-black-200 border-5 ml-10 w-auto rounded-full object-cover object-center"

@@ -28,7 +28,7 @@ function App() {
   return (
     <>
       <Navbar />
-      <div className="border-black-200 bg-white-200 m-20 min-h-screen rounded-2xl border p-10">
+      <div className="border-black-200 bg-white-200 m-20 max-h-screen rounded-2xl border p-10">
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/search" element={<Search />} />
