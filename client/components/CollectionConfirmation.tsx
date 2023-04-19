@@ -31,18 +31,19 @@ export default function CollectionConfirmation({
           <div className="flex min-h-full items-center justify-center p-4 text-center">
             <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
               <Dialog.Description className="text-center text-lg font-medium leading-6 text-gray-900">
-                <div className="space-between flex text-center items-center justify-center">
-                <HeartIcon
-                  className="group mr-2 flex h-8 w-8 fill-my-gold text-gray-900"
-                  stroke="#A48948"
-                  aria-hidden="true"
-                />
+                <div className="space-between flex items-center justify-center text-center">
+                  <HeartIcon
+                    className="group mr-2 flex h-8 w-8 fill-my-gold text-gray-900"
+                    stroke="#A48948"
+                    aria-hidden="true"
+                  />
 
-                {error ? (
-                  <p>This Artwork already exists in this collection</p>
-                ) : (
-                  <p>Saved to your Collection </p>
-                )}
+                  {error ? (
+                    <p>This Artwork already exists in this collection</p>
+                  ) : (
+                    <p>Saved to your Collection </p>
+                  )}
+                </div>
               </Dialog.Description>
             </Dialog.Panel>
           </div>
