@@ -16,6 +16,7 @@ interface ArtworkProps {
   setCollections: (collections: CollectionDB[]) => void
   collections: CollectionDB[]
   artworkId: string
+  error: boolean
 }
 
 export default function CreateCollection({
@@ -25,6 +26,7 @@ export default function CreateCollection({
   setCollections,
   collections,
   artworkId,
+  error,
 }: ArtworkProps) {
   const [newCollection, setNewCollection] = useState<
     AddCollection | undefined
@@ -50,9 +52,11 @@ export default function CreateCollection({
 
   return (
     <>
+      {error && <p>This Artwork already exists in this collection</p>}
       <CollectionConfirmation
         onClose={() => setShowUpdateAlert(false)}
         isOpen={showUpdateAlert}
+        error={error}
       />
       <Transition appear show={isOpen} as={Fragment}>
         <Dialog as="div" className="relative z-10" onClose={onClose}>

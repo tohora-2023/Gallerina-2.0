@@ -36,6 +36,10 @@ router.post('/user/collections', async (req, res) => {
     }
 
     const artColl = await addArtworkToCollection(collectionId, artworkId)
+    if (artColl.length === 0) {
+      return res.sendStatus(409)
+    }
+
     res.json(artColl)
   } catch (error) {
     res.status(500).json({

@@ -27,6 +27,7 @@ export default function Dropdown({ coverImg, artworkId }: ArtworkProps) {
   const [showModal, setShowModal] = useState(false)
   const [showUpdateAlert, setShowUpdateAlert] = useState(false)
   const [collections, setCollections] = useState<CollectionDB[]>([])
+  const [error, setError] = useState(false)
 
   useEffect(() => {
     const getAccess = async () => {
@@ -52,12 +53,22 @@ export default function Dropdown({ coverImg, artworkId }: ArtworkProps) {
     }
   }
 
-  function handleSaveToCollection(collectionId: number, artworkId: string) {
-    addArtworkToCollectionApi(collectionId, artworkId)
-    setShowUpdateAlert(true)
-    setTimeout(() => {
-      setShowUpdateAlert(false)
-    }, 2000)
+  async function handleSaveToCollection(
+    collectionId: number,
+    artworkId: string
+  ) {
+    try {
+      const response = await addArtworkToCollectionApi(collectionId, artworkId)
+      console.log(response)
+      setShowUpdateAlert(true)
+      setError(false)
+      setTimeout(() => {
+        setShowUpdateAlert(false)
+      }, 2000)
+    } catch (err) {
+      console.log(err)
+      setError(true)
+    }
   }
 
   return (
@@ -69,10 +80,12 @@ export default function Dropdown({ coverImg, artworkId }: ArtworkProps) {
         setCollections={setCollections}
         collections={collections}
         artworkId={artworkId}
+        error={error}
       />
       <CollectionConfirmation
         onClose={() => setShowUpdateAlert(false)}
         isOpen={showUpdateAlert}
+        error={error}
       />
       <Menu as="div" className="z-100 relative inline-block">
         <Menu.Button>
