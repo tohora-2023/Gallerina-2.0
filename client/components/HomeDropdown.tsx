@@ -29,7 +29,7 @@ export default function Dropdown({
 }: ArtworkProps) {
   const { loginWithRedirect, isAuthenticated } = useAuth0()
   const { getAccessTokenSilently } = useAuth0()
-  const [ showModal, setShowModal ] = useState(false)
+  const [ showModal, setShowModal] = useState(false)
   const [ showUpdateAlert, setShowUpdateAlert ] = useState(false)
 
   function handleHeartClick() {

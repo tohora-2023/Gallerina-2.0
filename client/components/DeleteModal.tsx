@@ -12,8 +12,7 @@ interface Props {
   isOpen: boolean
 }
 
-
-export default function DeleteModal({profile, onClose, isOpen}: Props) {
+export default function DeleteModal({ profile, onClose, isOpen }: Props) {
   const { getAccessTokenSilently } = useAuth0()
 
   const dispatch = useAppDispatch()
@@ -26,14 +25,42 @@ export default function DeleteModal({profile, onClose, isOpen}: Props) {
 
   return (
     <Transition appear show={isOpen} as={Fragment}>
-      <Dialog onClose={onClose}>
-        <Dialog.Panel>
-          <Dialog.Description>
-            <p>Are you sure you want to delete you collection?</p>
-          </Dialog.Description>
-          <button onClick={() => handleDeleteClick()}>Delete</button>
-          <button onClick={onClose}>Cancel</button>
-        </Dialog.Panel>
+      <Dialog className="relative z-50" onClose={onClose}>
+        <Transition.Child
+          as={Fragment}
+          enter="ease-out duration-300"
+          enterFrom="opacity-0"
+          enterTo="opacity-100"
+          leave="ease-in duration-200"
+          leaveFrom="opacity-100"
+          leaveTo="opacity-0"
+        >
+          <div className="fixed inset-0 bg-black bg-opacity-50" />
+        </Transition.Child>
+        <div className="flex min-h-full items-center justify-center p-4 text-center"></div>
+        <div className="fixed inset-0 flex items-center justify-center overflow-y-auto p-4">
+          <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
+            <Dialog.Description className="text-center text-lg font-medium leading-6 text-gray-900">
+              <div className="flex items-center justify-center text-center">
+                Are you sure you want to delete your collection?
+              </div>
+            </Dialog.Description>
+            <div className='space-x-8 mt-4 flex items-center justify-center text-center'>
+              <button
+                          className="inline-flex justify-center rounded-md border border-my-gold bg-white px-4 py-2 hover:border-my-gold hover:text-white text-sm font-medium text-black hover:bg-my-gold focus:outline-none focus-visible:ring-2 focus-visible:ring-my-gold focus-visible:ring-offset-2"
+                          onClick={() => handleDeleteClick()}
+              >
+                Delete
+              </button>
+              <button
+                          className="inline-flex justify-center rounded-md border border-transparent bg-my-gold px-4 py-2 hover:border-my-gold hover:text-black text-sm font-medium text-white hover:bg-white focus:outline-none focus-visible:ring-2 focus-visible:ring-my-gold focus-visible:ring-offset-2"
+                          onClick={onClose}
+              >
+                Cancel
+              </button>
+            </div>
+          </Dialog.Panel>
+        </div>
       </Dialog>
     </Transition>
   )
