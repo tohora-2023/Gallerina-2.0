@@ -1,14 +1,9 @@
 import express from 'express'
 import {TCollection, TUser } from '../../models/profile'
-import {ProfileCollection} from '../../models/profile'
 import {
   addCollection,
   deleteCollection,
-  getArtCollectionById,
-  getCollections,
   updateCollection,
-  getUserByAuth,
-  getUserInfoAndCollections,
   getCollectionsById,
   geUserInfoAndCollections,
   geUserByAuth,
@@ -18,7 +13,6 @@ import checkJwt, { JwtRequest } from '../auth0'
 const router = express.Router()
 export default router
 
-// GET api/v1/profile  -- AKA profile information
 router.get('/', checkJwt, async (req: JwtRequest, res) => {
   try {
     const auth0Id = req.auth?.sub
@@ -35,8 +29,6 @@ router.get('/', checkJwt, async (req: JwtRequest, res) => {
   }
 })
 
-// api/v1/profile
-// create an empty collection
 router.post('/', async (req, res) => {
   try {
     const newCollection: TCollection = req.body
@@ -48,23 +40,9 @@ router.post('/', async (req, res) => {
   }
 })
 
-// DELETE /api/v1/profile/:CollectionId
-// router.delete('/:CollectionId', async (req, res) => {
-//   try {
-//     const id = Number(req.params.CollectionId)
-//     const collections = await deleteCollection(id)
-//     res.json(collections)
-//   } catch (err) {
-//     console.log(err)
-//     res.sendStatus(500)
-//   }
-// })
-
-// DELETE /api/v1/profile/:CollectionId
 router.delete('/:CollectionId', checkJwt, async (req: JwtRequest, res) => {
   try {
     const auth0Id = req.auth?.sub
-    // const auth0Id = 'google-oauth2|104589919171674569148'
     if (!auth0Id) {
       console.error('No auth0Id')
       return res.status(401).send('Unauthorized')
@@ -81,8 +59,6 @@ router.delete('/:CollectionId', checkJwt, async (req: JwtRequest, res) => {
       // If it isn't res with status 401 Unauthorized
       return res.status(401).send('Unauthorized')
     }
-    // const collections = await deleteCollection(collectionId.)
-    // res.json()
   } catch (err) {
     console.log(err)
     res.sendStatus(500)

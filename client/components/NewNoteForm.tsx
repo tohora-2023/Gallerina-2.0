@@ -1,7 +1,7 @@
 import { Dialog, Transition } from '@headlessui/react'
 import { AddNoteSnake, CollectionItem } from '../../models/collectionContent'
 import { addNoteToArtwork } from '../actions/collectionItems'
-import { FormEvent, ChangeEvent, useState, Fragment } from 'react'
+import { FormEvent, useState, Fragment } from 'react'
 import { useAppDispatch } from '../hooks/hooks'
 import { useParams } from 'react-router-dom'
 
@@ -16,7 +16,7 @@ export default function NewNoteForm({
   isOpen,
   onClose,
 }: CollectionItemProps) {
-  // /v1/api/collectionId/artId
+
   const dispatch = useAppDispatch()
   const params = useParams()
   const collectionId = Number(params.id)

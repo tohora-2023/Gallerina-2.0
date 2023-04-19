@@ -35,7 +35,6 @@ export type CollectionItemsAction =
       payload: string
     }
 
-// SETTING STATE
 export function setError(errMessage: string): CollectionItemsAction {
   return {
     type: SET_ERROR,
@@ -77,7 +76,6 @@ export function deleteNoteSuccess(
   }
 }
 
-// THUNK ACTIONS
 export function geCollectionDBItems(id: number): ThunkAction {
   return (dispatch) => {
     dispatch(setPending())

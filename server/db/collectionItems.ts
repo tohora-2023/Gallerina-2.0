@@ -1,12 +1,10 @@
 import connection from './connection'
 import { AddNoteSnake } from '../../models/collectionContent'
 
-// gets all collections - regardless of wwho is logged in
 export function geCollectionDBs(db = connection) {
   return db('collections').select()
 }
 
-// GET A COLLECTION, ARTWORKS AND NOTES BY ID
 export function getArtCollectionDBAndNotesById(
   collectionId: number,
   db = connection
@@ -40,7 +38,6 @@ export function getArtCollectionDBAndNotesById(
     )
 }
 
-// delete a collection artwork by ID
 export async function deleteCollectionItemById(
   collectionId: number,
   artId: string,
@@ -52,14 +49,6 @@ export async function deleteCollectionItemById(
   return getArtCollectionDBAndNotesById(collectionId)
 }
 
-// export async function getNotesFromCollection(
-//   collectionId: number,
-//   db = connection
-// ) {
-//   return db('notes').where({ collection_id: collectionId })
-// }
-
-// add a note to collection item
 export async function addNote(
   collectionId: number,
   addNote: AddNoteSnake,
@@ -76,7 +65,6 @@ export async function addNote(
   return db('notes').where({ collection_id: collectionId })
 }
 
-// delete a note from collection item
 export async function deleteNote(noteId: number, db = connection) {
   return await db('notes').where({ id: noteId }).delete()
 }

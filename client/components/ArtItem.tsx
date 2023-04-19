@@ -14,19 +14,15 @@ import {
 type Props = CollectionItem
 
 export default function ArtItem(art: Props) {
-  // CONDITIONAL FORM RENDER LOGIC
   const [showAddNote, setShowAddNote] = useState(false)
-
   const dispatch = useAppDispatch()
   const params = useParams()
   const Collectionid = Number(params.id)
 
-  // COLLECTION ITEM
   function handleDelete() {
     dispatch(deleteItem(Collectionid, art.artworkId))
   }
 
-  // NOTE
   function handleDeleteNote() {
     dispatch(deleteNoteFromArtwork(Collectionid, art.noteId))
   }

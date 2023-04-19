@@ -5,7 +5,6 @@ import { ArtworkDatabase, ArtworkSnakeCaseDatabase } from '../../models/artwork'
 import { addArtworksToDB, getArtworkById } from '../db/externalArtwork'
 const router = express.Router()
 
-// generate xapptoken function
 async function generateXappToken() {
   const clientID = '0745ecd351bef5ed821f'
   const clientSecret = '2e6e26b06b1046a7d9784540c0c01639'
@@ -15,7 +14,6 @@ async function generateXappToken() {
     .send({ client_id: clientID, client_secret: clientSecret })
 }
 
-//  GETS api/v1/artworks -- gets X amount of artworks for Homepage
 router.get('/artworks', async (req, res) => {
   try {
     const amount = 100
@@ -27,7 +25,6 @@ router.get('/artworks', async (req, res) => {
     const artworks = response.body._embedded.artworks
     res.json(artworks)
 
-    // for CamelCase implementation on front-end
     const returnedArtworks: ArtworkDatabase[] = artworks.map(
       (artwork: ArtworkApi) => ({
         id: artwork.id,
@@ -39,7 +36,6 @@ router.get('/artworks', async (req, res) => {
       })
     )
 
-    // replaces imageLink with ${large} + converts to snake
     const artworksSnake = returnedArtworks.map((item) => {
       return {
         id: item.id,
@@ -58,12 +54,11 @@ router.get('/artworks', async (req, res) => {
   }
 })
 
-// gets api/v1/artworks/id -- for Art-Info page (also looks at DB)
 router.get('/artworks/:id', async (req, res) => {
   try {
     const id = req.params.id
     const snakeArtwork = await getArtworkById(id)
-    // checks if artwork is in database, if not, then retrieves it from the API
+   
     if (snakeArtwork && snakeArtwork.length > 0) {
       const artwork: ArtworkSnakeCaseDatabase = snakeArtwork[0]
       const camelArtwork = {
@@ -89,7 +84,6 @@ router.get('/artworks/:id', async (req, res) => {
   }
 })
 
-// gets api/v1/search -- for the Search page
 router.get('/search', async (req, res) => {
   try {
     const search = req.query.search
