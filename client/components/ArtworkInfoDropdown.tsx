@@ -18,7 +18,7 @@ import CollectionConfirmation from './CollectionConfirmation'
 
 interface ArtworkProps {
   coverImg: string
-  artworkId?: string
+  artworkId: string
 }
 
 export default function Dropdown({ coverImg, artworkId }: ArtworkProps) {
@@ -77,7 +77,7 @@ export default function Dropdown({ coverImg, artworkId }: ArtworkProps) {
       <Menu as="div" className="z-100 relative inline-block">
         <Menu.Button>
           <button
-            className="text-center shadow-xs inline-block transform cursor-pointer rounded-full border border-black bg-white px-2 py-0.5 font-bold tracking-wide text-black transition duration-200 hover:-translate-y-1 hover:border-white hover:bg-my-gold hover:text-white hover:shadow-2xl active:translate-y-0 active:shadow-xl"
+            className="shadow-xs inline-block transform cursor-pointer rounded-full border border-black bg-white px-2 py-0.5 text-center font-bold tracking-wide text-black transition duration-200 hover:-translate-y-1 hover:border-white hover:bg-my-gold hover:text-white hover:shadow-2xl active:translate-y-0 active:shadow-xl"
             onClick={handleHeartClick}
           >
             Add to a Collection
@@ -136,7 +136,7 @@ export default function Dropdown({ coverImg, artworkId }: ArtworkProps) {
                           }
                         group flex w-full items-center rounded-md px-2 py-2 text-sm`}
                           onClick={() =>
-                            handleSaveToCollection(collection.id, artwork.id)
+                            handleSaveToCollection(collection.id, artworkId)
                           }
                         >
                           <HeartIcon

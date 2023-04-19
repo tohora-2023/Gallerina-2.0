@@ -7,7 +7,8 @@ import { addArtworkToCollection } from '../db/homepage'
 // need to get api/v1/artworks/:id
 router.post('/:id', async (req, res) => {
   try {
-    const { collectionId, artworkId } = req.body
+    const artworkId = req.params.id
+    const { collectionId } = req.body
     const artColl = await addArtworkToCollection(collectionId, artworkId)
     res.json(artColl)
   } catch (error) {
