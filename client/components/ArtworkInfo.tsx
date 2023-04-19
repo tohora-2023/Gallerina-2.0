@@ -28,22 +28,28 @@ export default function ArtworkInfo() {
     const art = data as ArtworkDatabase
     return (
       <>
-        <div className="relative flex flex-col items-center">
-          <div className="flex w-full">
-            <h2 className="w-1/2 text-center text-2xl font-extrabold">
+        <div className="relative flex h-full max-h-screen flex-col items-center">
+          <div className="space-between flex w-full flex-row items-center justify-between ">
+            <div className="w-40 justify-self-start" />
+            <h2 className="mb-4 justify-self-center text-center text-2xl font-extrabold">
               {art.title}
             </h2>
+            <div className="w-40 justify-self-end text-end">
+              <Dropdown artworkId={artId} coverImg={art.imageLink} />
+            </div>
           </div>
-          <div className="text-end">
-            <Dropdown artworkId={artId} coverImg={art.imageLink} />
+
+          <div>
+            <img
+              src={art.imageLink}
+              alt={art.title}
+              className="max-h-lg max-w-lg"
+            />
+            <div className="mt-4 text-center text-xl">
+              <p>Medium: {art.medium}</p>
+              <p>Date: {art.date}</p>
+            </div>
           </div>
-          <img
-            src={art.imageLink}
-            alt={art.title}
-            className="max-h-lg max-w-lg"
-          />
-          <p>Medium: {art.medium}</p>
-          <p>Date: {art.date}</p>
         </div>
       </>
     )

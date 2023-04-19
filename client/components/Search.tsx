@@ -29,7 +29,7 @@ export default function Search() {
   }
 
   return (
-    <div>
+    <div className="min-h-screen">
       <h1>Search for Artworks</h1>
       <form className="w-1/2 rounded-md" onSubmit={handleSubmit}>
         <input

@@ -31,7 +31,7 @@ export default function CreateCollection({ onClose, isOpen }: ModalProps) {
     }, 500)
   }
 
-  return (
+   return (
     <>
       <CollectionConfirmation
         onClose={() => setShowUpdateAlert(false)}
@@ -67,29 +67,30 @@ export default function CreateCollection({ onClose, isOpen }: ModalProps) {
                     as="h3"
                     className="text-center text-lg font-medium leading-6 text-gray-900"
                   >
-                    Name New Collection
+                    Create A New Collection
                   </Dialog.Title>
-                  <form onSubmit={handleSubmit} aria-label="Add Curation">
-                    <div className="flex flex-col items-center">
+                  <form onSubmit={handleSubmit} aria-label="Add Collection">
+                    <div className="flex flex-col items-center mt-4">
                       <input
+                        className='focus:outline-my-gold rounded border-2 border-my-gold'
                         type="text"
                         name="title"
-                        id="curationTitle"
-                        placeholder="Curation name"
+                        id="colletionTitle"
+                        placeholder="Collection name"
                         value={newCollection?.title}
+                        maxLength={15}
                         onChange={(e) =>
                           setNewCollection({
                             ...newCollection,
                             title: e.target.value,
                           })
                         }
-                        style={{ textAlign: 'center' }}
                       />
 
                       <div className="mt-4">
                         <button
                           type="submit"
-                          className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                          className="inline-flex justify-center rounded-md border border-transparent bg-my-gold px-4 py-2 hover:border-my-gold hover:text-black text-sm font-medium text-white hover:bg-white focus:outline-none focus-visible:ring-2 focus-visible:ring-my-gold focus-visible:ring-offset-2"
                           onClick={onClose}
                         >
                           Create
