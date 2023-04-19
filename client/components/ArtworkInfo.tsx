@@ -5,6 +5,7 @@ import { ArtworkDatabase } from '../../models/artwork'
 import LoadingSpinner from './LoadingSpinner'
 import { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
+import Dropdown from './ArtworkInfoDropdown'
 
 export default function ArtworkInfo() {
   const { loading, data, error } = useAppSelector((state) => state.artInfoState)
@@ -30,9 +31,7 @@ export default function ArtworkInfo() {
         <div className="flex flex-col">
           <div className="flex justify-between">
             <h2 className="w-1/2 text-2xl font-extrabold">{art.title}</h2>
-            <button className="mt-1 w-1/4 rounded-2xl p-3 outline hover:bg-my-gold hover:text-white">
-              Add to a Collection
-            </button>
+              <Dropdown artworkId={artId} coverImg={art.imageLink} />
           </div>
           <img
             src={art.imageLink}
@@ -54,9 +53,7 @@ export default function ArtworkInfo() {
           {loading && <LoadingSpinner />}
           <div className="flex justify-between">
             <h2 className="w-1/2 text-2xl font-extrabold">{art.title}</h2>
-            <button className="mt-1 w-1/4 rounded-2xl p-3 outline hover:bg-my-gold hover:text-white">
-              Add to a Collection
-            </button>
+              <Dropdown artworkId={artId} coverImg={art._links.image.href.replace('{image_version}', 'large')} />
           </div>
           <img
             className="max-h-lg max-w-lg"

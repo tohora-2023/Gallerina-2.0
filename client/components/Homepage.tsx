@@ -6,7 +6,7 @@ import { useAppDispatch, useAppSelector } from '../hooks/hooks'
 import { fetchArtworkImage } from '../actions/homepage'
 import { ArtworkApi } from '../../models/externalArtwork'
 import LoadingSpinner from './LoadingSpinner'
-import Dropdown from './Dropdown'
+import Dropdown from './HomeDropdown'
 import { CollectionDB } from '../../models/collectionArtwork'
 import { getAllCollectionsApi } from '../apis/homepage'
 
