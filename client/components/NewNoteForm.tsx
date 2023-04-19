@@ -22,7 +22,7 @@ export default function NewNoteForm({
   const collectionId = Number(params.id)
 
   const [newNote, setNewNote] = useState({
-    note_name: 'misc',
+    note_name: '',
     note: '',
   } as AddNoteSnake)
 
@@ -30,7 +30,7 @@ export default function NewNoteForm({
     e.preventDefault()
     dispatch(addNoteToArtwork(collectionId, newNote, collectionItem.artworkId))
     setNewNote({
-      note_name: 'misc',
+      note_name: '',
       note: '',
     })
   }
