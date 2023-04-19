@@ -2,9 +2,6 @@ import express from 'express'
 const router = express.Router()
 import { addArtworkToCollection } from '../db/homepage'
 
-// add artwork to a collection -- WIP -- later: copy homepage implementation
-
-// need to get api/v1/artworks/:id
 router.post('/:id', async (req, res) => {
   try {
     const artworkId = req.params.id

@@ -48,11 +48,13 @@ export default function Home() {
             return (
               <div key={artwork.id}>
                 <div className="relative break-inside-avoid-column">
-                  <img
-                    className="h-auto w-full rounded-md opacity-100 hover:opacity-80"
-                    src={artwork._links?.thumbnail?.href}
-                    alt={artwork.slug}
-                  />
+                  <Link to={`/artworks/${artwork.id}`}>
+                    <img
+                      className="h-auto w-full rounded-md opacity-100 hover:opacity-80"
+                      src={artwork._links?.thumbnail?.href}
+                      alt={artwork.slug}
+                    />
+                  </Link>
                   <div className="text-center font-garamond text-sm font-bold text-black">
                     <Dropdown
                       artwork={artwork}

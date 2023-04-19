@@ -12,8 +12,6 @@ import {
   addArtworkToCollectionApi,
   getAllCollectionsApi,
 } from '../apis/homepage'
-import { ArtworkApi } from '../../models/externalArtwork'
-import HeartIcon2 from './HeartIcon'
 import CollectionConfirmation from './CollectionConfirmation'
 
 interface ArtworkProps {

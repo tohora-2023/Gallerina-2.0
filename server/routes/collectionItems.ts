@@ -9,7 +9,6 @@ import {
 
 const router = express.Router()
 
-// GET items in collections/:collectionId + also notes!
 router.get('/:id', async (req, res) => {
   try {
     const id = Number(req.params.id)
@@ -21,7 +20,6 @@ router.get('/:id', async (req, res) => {
   }
 })
 
-// delete item in collections/:id by artId
 router.delete('/:id/:artId', async (req, res) => {
   try {
     const id = Number(req.params.id)
@@ -34,7 +32,6 @@ router.delete('/:id/:artId', async (req, res) => {
   }
 })
 
-// ADD NOTE for artId in collection
 router.post('/:collectionId/:artId', async (req, res) => {
   try {
     const collectionId = Number(req.params.collectionId)
@@ -49,7 +46,6 @@ router.post('/:collectionId/:artId', async (req, res) => {
   }
 })
 
-// DELETE NOTE
 router.delete('/:collectionId/notes/:noteId', async (req, res) => {
   try {
     const collectionId = Number(req.params.collectionId)

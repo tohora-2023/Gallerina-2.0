@@ -1,5 +1,5 @@
 import { useAppDispatch } from '../hooks/hooks'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link} from 'react-router-dom'
 import { ProfileCollection } from '../../models/profile'
 import { useAuth0 } from '@auth0/auth0-react'
 import { updateCollection } from '../actions/collections'
@@ -18,15 +18,14 @@ export default function Collection(profile: Props) {
   const [ amendTitle, setAmendTitle ] = useState(profile.title)
 
   const dispatch = useAppDispatch()
-  const navigate = useNavigate()
 
-  const [ showForm, setShowForm ] = useState(false) // Add state variable
+  const [ showForm, setShowForm ] = useState(false) 
 
   const [ showDelete, setShowDelete ] = useState(false)
 
   const handleUpdateClick = async () => {
     console.log('clicked')
-    setShowForm(true) // Display the form when the button is clicked
+    setShowForm(true) 
   }
 
   const handleUpdateSubmit = async (e: React.FormEvent<HTMLFormElement>) => {

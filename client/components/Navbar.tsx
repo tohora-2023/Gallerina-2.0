@@ -3,7 +3,7 @@ import { useAuth0 } from '@auth0/auth0-react'
 import { KeyboardEvent, useState } from 'react'
 
 export default function Navbar() {
-  const { logout, loginWithRedirect, isAuthenticated, user } = useAuth0()
+  const { logout, loginWithRedirect, isAuthenticated } = useAuth0()
 
   const [activeButton, setActiveButton] = useState('')
 
@@ -33,7 +33,7 @@ export default function Navbar() {
       <div>
         <Link to="/">
           <img
-            src="/logo4.png"
+            src="/logo.png"
             alt="gallerina logo"
             className="ml-10 h-12 w-auto scale-150 transform"
             onClick={() => setActiveButton('')}
@@ -41,7 +41,7 @@ export default function Navbar() {
         </Link>
       </div>
 
-      <div className="ml-auto w-full lg:w-auto">
+      <div className="ml-auto w-fz  ull lg:w-auto">
         <div className="flex justify-end">
           <Link to="/">
             <button

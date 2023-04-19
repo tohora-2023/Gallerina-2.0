@@ -2,7 +2,7 @@ import { Dialog, Transition } from '@headlessui/react'
 import { Fragment, useState, FormEvent } from 'react'
 import { useAuth0 } from '@auth0/auth0-react'
 
-import { addNewCollectionApi, getAllCollectionsApi } from '../apis/homepage'
+import { addNewCollectionApi } from '../apis/homepage'
 import { AddCollection } from '../../models/collectionArtwork'
 import CollectionConfirmation from './CollectionConfirmation'
 
@@ -27,7 +27,7 @@ export default function CreateCollection({ onClose, isOpen }: ModalProps) {
 
     setTimeout(() => {
       setShowUpdateAlert(false)
-      window.location.reload() // reload the page after waiting 0.5 seconds
+      window.location.reload() 
     }, 500)
   }
 

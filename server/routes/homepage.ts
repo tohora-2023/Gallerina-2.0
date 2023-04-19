@@ -9,7 +9,6 @@ import { JwtRequest } from '../auth0'
 
 const router = express.Router()
 
-// GETS user collections for dropdown in homepage
 router.get('/user/collections', checkJwt, async (req: JwtRequest, res) => {
   try {
     const auth0Id = req.auth?.sub
@@ -26,7 +25,6 @@ router.get('/user/collections', checkJwt, async (req: JwtRequest, res) => {
   }
 })
 
-// ADD an artwork to artworks_collections for a user
 router.post('/user/collections', async (req, res) => {
   try {
     const { collectionId, artworkId } = req.body
@@ -48,7 +46,6 @@ router.post('/user/collections', async (req, res) => {
   }
 })
 
-// ADD a new collection for a user
 router.post('/user/add-collection', checkJwt, async (req: JwtRequest, res) => {
   try {
     const auth0Id = req.auth?.sub

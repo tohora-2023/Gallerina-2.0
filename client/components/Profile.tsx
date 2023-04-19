@@ -21,7 +21,7 @@ export default function Profile() {
     getAccessTokenSilently()
       .then((token) => dispatch(fetchCollections(user?.id, token)))
       .catch(console.error)
-  }, [dispatch])
+  }, [dispatch, getAccessTokenSilently, user])
 
   return (
     <>
@@ -33,7 +33,7 @@ export default function Profile() {
         <div className="flex h-full items-center justify-end">
           <button
             onClick={() => setShowModal(true)}
-            className="  shadow-xs absolute left-11 ml-20 transform cursor-pointer rounded-full border border-my-gold bg-white px-2 py-0.5 font-bold tracking-wide text-black transition duration-200 hover:-translate-y-1 hover:bg-my-gold hover:shadow-2xl active:translate-y-0 active:shadow-xl"
+            className="  shadow-xs absolute left-11 ml-20 transform cursor-pointer rounded-full border border-my-gold bg-white px-2 py-0.5 font-bold tracking-wide text-black transition duration-200 hover:-translate-y-1 hover:bg-my-gold hover:text-white hover:shadow-2xl active:translate-y-0 active:shadow-xl"
           >
             Create a collection
           </button>
@@ -50,7 +50,6 @@ export default function Profile() {
         <div>
           {loading && <p>Please wait while we load your collections</p>}
           {error && <p>Unfortunately we cannot reach your collections</p>}
-          {/* <h3>The Collections for {user?.given_name} will go here</h3> */}
           {profile?.map((profile: ProfileCollection) => (
             <Collection key={profile.collectionId} {...profile} />
           ))}

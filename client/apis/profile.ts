@@ -1,4 +1,5 @@
 import request from 'superagent'
+
 import { AddCollection } from '../../models/collectionArtwork'
 import { ProfileCollection } from '../../models/profile'
 
@@ -15,7 +16,6 @@ export async function getCollectionDBsByUserId(
   return response.body
 }
 
-// ADDs a new collection to db
 export async function addCollection(newCollection: AddCollection) {
   await request.post(rootUrl + '/newcollection').send(newCollection)
 }

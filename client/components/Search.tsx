@@ -23,6 +23,7 @@ export default function Search() {
         setSearch('')
       })
       .catch((err: Error) => {
+        console.log(err)
         setError(true)
         setIsLoading(false)
       })
