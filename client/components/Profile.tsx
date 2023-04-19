@@ -8,7 +8,7 @@ import Dialog from './ProfileDialog'
 
 export default function Profile() {
   const { getAccessTokenSilently, user } = useAuth0()
-  const [ showModal, setShowModal] = useState(false)
+  const [showModal, setShowModal] = useState(false)
   const dispatch = useAppDispatch()
 
   const {
@@ -31,7 +31,10 @@ export default function Profile() {
       />
       <div className="min-h-screen">
         <div className="flex h-full items-center justify-end">
-          <button onClick={() => setShowModal(true)} className=" shadow-xs absolute left-11 ml-20 transform cursor-pointer rounded-full border border-black bg-white px-2 py-0.5 font-bold tracking-wide text-black transition duration-200 hover:-translate-y-1 hover:bg-my-gold hover:shadow-2xl active:translate-y-0 active:shadow-xl">
+          <button
+            onClick={() => setShowModal(true)}
+            className="  shadow-xs absolute left-11 ml-20 transform cursor-pointer rounded-full border border-my-gold bg-white px-2 py-0.5 font-bold tracking-wide text-black transition duration-200 hover:-translate-y-1 hover:bg-my-gold hover:shadow-2xl active:translate-y-0 active:shadow-xl"
+          >
             Create a collection
           </button>
 

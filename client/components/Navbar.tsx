@@ -45,10 +45,10 @@ export default function Navbar() {
         <div className="flex justify-end">
           <Link to="/">
             <button
-              className={`mt-4 block cursor-pointer rounded-full border border-black ${
+              className={`mt-4 block cursor-pointer rounded-full border border-my-gold ${
                 activeButton === 'home'
-                  ? 'bg-my-gold'
-                  : 'bg-white hover:bg-my-gold'
+                  ? 'bg-my-gold text-white'
+                  : 'bg-white hover:border-white hover:bg-my-gold hover:text-white'
               } shadow-xs mr-5 transform px-3 py-0.5 font-bold tracking-wide text-black transition duration-200 hover:-translate-y-1 hover:shadow-2xl active:translate-y-0 active:shadow-xl lg:mt-0 lg:inline-block `}
               onClick={() => setActiveButton('home')}
             >
@@ -57,10 +57,10 @@ export default function Navbar() {
           </Link>
           <Link to="/search">
             <button
-              className={`mt-4 block cursor-pointer rounded-full border border-black ${
+              className={`mt-4 block cursor-pointer rounded-full border border-my-gold ${
                 activeButton === 'search'
-                  ? 'bg-my-gold'
-                  : 'bg-white hover:bg-my-gold'
+                  ? 'bg-my-gold text-white'
+                  : 'bg-white hover:border-white hover:bg-my-gold hover:text-white'
               } shadow-xs transform px-3 py-0.5 font-bold tracking-wide text-black transition duration-200 hover:-translate-y-1 hover:shadow-2xl active:translate-y-0 active:shadow-xl lg:mt-0 lg:inline-block `}
               onClick={() => setActiveButton('search')}
             >
@@ -71,10 +71,10 @@ export default function Navbar() {
           {isAuthenticated && (
             <Link to={`/profile`}>
               <button
-                className={` mt-4  mr-5 ml-5 block cursor-pointer rounded-full border border-black ${
+                className={` mt-4  mr-5 ml-5 block cursor-pointer rounded-full border border-my-gold ${
                   activeButton === 'profile'
-                    ? 'bg-my-gold'
-                    : 'bg-white hover:bg-my-gold'
+                    ? 'bg-my-gold text-white'
+                    : 'bg-white hover:border-white hover:bg-my-gold hover:text-white'
                 } shadow-xs transform px-3 py-0.5 font-bold tracking-wide text-black transition duration-200 hover:-translate-y-1 hover:shadow-2xl active:translate-y-0 active:shadow-xl lg:mt-0 lg:inline-block `}
                 onClick={() => setActiveButton('profile')}
               >
@@ -92,7 +92,7 @@ export default function Navbar() {
                 }
               }}
               tabIndex={0}
-              className="shadow-xs bg-white0 inline-block transform cursor-pointer rounded-full border border-black px-3 py-0 font-bold tracking-wide text-black transition duration-200 hover:-translate-y-1 hover:bg-my-gold hover:shadow-2xl active:translate-y-0 active:shadow-xl "
+              className="shadow-xs bg-white0 inline-block transform cursor-pointer rounded-full border border-my-gold bg-white px-3 py-0 font-bold tracking-wide text-black transition duration-200 hover:-translate-y-1 hover:border-white  hover:bg-my-gold hover:text-white hover:shadow-2xl active:translate-y-0 active:shadow-xl "
             >
               Logout
             </button>
@@ -104,7 +104,7 @@ export default function Navbar() {
                   handleKeyDownLogin
                 }
               }}
-              className="shadow-xs inline-block transform cursor-pointer rounded-full border border-black bg-white px-2 py-0.5 font-bold tracking-wide text-black transition duration-200 hover:-translate-y-1 hover:bg-my-gold hover:shadow-2xl active:translate-y-0 active:shadow-xl "
+              className="shadow-xs gold inline-block transform cursor-pointer rounded-full border  border-my-gold bg-white px-2 py-0.5 font-bold tracking-wide text-black transition duration-200 hover:-translate-y-1 hover:border-white hover:bg-my-gold hover:text-white hover:shadow-2xl active:translate-y-0 active:shadow-xl "
             >
               Login
             </button>

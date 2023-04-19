@@ -1,9 +1,8 @@
-import { useEffect } from 'react'
-import { useAppDispatch, useAppSelector } from '../hooks/hooks'
-import { Link } from 'react-router-dom'
+import { useAppDispatch } from '../hooks/hooks'
+import { Link, useNavigate } from 'react-router-dom'
 import { ProfileCollection } from '../../models/profile'
 import { useAuth0 } from '@auth0/auth0-react'
-import { deleteCollection, updateCollection } from '../actions/collections'
+import { updateCollection } from '../actions/collections'
 import { useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPen } from '@fortawesome/free-solid-svg-icons'
@@ -13,12 +12,13 @@ import Delete from './DeleteModal'
 type Props = ProfileCollection
 
 export default function Collection(profile: Props) {
-  const { getAccessTokenSilently, isAuthenticated, loginWithRedirect, user } =
+  const { getAccessTokenSilently } =
     useAuth0()
 
   const [ amendTitle, setAmendTitle ] = useState(profile.title)
 
   const dispatch = useAppDispatch()
+  const navigate = useNavigate()
 
   const [ showForm, setShowForm ] = useState(false) // Add state variable
 
@@ -46,16 +46,18 @@ export default function Collection(profile: Props) {
       <div className="mt-10 mb-10 flex justify-center">
         <div className="shadow-xs border-grey w-full transform cursor-pointer rounded-lg border bg-white text-center font-bold tracking-wide text-black transition duration-200 hover:-translate-y-1 hover:bg-my-gold hover:shadow-2xl active:translate-y-0 active:shadow-xl">
           <div className="grid grid-cols-2 items-center gap-4 pt-10 pb-10">
+          <Link to={`/collections/${profile.collectionId}`}>
             <img
               className="self-align-left mx-auto h-full rounded-md"
               src={profile.collectionCoverImg}
               alt={`cover for ${profile.title}`}
             />
-            <div className="self-center text-3xl">
-              <Link to={`/collections/${profile.collectionId}`}>
+            </Link>
+            <div className="self-center text-3xl mb-10">
+            <Link to={`/collections/${profile.collectionId}`}>
                 {profile.title}
-              </Link>
-              <div className="flex justify-center text-base">
+                </Link>
+              <div className="flex justify-center text-base mt-10">
                 <button
                   onClick={() => setShowDelete(true)}
                   className="shadow-xs mx-2 mb-2 transform cursor-pointer rounded-full border border-black bg-white px-2 py-0.5 font-bold tracking-wide text-black transition duration-200  hover:bg-my-gold hover:shadow-2xl active:translate-y-0 active:shadow-xl"
@@ -107,7 +109,9 @@ export default function Collection(profile: Props) {
             </form>
           )}
         </div>
+        
       </div>
+      
     </>
   )
 }
