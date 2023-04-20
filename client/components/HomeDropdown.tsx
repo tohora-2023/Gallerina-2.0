@@ -90,7 +90,7 @@ export default function Dropdown({
         >
           <Menu.Items
             static
-            className="absolute z-10 w-56 origin-top rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
+            className="absolute z-10 w-56 origin-top rounded-md border-2 border-my-gold bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
             style={{
               top: 'calc(100% + 5px)',
               left: '50%',
@@ -116,6 +116,7 @@ export default function Dropdown({
                 )}
               </Menu.Item>
             </div>
+            <hr className="h-px bg-my-gold border-0 dark:bg-my-gold"></hr>
             <div className="py-1 px-1">
               <ul>
                 {collections.map((collection) => {
