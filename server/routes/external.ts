@@ -58,7 +58,7 @@ router.get('/artworks/:id', async (req, res) => {
   try {
     const id = req.params.id
     const snakeArtwork = await getArtworkById(id)
-   
+
     if (snakeArtwork && snakeArtwork.length > 0) {
       const artwork: ArtworkSnakeCaseDatabase = snakeArtwork[0]
       const camelArtwork = {
@@ -88,18 +88,21 @@ router.get('/search', async (req, res) => {
   try {
     const search = req.query.search
     const xapp = await generateXappToken()
+    // console.log(xapp.body.token)
+    // console.log(search)
     const response = await request
-      .get(`https://api.artsy.net/api/artworks?term=${search}`)
+      .get(`https://api.artsy.net/api/search?q=${search}`)
       .set('X-Xapp-Token', xapp.body.token)
       .set('Accept', 'application/vnd.artsy-v2+json')
     const test = response.text.replace(/\\+/g, '')
     const str = test.replace(/'/g, '')
     const body = JSON.parse(str)
-    const artworks = body._embedded.artworks
+    const artworks = body._embedded.results
+    // console.log(artworks.map((a: any) => a._links.self))
     res.json(artworks)
   } catch (err) {
     res.sendStatus(500)
-    console.log('an error ocurred')
+    console.log(err)
   }
 })
 

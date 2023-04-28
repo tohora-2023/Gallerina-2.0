@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 import { useAuth0 } from '@auth0/auth0-react'
-import { KeyboardEvent, useState } from 'react'
+import { useState } from 'react'
 
 export default function Navbar() {
   const { logout, loginWithRedirect, isAuthenticated } = useAuth0()
@@ -13,19 +13,6 @@ export default function Navbar() {
 
   const handleLogIn = () => {
     loginWithRedirect()
-  }
-
-  function handleKeyDownLogout(e: KeyboardEvent<HTMLDivElement>) {
-    if (e.code == 'Enter') {
-      logout({ returnTo: window.location.origin })
-    }
-  }
-
-  function handleKeyDownLogin(e: KeyboardEvent<HTMLDivElement>) {
-    e.preventDefault()
-    if (e.code == 'Enter') {
-      loginWithRedirect()
-    }
   }
 
   return (
@@ -86,11 +73,6 @@ export default function Navbar() {
           {isAuthenticated ? (
             <button
               onClick={handleLogOut}
-              onKeyDown={(event) => {
-                if (event.key === 'Enter') {
-                  handleKeyDownLogout
-                }
-              }}
               tabIndex={0}
               className=" shadow-xs bg-white0 ml-5 inline-block transform cursor-pointer rounded-full border border-my-gold bg-white px-3 py-0 font-bold tracking-wide text-black transition duration-200 hover:-translate-y-1 hover:border-white  hover:bg-my-gold hover:text-white hover:shadow-2xl active:translate-y-0 active:shadow-xl "
             >
@@ -99,11 +81,6 @@ export default function Navbar() {
           ) : (
             <button
               onClick={handleLogIn}
-              onKeyDown={(event) => {
-                if (event.key === 'Enter') {
-                  handleKeyDownLogin
-                }
-              }}
               className="shadow-xs gold ml-5 inline-block transform cursor-pointer rounded-full border  border-my-gold bg-white px-2 py-0.5 font-bold tracking-wide text-black transition duration-200 hover:-translate-y-1 hover:border-white hover:bg-my-gold hover:text-white hover:shadow-2xl active:translate-y-0 active:shadow-xl "
             >
               Login

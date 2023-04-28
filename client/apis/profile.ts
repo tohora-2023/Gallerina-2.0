@@ -16,8 +16,15 @@ export async function getCollectionDBsByUserId(
   return response.body
 }
 
-export async function addCollection(newCollection: AddCollection) {
-  await request.post(rootUrl + '/newcollection').send(newCollection)
+export async function addCollection(
+  newCollection: AddCollection,
+  token: string
+): Promise<ProfileCollection[]> {
+  return request
+    .post(rootUrl + '/profile')
+    .set('Authorization', `Bearer ${token}`)
+    .send(newCollection)
+    .then((res) => res.body)
 }
 
 export async function collectionDelete(

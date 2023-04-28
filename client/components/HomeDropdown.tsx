@@ -116,7 +116,7 @@ export default function Dropdown({
                 )}
               </Menu.Item>
             </div>
-            <hr className="h-px bg-my-gold border-0 dark:bg-my-gold"></hr>
+            <hr className="h-px border-0 bg-my-gold dark:bg-my-gold"></hr>
             <div className="py-1 px-1">
               <ul>
                 {collections.map((collection) => {

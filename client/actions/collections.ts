@@ -1,7 +1,6 @@
 import type { ThunkAction } from '../store'
 import { ProfileCollection } from '../../models/profile'
-import { AddCollection } from '../../models/collectionArtwork'
-import { getCollectionDBsByUserId, collectionDelete, collectionUpdate } from '../apis/profile'
+import * as API from '../apis/profile'
 
 export const FETCH_COLLECTIONS_PENDING = 'FETCH_COLLECTIONS_PENDING'
 export const FETCH_COLLECTIONS_FULFILLED = 'FETCH_COLLECTIONS_FULFILLED'
@@ -38,7 +37,7 @@ export type CollectionAction =
     }
   | {
       type: typeof ADD_COLLECTION_FULFILLED
-      payload: AddCollection
+      payload: { id: number; title: string }
     }
   | {
       type: typeof ADD_COLLECTION_REJECTED
@@ -72,10 +71,11 @@ export type CollectionAction =
 export function fetchCollectionsPending(): CollectionAction {
   return {
     type: FETCH_COLLECTIONS_PENDING,
-  } as CollectionAction
+    payload: undefined,
+  }
 }
 
-export function fetchCollectionsFullfilied(
+export function fetchCollectionsFullfilled(
   collections: ProfileCollection[]
 ): CollectionAction {
   return {
@@ -94,7 +94,8 @@ export function fetchCollectionsRejected(errMessage: string): CollectionAction {
 export function deleteCollectionPending(): CollectionAction {
   return {
     type: DELETE_COLLECTION_PENDING,
-  } as CollectionAction
+    payload: undefined,
+  }
 }
 
 export function deleteCollectionFulfilled(
@@ -116,7 +117,8 @@ export function deleteCollectionRejected(error: string): CollectionAction {
 export function updateCollectionPending(): CollectionAction {
   return {
     type: UPDATE_COLLECTION_PENDING,
-  } as CollectionAction
+    payload: undefined,
+  }
 }
 
 export function updateCollectionFulfilled(
@@ -126,7 +128,7 @@ export function updateCollectionFulfilled(
   return {
     type: UPDATE_COLLECTION_FULFILLED,
     payload: { collectionId, title },
-  } as CollectionAction
+  }
 }
 
 export function updateCollectionRejected(error: string): CollectionAction {
@@ -136,12 +138,36 @@ export function updateCollectionRejected(error: string): CollectionAction {
   }
 }
 
+export function addCollectionPending(): CollectionAction {
+  return {
+    type: ADD_COLLECTION_PENDING,
+    payload: undefined,
+  }
+}
+
+export function addCollectionFulfilled(
+  id: number,
+  title: string
+): CollectionAction {
+  return {
+    type: ADD_COLLECTION_FULFILLED,
+    payload: { id, title },
+  } as CollectionAction
+}
+
+export function addCollectionRejected(error: string): CollectionAction {
+  return {
+    type: ADD_COLLECTION_REJECTED,
+    payload: error,
+  }
+}
+
 export function fetchCollections(userId: number, token: string): ThunkAction {
   return (dispatch) => {
     dispatch(fetchCollectionsPending())
-    return getCollectionDBsByUserId(userId, token)
+    return API.getCollectionDBsByUserId(userId, token)
       .then((collections) => {
-        dispatch(fetchCollectionsFullfilied(collections))
+        dispatch(fetchCollectionsFullfilled(collections))
       })
       .catch((err) => {
         dispatch(fetchCollectionsRejected(err.message))
@@ -153,7 +179,7 @@ export function deleteCollection(id: number, token: string): ThunkAction {
   return (dispatch) => {
     dispatch(deleteCollectionPending())
 
-    return collectionDelete(id, token)
+    return API.collectionDelete(id, token)
       .then(() => {
         dispatch(deleteCollectionFulfilled(id))
       })
@@ -170,9 +196,22 @@ export function updateCollection(
 ): ThunkAction {
   return (dispatch) => {
     dispatch(updateCollectionPending())
-    return collectionUpdate(id, title, token)
+    return API.collectionUpdate(id, title, token)
       .then(() => {
         dispatch(updateCollectionFulfilled(id, title))
+      })
+      .catch((error) => {
+        dispatch(updateCollectionRejected(error.message))
+      })
+  }
+}
+
+export function addCollection(title: string, token: string): ThunkAction {
+  return (dispatch) => {
+    dispatch(addCollectionPending())
+    return API.addCollection({ title }, token)
+      .then((collections) => {
+        dispatch(fetchCollectionsFullfilled(collections))
       })
       .catch((error) => {
         dispatch(updateCollectionRejected(error.message))

@@ -1,12 +1,13 @@
-import { useAppDispatch } from '../hooks/hooks'
-import { Link } from 'react-router-dom'
-import { ProfileCollection } from '../../models/profile'
 import { useAuth0 } from '@auth0/auth0-react'
-import { updateCollection } from '../actions/collections'
 import { useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPen } from '@fortawesome/free-solid-svg-icons'
 import { faTrash } from '@fortawesome/free-solid-svg-icons'
+
+import { useAppDispatch } from '../hooks/hooks'
+import { Link } from 'react-router-dom'
+import { ProfileCollection } from '../../models/profile'
+import { updateCollection } from '../actions/collections'
 import Delete from './DeleteModal'
 
 type Props = ProfileCollection
@@ -23,7 +24,6 @@ export default function Collection(profile: Props) {
   const [showDelete, setShowDelete] = useState(false)
 
   const handleUpdateClick = async () => {
-    console.log('clicked')
     setShowForm(true)
   }
 
@@ -42,7 +42,7 @@ export default function Collection(profile: Props) {
         profile={profile}
       />
       <div className="mt-10 mb-10 flex justify-center">
-        <div className="shadow-xs border-grey w-full transform cursor-pointer rounded-lg border bg-white text-center font-bold tracking-wide text-black transition duration-200 hover:-translate-y-1 hover:bg-my-gold hover:shadow-2xl hover:text-white active:translate-y-0 active:shadow-xl">
+        <div className="shadow-xs border-grey w-full transform cursor-pointer rounded-lg border bg-white text-center font-bold tracking-wide text-black transition duration-200 hover:-translate-y-1 hover:bg-my-gold hover:text-white hover:shadow-2xl active:translate-y-0 active:shadow-xl">
           <div className="grid grid-cols-2 items-center gap-4 pt-10 pb-10">
             <Link to={`/collections/${profile.collectionId}`}>
               <img
@@ -83,7 +83,7 @@ export default function Collection(profile: Props) {
                   type="text"
                   name="name"
                   id="name"
-                  className="text-grey-darkest rounded border border-my-gold py-2 px-3 focus:outline-my-gold hover:text-black text-black"
+                  className="text-grey-darkest rounded border border-my-gold py-2 px-3 text-black hover:text-black focus:outline-my-gold"
                   value={amendTitle}
                   required
                   onChange={(e) => setAmendTitle(e.target.value)}

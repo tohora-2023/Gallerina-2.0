@@ -12,20 +12,6 @@ export function getCollectionsByUserId(auth0Id: string, db = connection) {
     .select('collections.title', 'collections.id')
 }
 
-// export async function addArtworkToCollection(
-//   collection_id: number,
-//   artwork_id: string,
-//   db = connection
-// ) {
-//   const exists = await db('collections_artworks').where({
-//     collection_id,
-//     artwork_id,
-//   })
-//   if (exists.length === 0) {
-//     return db('collections_artworks').insert({ collection_id, artwork_id })
-//   }
-// }
-
 export async function addArtworkToCollection(
   collection_id: number,
   artwork_id: string,
@@ -54,5 +40,9 @@ export async function addNewCollection(
       cover_img: newCollection.coverImg,
       title: newCollection.title,
     })
-    .returning(['id', 'title'])
+    .returning([
+      'id as collectionId',
+      'title',
+      'coverImg as collectionCoverImg',
+    ])
 }

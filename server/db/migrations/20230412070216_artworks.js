@@ -9,6 +9,8 @@ exports.up = function (knex) {
   })
 }
 
+// where('title', 'like', '%'title'%').orWhere('artist', 'like', '%'artist'%')
+
 exports.down = function (knex) {
   return knex.schema.dropTable('artworks')
 }

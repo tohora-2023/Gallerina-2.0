@@ -1,4 +1,5 @@
 import { FormEvent, useState } from 'react'
+
 import { ArtworkApi } from '../../models/externalArtwork'
 import { getArtworksFromSearch } from '../apis/search'
 import LoadingSpinner from './LoadingSpinner'
@@ -16,6 +17,7 @@ export default function Search() {
   function handleSubmit(event: FormEvent) {
     event.preventDefault()
     setIsLoading(true)
+    console.log()
     getArtworksFromSearch(search)
       .then((response) => {
         setArtworks(response)
@@ -31,11 +33,11 @@ export default function Search() {
 
   return (
     <div className="min-h-screen text-2xl">
-      <h1 className='font-extrabold'>Search for Artworks</h1>
+      <h1 className="font-extrabold">Search for Artworks</h1>
       <form className="w-1/2 rounded-md" onSubmit={handleSubmit}>
         <input
           type="text"
-          className="rounded border-2 border-my-gold focus:outline-my-gold mt-4 text-l"
+          className="text-l mt-4 rounded border-2 border-my-gold focus:outline-my-gold"
           value={search}
           onChange={handleChange}
         />

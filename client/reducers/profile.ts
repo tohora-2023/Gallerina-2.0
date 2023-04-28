@@ -1,4 +1,4 @@
-import Collection from '../../models/profile'
+import { ProfileCollection } from '../../models/profile'
 import {
   CollectionAction,
   FETCH_COLLECTIONS_PENDING,
@@ -10,10 +10,12 @@ import {
   UPDATE_COLLECTION_PENDING,
   UPDATE_COLLECTION_REJECTED,
   UPDATE_COLLECTION_FULFILLED,
+  ADD_COLLECTION_REJECTED,
+  ADD_COLLECTION_PENDING,
 } from '../actions/collections'
 
 interface CollectionsState {
-  data: Collection[] | undefined
+  data: ProfileCollection[] | undefined
   error: string | undefined
   loading: boolean
 }
@@ -57,27 +59,21 @@ const collectionsReducer = (
         loading: false,
       }
     case DELETE_COLLECTION_PENDING:
+    case UPDATE_COLLECTION_PENDING:
+    case ADD_COLLECTION_PENDING:
       return {
         ...state,
         loading: true,
       }
     case DELETE_COLLECTION_REJECTED:
-      return {
-        ...state,
-        error: payload,
-        loading: false,
-      }
-    case UPDATE_COLLECTION_PENDING:
-      return {
-        ...state,
-        loading: true,
-      }
     case UPDATE_COLLECTION_REJECTED:
+    case ADD_COLLECTION_REJECTED:
       return {
         ...state,
         error: payload,
         loading: false,
       }
+
     case UPDATE_COLLECTION_FULFILLED:
       return {
         ...state,

@@ -2,9 +2,10 @@ import { Dialog, Transition } from '@headlessui/react'
 import { Fragment, useState, FormEvent } from 'react'
 import { useAuth0 } from '@auth0/auth0-react'
 
-import { addNewCollectionApi } from '../apis/homepage'
-import { AddCollection } from '../../models/collectionArtwork'
+import { useAppDispatch } from '../hooks/hooks'
+import type { AddCollection } from '../../models/collectionArtwork'
 import CollectionConfirmation from './CollectionConfirmation'
+import { addCollection } from '../actions/collections'
 
 interface ModalProps {
   onClose: () => void
@@ -12,30 +13,47 @@ interface ModalProps {
 }
 
 export default function CreateCollection({ onClose, isOpen }: ModalProps) {
-  const [newCollection, setNewCollection] = useState<
-    AddCollection | undefined
-  >()
+  const [newCollection, setNewCollection] = useState<AddCollection | undefined>(
+    {
+      title: '',
+    }
+  )
   const { getAccessTokenSilently } = useAuth0()
   const [showUpdateAlert, setShowUpdateAlert] = useState(false)
+  const [error, setError] = useState(true)
+  const dispatch = useAppDispatch()
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
-    const token = await getAccessTokenSilently()
-    await addNewCollectionApi(token, newCollection)
-    setNewCollection({ title: '' })
-    setShowUpdateAlert(true)
+    try {
+      const token = await getAccessTokenSilently()
 
-    setTimeout(() => {
-      setShowUpdateAlert(false)
-      window.location.reload() 
-    }, 500)
+      setError(false)
+
+      await dispatch(addCollection(newCollection?.title ?? '', token))
+
+      setNewCollection({ title: '' })
+
+      setShowUpdateAlert(true)
+      setTimeout(() => {
+        setShowUpdateAlert(false)
+      }, 2000)
+    } catch (err) {
+      console.error(err)
+      setError(true)
+    }
   }
 
-   return (
+  return (
     <>
       <CollectionConfirmation
         onClose={() => setShowUpdateAlert(false)}
         isOpen={showUpdateAlert}
+        message={
+          error
+            ? 'Unable to create your collection'
+            : 'Your collection has been created'
+        }
       />
       <Transition appear show={isOpen} as={Fragment}>
         <Dialog as="div" className="relative z-10" onClose={onClose}>
@@ -50,7 +68,6 @@ export default function CreateCollection({ onClose, isOpen }: ModalProps) {
           >
             <div className="fixed inset-0 bg-black bg-opacity-25" />
           </Transition.Child>
-
           <div className="fixed inset-0 overflow-y-auto">
             <div className="flex min-h-full items-center justify-center p-4 text-center">
               <Transition.Child
@@ -70,14 +87,14 @@ export default function CreateCollection({ onClose, isOpen }: ModalProps) {
                     Create A New Collection
                   </Dialog.Title>
                   <form onSubmit={handleSubmit} aria-label="Add Collection">
-                    <div className="flex flex-col items-center mt-4">
+                    <div className="mt-4 flex flex-col items-center">
                       <input
-                        className='focus:outline-my-gold rounded border-2 border-my-gold'
+                        className="rounded border-2 border-my-gold focus:outline-my-gold"
                         type="text"
                         name="title"
                         id="colletionTitle"
                         placeholder="Collection name"
-                        value={newCollection?.title}
+                        value={newCollection?.title ?? ''}
                         maxLength={15}
                         onChange={(e) =>
                           setNewCollection({
@@ -90,7 +107,7 @@ export default function CreateCollection({ onClose, isOpen }: ModalProps) {
                       <div className="mt-4">
                         <button
                           type="submit"
-                          className="inline-flex justify-center rounded-md border border-transparent bg-my-gold px-4 py-2 hover:border-my-gold hover:text-black text-sm font-medium text-white hover:bg-white focus:outline-none focus-visible:ring-2 focus-visible:ring-my-gold focus-visible:ring-offset-2"
+                          className="inline-flex justify-center rounded-md border border-transparent bg-my-gold px-4 py-2 text-sm font-medium text-white hover:border-my-gold hover:bg-white hover:text-black focus:outline-none focus-visible:ring-2 focus-visible:ring-my-gold focus-visible:ring-offset-2"
                           onClick={onClose}
                         >
                           Create

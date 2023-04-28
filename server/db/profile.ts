@@ -1,12 +1,7 @@
 import connection from './connection'
 import { AddCollection } from '../../models/collectionArtwork'
-import { geCollectionDBs } from './collectionItems'
 
-export async function geUserByAuth(auth: string, db = connection) {
-  return db('users').where({ auth0id: auth }).first()
-}
-
-export async function geUserInfoAndCollections(user: number, db = connection) {
+export async function getUserInfoAndCollections(user: number, db = connection) {
   return db('users')
     .join('collections', 'users.id', 'collections.user_id')
     .where('users.id', user)
@@ -20,7 +15,7 @@ export async function geUserInfoAndCollections(user: number, db = connection) {
     )
 }
 
-export function geCollectionDBsById(id: number, db = connection) {
+export function getCollectionDBsById(id: number, db = connection) {
   return db('collections')
     .join('users', 'users.id', 'collections.user_id')
     .where('collections.id', id)
@@ -29,9 +24,10 @@ export function geCollectionDBsById(id: number, db = connection) {
 export async function addCollection(
   newCollection: AddCollection,
   db = connection
-) {
-  await db('collections').insert(newCollection)
-  return geCollectionDBs()
+): Promise<{ id: number; title: string; coverImg: string }[]> {
+  return db('collections')
+    .insert(newCollection)
+    .returning(['id', 'title', 'cover_img as coverImg'])
 }
 
 export function getCollections(db = connection) {
@@ -46,20 +42,6 @@ export function getCollectionsById(id: number, db = connection) {
 
 export async function getUserByAuth(auth: string, db = connection) {
   return db('users').where({ auth0id: auth }).first()
-}
-
-export async function getUserInfoAndCollections(user: number, db = connection) {
-  return db('users')
-    .join('collections', 'users.id', 'collections.user_id')
-    .where('users.id', user)
-    .select(
-      'collections.id as collectionId',
-      'collections.cover_img as collectionCoverImg',
-      'collections.user_id as userId',
-      'collections.title',
-      'users.username',
-      'users.auth0id'
-    )
 }
 
 export async function deleteCollection(id: number, db = connection) {

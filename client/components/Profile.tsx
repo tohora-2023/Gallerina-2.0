@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react'
+import { useAuth0 } from '@auth0/auth0-react'
+
 import { useAppDispatch, useAppSelector } from '../hooks/hooks'
 import { fetchCollections } from '../actions/collections'
-import { useAuth0 } from '@auth0/auth0-react'
 import { ProfileCollection } from '../../models/profile'
 import Collection from './Collection'
 import Dialog from './ProfileDialog'
@@ -25,10 +26,7 @@ export default function Profile() {
 
   return (
     <>
-      <Dialog
-        onClose={() => setShowModal(false)}
-        isOpen={showModal}
-      />
+      <Dialog onClose={() => setShowModal(false)} isOpen={showModal} />
       <div className="min-h-screen">
         <div className="flex h-full items-center justify-end">
           <button

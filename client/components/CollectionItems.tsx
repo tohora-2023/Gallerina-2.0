@@ -1,7 +1,8 @@
 import { useEffect } from 'react'
+import { useParams } from 'react-router-dom'
+
 import { useAppDispatch, useAppSelector } from '../hooks/hooks'
 import { geCollectionDBItems } from '../actions/collectionItems'
-import { useParams } from 'react-router-dom'
 import ArtItem from './ArtItem'
 import { CollectionItem } from '../../models/collectionContent'
 
@@ -26,7 +27,7 @@ export default function CollectionItems() {
 
   return (
     <>
-      <div className="h-full w-full min-h-screen">
+      <div className="h-full min-h-screen w-full">
         {!collectionDetail && <p>Add something to your collection!</p>}
         <h1 className="p-3 text-3xl font-extrabold">
           {collectionDetail?.collectionTitle}
