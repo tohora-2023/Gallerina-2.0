@@ -10,8 +10,8 @@ import App from './components/App'
 document.addEventListener('DOMContentLoaded', () => {
   createRoot(document.getElementById('app') as HTMLElement).render(
     <Auth0Provider
-      domain="tohora-2023-elisa.au.auth0.com"
-      clientId="h4LN8e7tERYIjcoz09Lbj9EsvEsW35Sa"
+      domain="gallerina-inc.au.auth0.com"
+      clientId="lhLz4MdYY9IeyvDFmYzSwZUSqv4pp0rZ"
       redirectUri={window.location.origin}
       audience="https://gallerina/api"
     >
